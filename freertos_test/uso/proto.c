@@ -1,4 +1,5 @@
 #include "proto.h"
+#include "channels.h"
 
  extern struct Channel  channels[];//обобщенная структура каналов
 
@@ -8,7 +9,7 @@ unsigned char   DEV_NAME[DEVICE_NAME_LENGTH_SYM] ="<<uUSO_2>>"; //имя уст�
 unsigned char   NOTICE[DEVICE_DESC_MAX_LENGTH_SYM]="<-- GEOSPHERA_2011 -->";//примечание
 unsigned char   VERSION[DEVICE_VER_LENGTH_SYM] ="\x30\x30\x30\x30\x31";	// версия программы ПЗУ	не больше 5 байт
 
-volatile  unsigned char   ADRESS_DEV=0x1;
+volatile  unsigned char   ADRESS_DEV=0xF;
 
 unsigned char   dev_desc_len=20;//длина описания устройства
 //--------------------------------global variable------------------------------------
@@ -47,6 +48,7 @@ sym_8_to_float;
 
 xSemaphoreHandle xProtoSemaphore;
 
+uint8_t tab_proto_buf[256];
 
 void USART1_IRQHandler (void)
 {
@@ -380,7 +382,8 @@ unsigned char Channel_Get_Data(void) //using 0 //Выдать данные по 
 //-----------------------------------------------------------------------------
 unsigned char  Channel_Set_Parameters(void) //using 0 //Установить параметры по каналам, согласно абсолютной нумерации;
 {
-         unsigned char   index=0, store_data=0;//i=0;
+	 unsigned char   index=0, store_data=0;//i=0;
+	 uint8_t len=0,i=0;
 //	LED=1;
 	   while(index<RecieveBuf[5]-1)				   // данные по каналам
 	      {
@@ -417,6 +420,15 @@ unsigned char  Channel_Set_Parameters(void) //using 0 //Установить п�
 							   }*/
 							}
 							break;
+
+							case 0x8://кадр табло
+							{
+								for(i=0;i<RecieveBuf[8+index];i++)
+								{
+									tab_proto_buf[i]=RecieveBuf[8+index+i+1];
+								}
+								index++;
+							}
 					}
 					index=index+3;
 				}

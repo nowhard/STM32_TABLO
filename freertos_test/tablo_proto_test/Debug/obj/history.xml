@@ -10,6 +10,9 @@
       <target file="tasks.o" lastModified="13f614e1f62">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13438131dbe"/>
       </target>
+      <target file="channels.o" lastModified="13f667f5df2">
+         <source file="..\..\..\uso\channels.c" lastModified="13f667f50a3"/>
+      </target>
       <target file="startup_coide.o" lastModified="13f618b411a">
          <source file="..\..\..\startup_coide.c" lastModified="13f6188bdac"/>
       </target>
@@ -21,6 +24,9 @@
       </target>
       <target file="core_cm3.o" lastModified="13f614e19a6">
          <source file="..\..\..\cmsis\core_cm3.c" lastModified="13f614ce4cf"/>
+      </target>
+      <target file="proto.o" lastModified="13f6691de94">
+         <source file="..\..\..\uso\proto.c" lastModified="13f6691c06d"/>
       </target>
       <target file="croutine.o" lastModified="13f614e232b">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\croutine.c" lastModified="13438131cf3"/>
@@ -55,11 +61,11 @@
       <target file="startup_stm32f10x_md_vl.o" lastModified="13f614e1909">
          <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md_vl.c" lastModified="13f614cf0f4"/>
       </target>
-      <target file="main.o" lastModified="13f65fe6ac6">
-         <source file="..\..\..\main.c" lastModified="13f65fe6131"/>
-      </target>
       <target file="stm32f10x_usart.o" lastModified="13f614e202d">
          <source file="..\..\..\stm_lib\src\stm32f10x_usart.c" lastModified="13f614d65d6"/>
+      </target>
+      <target file="main.o" lastModified="13f668dc850">
+         <source file="..\..\..\main.c" lastModified="13f668ceae1"/>
       </target>
    </processor>
 </history>
