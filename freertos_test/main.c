@@ -22,7 +22,7 @@
 
 
 static void SPI_Test(void *pvParameters);
-void _start_spi_dma(uint8_t* pBuffer, uint16_t NumToWrite);
+void _start_spi_dma(uint16_t* pBuffer, uint16_t NumToWrite);
 //-----------------------------------------------------------------
 unsigned char buf[]={0x3A,0x88 ,0x5B ,0x00 ,'r' ,'L' ,0x2E ,'O' ,0x5D ,0x5B ,0x01 ,0x37 ,0x37 ,0x2E ,0x37 ,0x5D ,0x5B ,0x02 ,0x38 ,0x38 ,0x2E ,0x38 ,0x5D ,0x5B ,0x03 ,0x39 ,0x39 ,0x2E ,0x39 ,0x5D ,0x5B ,0x04 ,0x32 ,0x32 ,0x2E ,0x32 ,0x5D ,0x5B ,0x05 ,0x32 ,0x32 ,0x2E ,0x32 ,0x5D ,0x5B ,0x06 ,0x32 ,0x32 ,0x2E ,0x32 ,0x5D ,0x5B ,0x07 ,0x32 ,0x32 ,0x2E ,0x32 ,0x5D ,0x5B ,0x08 ,0x32 ,0x32 ,0x2E ,0x32 ,0x32 ,0x32 ,0x5D ,0x5B ,0x0A ,0x32 ,0x2E ,0x32 ,0x32 ,0x32 ,0x5D ,0x5B ,0x0B ,0x32 ,0x32 ,0x2E ,0x32 ,0x5D ,0x5B ,0x0C ,0x32 ,0x2E ,0x32 ,0x32 ,0x32 ,0x5D ,0x5B ,0x0D ,0x00 ,0x10 ,0x00 ,0x1F ,0x5D ,0x5B ,0x0E ,0x00 ,0x10 ,0x00 ,0x1F ,0x5D ,0x5B ,0x0F ,0x00 ,0x10 ,0x00 ,0x1F ,0x5D ,0x5B ,0x10 ,0x00 ,0x10 ,0x00 ,0x1F ,0x5D ,0x5B ,0x12 ,0x00 ,0x10 ,0x00 ,0x1F ,0x5D ,0x5B ,0x13 ,0x00 ,0x10 ,0x00 ,0x1E ,0x5D ,0x5B ,0x2A ,0x0F ,0x5D};
 extern uint16_t display_buf[INDICATOR_BUF_LEN][INDICATORS_NUM];//
@@ -73,44 +73,45 @@ void SPI1_Config()
     GPIO_WriteBit(GPIOA, GPIO_Pin_4, Bit_RESET);
 //--------------------------------------------------------------------------
     	DMA_InitTypeDef DMA_InitStructure;
-        NVIC_InitTypeDef NVIC_InitStructure;
+      //  NVIC_InitTypeDef NVIC_InitStructure;
 
-        RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA1, ENABLE);
+        RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
 
 
         DMA_StructInit(&DMA_InitStructure);
 
         DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI1->DR);
         //DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
-        DMA_InitStructure.DMA_DIR = DMA_DIR_MemoryToPeripheral;
-        DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
+        DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+        //DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
         DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
         DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
         DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
         DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
         DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
-        DMA_InitStructure.DMA_Priority = DMA_Priority_Medium;
+        DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
         DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
         DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
         DMA_Init(DMA1_Channel3, &DMA_InitStructure);
 
-        DMA_Cmd(DMA1_Channel3, ENABLE);
-        DMA_ITConfig(DMA1_Stream3, DMA_IT_TC, ENABLE);
+        //DMA_Cmd(DMA1_Channel3, ENABLE);
+//        DMA_ITConfig(DMA1_Channel3, DMA_IT_TC, ENABLE);
+//
+//        // Configure DMA1 Stream4 interrupt
+//        NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel3;
+//        NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 6;
+//        NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+//        NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+//        NVIC_Init(&NVIC_InitStructure);
 
-        // Configure DMA1 Stream4 interrupt
-        NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel3;
-        NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 6;
-        NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-        NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-        NVIC_Init(&NVIC_InitStructure);
-
+        DMA_ClearFlag(DMA1_FLAG_TC3);
 
         // Enable DMA request
         SPI_I2S_DMACmd(SPI1, SPI_I2S_DMAReq_Tx, ENABLE);
+
  //---------------------------------------------------------------------------
     }
 
-}
 //-----------------------------------------------------------------
 void _start_spi_dma(uint16_t* pBuffer, uint16_t NumToWrite) {
   // Setup buffer
@@ -120,7 +121,8 @@ void _start_spi_dma(uint16_t* pBuffer, uint16_t NumToWrite) {
   DMA1_Channel3->CNDTR = NumToWrite;
   //
  // DMA_ClearFlag(DMA1_FLAG_GL2);
-  DMA_ClearFlag(DMA1_FLAG_GL3);
+  //DMA_ClearFlag(DMA1_FLAG_GL3);
+  DMA_ClearFlag(DMA1_FLAG_TC3);
   /* start */
  // DMA_Cmd(DMA1_Channel2, ENABLE);
   DMA_Cmd(DMA1_Channel3, ENABLE);
@@ -135,6 +137,7 @@ static void SPI_Test(void *pvParameters)
 
 	uint8_t i=0,j=0;
 
+
 	while(1)
 	{
 		tablo_proto_parser(&tab_proto_buf);
@@ -143,12 +146,18 @@ static void SPI_Test(void *pvParameters)
 		{
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
 
-			for(j=0;j<2/*INDICATORS_NUM*/;j++)
-			{
-				//SPI_I2S_ClearFlag(SPI1, SPI_I2S_FLAG_TXE);
-				while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
-				SPI_I2S_SendData(SPI1, display_buf[i][j]);
-			}
+//			for(j=0;j<2/*INDICATORS_NUM*/;j++)
+//			{
+//				//SPI_I2S_ClearFlag(SPI1, SPI_I2S_FLAG_TXE);
+//				while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
+//				SPI_I2S_SendData(SPI1, display_buf[i][j]);
+//			}
+
+			_start_spi_dma(&display_buf[i][0],20);
+			while(DMA_GetFlagStatus(DMA1_FLAG_TC3)==RESET);
+			 DMA_Cmd(DMA1_Channel3, DISABLE);
+			//DMA_ClearFlag(DMA1_FLAG_TC3);
+
 			while(SPI1->SR & SPI_SR_BSY);
 //			while(delay)
 //			{

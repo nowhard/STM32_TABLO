@@ -25,6 +25,8 @@
          <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
          <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
       </source>
+      <source file="..\..\..\uso\tablo_parser.h" lastModified="13f6590a844">
+      </source>
       <source file="..\..\..\uso\channels.h" lastModified="13f667f516f">
          <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
          <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
@@ -33,20 +35,18 @@
          <include file="..\..\..\stm_lib\inc\stm32f10x_usart.h"/>
          <include file="..\..\..\stm_lib\inc\misc.h"/>
       </source>
-      <source file="..\..\..\uso\tablo_parser.h" lastModified="13f6590a844">
-      </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\include\croutine.h" lastModified="13438132a80">
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\list.h"/>
       </source>
       <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md_vl.c" lastModified="13f614cf0f4">
       </source>
+      <source file="..\..\..\uso\tablo_parser.c" lastModified="13f65ed961f">
+         <include file="..\..\..\uso\tablo_parser.h"/>
+      </source>
       <source file="..\..\..\cmsis_boot\system_stm32f10x.h" lastModified="13f614cf123">
       </source>
       <source file="..\..\..\uso\channels.c" lastModified="13f667f50a3">
          <include file="..\..\..\uso\channels.h"/>
-      </source>
-      <source file="..\..\..\uso\tablo_parser.c" lastModified="13f65ed961f">
-         <include file="..\..\..\uso\tablo_parser.h"/>
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\include\semphr.h" lastModified="13438132a8f">
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\queue.h"/>
@@ -60,6 +60,9 @@
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\portable.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\list.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\task.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\inc\stm32f10x_dma.h" lastModified="13f751e7fa5">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
       </source>
       <source file="..\..\..\cmsis_boot\stm32f10x_conf.h" lastModified="13f614cf104">
       </source>
@@ -140,6 +143,10 @@
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\FreeRTOS.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\task.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\croutine.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\src\stm32f10x_dma.c" lastModified="13f751e7fc4">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_dma.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
       </source>
       <source file="..\..\..\stm_lib\inc\stm32f10x_gpio.h" lastModified="13f614d1759">
          <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
