@@ -55,17 +55,20 @@
       <target file="system_stm32f10x.o" lastModified="13f614e1ace">
          <source file="..\..\..\cmsis_boot\system_stm32f10x.c" lastModified="13f614cf114"/>
       </target>
+      <target file="stm32f10x_dma.o" lastModified="13f75a0f2c9">
+         <source file="..\..\..\stm_lib\src\stm32f10x_dma.c" lastModified="13f751e7fc4"/>
+      </target>
       <target file="heap_1.o" lastModified="13f614e2619">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\MemMang\heap_1.c" lastModified="13438131d70"/>
       </target>
       <target file="startup_stm32f10x_md_vl.o" lastModified="13f614e1909">
          <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md_vl.c" lastModified="13f614cf0f4"/>
       </target>
+      <target file="main.o" lastModified="13f750529fd">
+         <source file="..\..\..\main.c" lastModified="13f75a0e2ac"/>
+      </target>
       <target file="stm32f10x_usart.o" lastModified="13f614e202d">
          <source file="..\..\..\stm_lib\src\stm32f10x_usart.c" lastModified="13f614d65d6"/>
-      </target>
-      <target file="main.o" lastModified="13f668dc850">
-         <source file="..\..\..\main.c" lastModified="13f668ceae1"/>
       </target>
    </processor>
 </history>

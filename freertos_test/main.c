@@ -3,6 +3,7 @@
 #include "stm32f10x_rcc.h"
 #include "stm32f10x_tim.h"
 #include "stm32f10x_spi.h"
+#include "stm32f10x_dma.h"
 #include <misc.h>
 
 #include <stdio.h>
@@ -21,6 +22,7 @@
 
 
 static void SPI_Test(void *pvParameters);
+void _start_spi_dma(uint8_t* pBuffer, uint16_t NumToWrite);
 //-----------------------------------------------------------------
 unsigned char buf[]={0x3A,0x88 ,0x5B ,0x00 ,'r' ,'L' ,0x2E ,'O' ,0x5D ,0x5B ,0x01 ,0x37 ,0x37 ,0x2E ,0x37 ,0x5D ,0x5B ,0x02 ,0x38 ,0x38 ,0x2E ,0x38 ,0x5D ,0x5B ,0x03 ,0x39 ,0x39 ,0x2E ,0x39 ,0x5D ,0x5B ,0x04 ,0x32 ,0x32 ,0x2E ,0x32 ,0x5D ,0x5B ,0x05 ,0x32 ,0x32 ,0x2E ,0x32 ,0x5D ,0x5B ,0x06 ,0x32 ,0x32 ,0x2E ,0x32 ,0x5D ,0x5B ,0x07 ,0x32 ,0x32 ,0x2E ,0x32 ,0x5D ,0x5B ,0x08 ,0x32 ,0x32 ,0x2E ,0x32 ,0x32 ,0x32 ,0x5D ,0x5B ,0x0A ,0x32 ,0x2E ,0x32 ,0x32 ,0x32 ,0x5D ,0x5B ,0x0B ,0x32 ,0x32 ,0x2E ,0x32 ,0x5D ,0x5B ,0x0C ,0x32 ,0x2E ,0x32 ,0x32 ,0x32 ,0x5D ,0x5B ,0x0D ,0x00 ,0x10 ,0x00 ,0x1F ,0x5D ,0x5B ,0x0E ,0x00 ,0x10 ,0x00 ,0x1F ,0x5D ,0x5B ,0x0F ,0x00 ,0x10 ,0x00 ,0x1F ,0x5D ,0x5B ,0x10 ,0x00 ,0x10 ,0x00 ,0x1F ,0x5D ,0x5B ,0x12 ,0x00 ,0x10 ,0x00 ,0x1F ,0x5D ,0x5B ,0x13 ,0x00 ,0x10 ,0x00 ,0x1E ,0x5D ,0x5B ,0x2A ,0x0F ,0x5D};
 extern uint16_t display_buf[INDICATOR_BUF_LEN][INDICATORS_NUM];//
@@ -56,7 +58,7 @@ void SPI1_Config()
     SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
     SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
     SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
-    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_64;
+    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;
     SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
     //SPI_InitStructure.SPI_CRCPolynomial = 7;
     SPI_Init(SPI1, &SPI_InitStructure);
@@ -65,95 +67,101 @@ void SPI1_Config()
 
     /* Enable SPI1 */
     SPI_CalculateCRC(SPI1, DISABLE);
-    SPI_SSOutputCmd(SPI1, ENABLE);
+   // SPI_SSOutputCmd(SPI1, ENABLE);
     SPI_Cmd(SPI1, ENABLE);
 
     GPIO_WriteBit(GPIOA, GPIO_Pin_4, Bit_RESET);
+//--------------------------------------------------------------------------
+    	DMA_InitTypeDef DMA_InitStructure;
+        NVIC_InitTypeDef NVIC_InitStructure;
 
-    SPI_DataSizeConfig(SPI1,SPI_DataSize_16b);
+        RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA1, ENABLE);
+
+
+        DMA_StructInit(&DMA_InitStructure);
+
+        DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI1->DR);
+        //DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
+        DMA_InitStructure.DMA_DIR = DMA_DIR_MemoryToPeripheral;
+        DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
+        DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+        DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+        DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+        DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+        DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+        DMA_InitStructure.DMA_Priority = DMA_Priority_Medium;
+        DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+        DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+        DMA_Init(DMA1_Channel3, &DMA_InitStructure);
+
+        DMA_Cmd(DMA1_Channel3, ENABLE);
+        DMA_ITConfig(DMA1_Stream3, DMA_IT_TC, ENABLE);
+
+        // Configure DMA1 Stream4 interrupt
+        NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel3;
+        NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 6;
+        NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+        NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+        NVIC_Init(&NVIC_InitStructure);
+
+
+        // Enable DMA request
+        SPI_I2S_DMACmd(SPI1, SPI_I2S_DMAReq_Tx, ENABLE);
+ //---------------------------------------------------------------------------
+    }
 
 }
 //-----------------------------------------------------------------
-
+void _start_spi_dma(uint16_t* pBuffer, uint16_t NumToWrite) {
+  // Setup buffer
+  //DMA1_Channel2->CMAR = (uint32_t)pBuffer;
+  DMA1_Channel3->CMAR = (uint32_t)pBuffer;
+ // DMA1_Channel2->CNDTR = NumToWrite;
+  DMA1_Channel3->CNDTR = NumToWrite;
+  //
+ // DMA_ClearFlag(DMA1_FLAG_GL2);
+  DMA_ClearFlag(DMA1_FLAG_GL3);
+  /* start */
+ // DMA_Cmd(DMA1_Channel2, ENABLE);
+  DMA_Cmd(DMA1_Channel3, ENABLE);
+}
 //------------------------------------------------
 static void SPI_Test(void *pvParameters)
 {
-	//#define BufferSize 10
-	#define CS_DELAY	200
-//	uint16_t SPI1_Buffer_Tx[BufferSize] ={0xC01,0x9FF,0xF00,0xA0E,0xB05,0x101,0x201,0x301,0x401,0x501};
-//	uint8_t Tx_Idx = 0;
-	uint16_t delay=CS_DELAY;
+//
+//	#define CS_DELAY	200
+//
+//	uint16_t delay=CS_DELAY;
 
 	uint8_t i=0,j=0;
 
 	while(1)
 	{
-		//GPIO_WriteBit(GPIOC, GPIO_Pin_9, !GPIO_ReadOutputDataBit(GPIOC, GPIO_Pin_9));//мигаем светодиодом
-//		Tx_Idx=0;
-//		uint8_t i=0;
-//
-
 		tablo_proto_parser(&tab_proto_buf);
-
-//		while (Tx_Idx < BufferSize)
-//        {
-        /* Send SPI1 data */
 
 		for(i=0;i<INDICATOR_BUF_LEN;i++)
 		{
+			GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
 
 			for(j=0;j<2/*INDICATORS_NUM*/;j++)
 			{
-				GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
-
-
-				SPI_I2S_SendData(SPI1, display_buf[i][j]);
+				//SPI_I2S_ClearFlag(SPI1, SPI_I2S_FLAG_TXE);
 				while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
-
-
-
+				SPI_I2S_SendData(SPI1, display_buf[i][j]);
 			}
-			while(delay)
-			{
-				delay--;
-			}
-			delay=CS_DELAY;
+			while(SPI1->SR & SPI_SR_BSY);
+//			while(delay)
+//			{
+//				delay--;
+//			}
+//			delay=CS_DELAY;
 
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,1);
-			while(delay)
-			{
-				delay--;
-			}
-			delay=CS_DELAY;
 
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
-
         }
 
-//		for(i=5;i<BufferSize;i++)
-//		{
-//			SPI1_Buffer_Tx[i]=(SPI1_Buffer_Tx[i]&0xFF00)|((SPI1_Buffer_Tx[i]+1)&0xF);
-//
-//
-//
-////			if((SPI1_Buffer_Tx[i]&0xFF)>=0x80)
-////			{
-////				SPI1_Buffer_Tx[i]&=0xFF00;
-////				SPI1_Buffer_Tx[i]|=0x1;
-////			}
-////			SPI1_Buffer_Tx[i]=(SPI1_Buffer_Tx[i]&0xFF00)|((SPI1_Buffer_Tx[i]<<1)&0xFF);
-//
-//		}
-//		point++;
-//		if(point==5)
-//		{
-//			point=0;
-//		}
-//		SPI1_Buffer_Tx[point+5]=(SPI1_Buffer_Tx[point+5]&0xFF00)|((SPI1_Buffer_Tx[point+5]|0x80)&0xFF);
-////		SPI1_Buffer_Tx[8]++;
-
-
-		vTaskDelay(500);
+		vTaskDelay(50);
 	}
 }
 //------------------------------------------------------------------
