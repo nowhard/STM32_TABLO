@@ -34,6 +34,12 @@ struct indicator{
 #define IND_TYPE_LINE       0x2//Линейный
 #define IND_TYPE_ARC        0x3//Дуга?
 
+#define IND_COMMAND_LEN		13//длина командного буфера для одного индикатора
+
+#define IND_SPI_BUS_1_NUM	10 //количество индикаторов на шине
+#define IND_SPI_BUS_2_NUM	10
+#define IND_SPI_BUS_3_NUM	0
+
 uint8_t indicators_init(void);//инициализация и выделение памяти под индикаторы
 
 #endif

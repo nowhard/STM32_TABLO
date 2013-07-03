@@ -11,6 +11,10 @@ struct bus{//структура шины
 
 #define BUS_NUM	3//количество шин табло
 
+#define BUS_SPI_1	0		//шина индикатора
+#define BUS_SPI_2	1
+#define BUS_SPI_3	2
+
 uint8_t spi_buses_init(void);//инициализация шин SPI и выделение памяти под буферы
 
 void	spi1_config(void);//конфигурация аппаратных интерфейсов

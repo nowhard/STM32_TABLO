@@ -8,6 +8,8 @@
 #include "stm32f10x_dma.h"
 #include <misc.h>
 
+
+
 uint8_t spi_buses_init(void)//инициализация шин SPI и выделение памяти под буферы
 {
 	uint8_t error=0;
