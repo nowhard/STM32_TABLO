@@ -1,6 +1,7 @@
 #ifndef INDICATOR_H
 #define INDICATOR_H
 
+#include "stm32f10x.h"
 
 struct indicator{
     uint16_t number;//Номер индикатора по протоколу

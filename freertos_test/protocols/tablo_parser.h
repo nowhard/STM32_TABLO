@@ -8,4 +8,11 @@
 void tablo_proto_parser(uint8_t *proto_buf);//
 uint8_t str_to_ind(uint8_t *str, uint8_t ind_num);//
 void ln_to_ind(uint8_t *buf);//
+
+
+#define FRAME_MAX_LEN   150//
+#define IND_OPEN    1//[
+#define IND_CLOSE   0//]
+
+
 #endif

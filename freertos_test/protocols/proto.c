@@ -1,19 +1,21 @@
 #include "proto.h"
 #include "channels.h"
+#include "tablo.h"
 
  extern struct Channel  channels[];//обобщенная структура каналов
+ extern struct tablo tab;//структура табло
 
 //typedef enum {FAILED = 0, PASSED = !FAILED} TestStatus;
 //-----------------------------------------------------------------------------------
-unsigned char   DEV_NAME[DEVICE_NAME_LENGTH_SYM] ="<<uUSO_2>>"; //имя устройства
-unsigned char   NOTICE[DEVICE_DESC_MAX_LENGTH_SYM]="<-- GEOSPHERA_2011 -->";//примечание
+unsigned char   DEV_NAME[DEVICE_NAME_LENGTH_SYM] ="<<TABLO>>"; //имя устройства
+unsigned char   NOTICE[DEVICE_DESC_MAX_LENGTH_SYM]="<-- GEOSPHERA_2013 -->";//примечание
 unsigned char   VERSION[DEVICE_VER_LENGTH_SYM] ="\x30\x30\x30\x30\x31";	// версия программы ПЗУ	не больше 5 байт
 
 volatile  unsigned char   ADRESS_DEV=0xF;
 
 unsigned char   dev_desc_len=20;//длина описания устройства
 //--------------------------------global variable------------------------------------
-//volatile unsigned char  	PROTO_STATE;//счетчик состояний
+
 volatile unsigned char   	recieve_count;//счетчик приемного буфера
 volatile unsigned char  	transf_count;//счетчик передаваемых байтов
 volatile unsigned char  	buf_len;//длина передаваемого буфера
@@ -22,19 +24,20 @@ volatile unsigned char  	buf_len;//длина передаваемого буф�
 volatile  unsigned char   crc_n_ERR;	//ошибка сrc
 volatile  unsigned char   COMMAND_ERR;//неподдерживаемая команда
 
-//volatile unsigned char   TIMEOUT;//таймаут
+
 
 volatile  unsigned char   CUT_OUT_NULL;//флаг-вырезаем 0 после 0xD7
 volatile  unsigned char   frame_len=0;//длина кадра, которую вытаскиваем из шестого байта кадра
 //--------------------------------------------------------------------
-volatile  unsigned char    RecieveBuf[MAX_LENGTH_REC_BUF]={0} ; //буфер принимаемых данных
+//volatile  unsigned char    RecieveBuf[MAX_LENGTH_REC_BUF]={0} ; //буфер принимаемых данных
+volatile  unsigned char    *RecieveBuf;
 volatile  unsigned char    *TransferBuf;
 //static unsigned char /*data*/ volatile  TransferBuf[MAX_LENGTH_TR_BUF] ; //буфер передаваемых данных
 //--------------------------------------------------------------------
 volatile  unsigned char    STATE_BYTE=0xC0;//байт состояния устройства
 
 
-//uint8_t led=0;
+
 volatile unsigned int fr_err=0;
 
 volatile unsigned char  symbol=0xFF;//принятый символ
@@ -47,8 +50,6 @@ union //объединение для конвертирования char->long
 sym_8_to_float;
 
 xSemaphoreHandle xProtoSemaphore;
-
-uint8_t tab_proto_buf[256];
 
 void USART1_IRQHandler (void)
 {
@@ -242,8 +243,8 @@ void Proto_Init(void) //using 0
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1|RCC_APB2Periph_GPIOA , ENABLE);//тактируем уарт
 
 	//настраиваем контроллер прерываний
-	 NVIC_InitTypeDef NVIC_InitStructure;
-	 NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+	  NVIC_InitTypeDef NVIC_InitStructure;
+	  NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
 	  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
 	  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 14;
 	  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 15;
@@ -266,11 +267,11 @@ void Proto_Init(void) //using 0
 	  GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 
-	USART_InitTypeDef USART_InitStructure;
+	  USART_InitTypeDef USART_InitStructure;
 
 		USART_DeInit(USART1);
 		//настраиваем урат
-	USART_InitStructure.USART_BaudRate = 57600;
+		USART_InitStructure.USART_BaudRate = 57600;
 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
 	USART_InitStructure.USART_StopBits = USART_StopBits_1;
 	USART_InitStructure.USART_Parity = USART_Parity_No;
@@ -285,22 +286,18 @@ void Proto_Init(void) //using 0
 
 	USART_Cmd(USART1, ENABLE);
 
-
-
-
-
 	//------------------------флаги ошибок--------------------------------
 
 	crc_n_ERR=0x0;	//ошибка crc_n
 	COMMAND_ERR=0x0;//неподдерживаемая команда
 
-	TransferBuf=&RecieveBuf[0];	 //буфер ответа =буфер запроса
+	//TransferBuf=&RecieveBuf[0];	 //буфер ответа =буфер запроса
+	TransferBuf=RecieveBuf=&tab.uart_buf;
 	ChannelsInit();
 
 
 	//Restore_Dev_Address_Desc();
 
-//	PROTO_STATE=PROTO_RESTART;//счетчик состояний
 	recieve_count=0x0;//счетчик буфера приема
 	transf_count=0x0;//счетчик передаваемых байтов
 	buf_len=0x0;//длина передаваемого буфера
@@ -425,7 +422,7 @@ unsigned char  Channel_Set_Parameters(void) //using 0 //Установить п�
 							{
 								for(i=0;i<RecieveBuf[8+index];i++)
 								{
-									tab_proto_buf[i]=RecieveBuf[8+index+i+1];
+									tab.tablo_proto_buf[i]=RecieveBuf[8+index+i+1];
 								}
 								index++;
 							}

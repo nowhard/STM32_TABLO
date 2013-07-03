@@ -1,6 +1,7 @@
 #ifndef SPI_BUS_H
 #define SPI_BUS_H
 
+#include "stm32f10x.h"
 #include "indicator.h"
 
 struct bus{//структура шины
