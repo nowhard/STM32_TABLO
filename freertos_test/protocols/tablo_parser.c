@@ -160,6 +160,56 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 
 uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
 {
+    uint8_t i=0,j=0;
+    uint8_t buf_count=0;//
+    uint8_t str_len=0;
+
+    str_len=strlen(str);
+
+    	tab.buses[ind->bus].bus_buf[0][ind->number_in_bus]=ind->shutdown;
+    	tab.buses[ind->bus].bus_buf[1][ind->number_in_bus]=ind->display_test;
+    	tab.buses[ind->bus].bus_buf[2][ind->number_in_bus]=ind->scan_limit;
+    	tab.buses[ind->bus].bus_buf[3][ind->number_in_bus]=ind->brightness;
+    	tab.buses[ind->bus].bus_buf[4][ind->number_in_bus]=ind->decode_mode;
+
+        buf_count+=5;
+
+        for(i=0;i<str_len;i++)//
+        {
+            if((str[i]>=0x30)&&(str[i]<=0x39))//цифры
+            {
+            	tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]=(Sym_table[1][(str[i]-0x30)])|(0x100*((buf_count-5)+1));
+                buf_count++;
+
+                continue;
+            }
+
+            if(str[i]=='.')
+            {
+                if(i>0)
+                {
+                	tab.buses[ind->bus].bus_buf[buf_count-1][ind->number_in_bus]|=0x80;
+                }
+                continue;
+            }
+
+            for(j=10;j<SYM_TAB_LEN;j++)//
+            {
+               if(str[i]==Sym_table[0][j])//
+               {
+            	   tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]=(Sym_table[1][j])|(0x100*((buf_count-5)+1));//
+                    buf_count++;
+
+                    break;
+               }
+            }
+        }
+
+        for(i=buf_count;i<IND_ALL_NUM;i++)
+        {
+        	tab.buses[ind->bus].bus_buf[i][ind->number_in_bus]=0x0;
+        }
+        return buf_count;
 	//перед доступом к буферу шины критическая секция
-	return 0;
+
 }
