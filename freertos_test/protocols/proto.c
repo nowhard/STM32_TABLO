@@ -32,7 +32,8 @@ volatile  unsigned char   frame_len=0;//длина кадра, которую в
 //volatile  unsigned char    RecieveBuf[MAX_LENGTH_REC_BUF]={0} ; //буфер принимаемых данных
 volatile  unsigned char    *RecieveBuf;
 volatile  unsigned char    *TransferBuf;
-//static unsigned char /*data*/ volatile  TransferBuf[MAX_LENGTH_TR_BUF] ; //буфер передаваемых данных
+
+//volatile unsigned char /*data*/   TransferBuf[MAX_LENGTH_TR_BUF] ; //буфер передаваемых данных
 //--------------------------------------------------------------------
 volatile  unsigned char    STATE_BYTE=0xC0;//байт состояния устройства
 
@@ -225,7 +226,7 @@ void USART1_IRQHandler (void)
    		{
    			transf_count=0;		//обнуляем счетчик
    			recieve_count=0;
-   			//PROTO_STATE=PROTO_RESTART;
+
    			CUT_OUT_NULL=0;
    			 USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
    		}
@@ -235,9 +236,7 @@ void USART1_IRQHandler (void)
 
 }
 //------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
-void Proto_Init(void) //using 0
+void Proto_Init(void) //
 {
 	//---------инициализация оборудовния----------------------------------
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1|RCC_APB2Periph_GPIOA , ENABLE);//тактируем уарт
@@ -267,24 +266,24 @@ void Proto_Init(void) //using 0
 	  GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 
-	  USART_InitTypeDef USART_InitStructure;
+	  	USART_InitTypeDef USART_InitStructure;
 
 		USART_DeInit(USART1);
 		//настраиваем урат
 		USART_InitStructure.USART_BaudRate = 57600;
-	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
-	USART_InitStructure.USART_StopBits = USART_StopBits_1;
-	USART_InitStructure.USART_Parity = USART_Parity_No;
-	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-	USART_Init(USART1, &USART_InitStructure);
+		USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+		USART_InitStructure.USART_StopBits = USART_StopBits_1;
+		USART_InitStructure.USART_Parity = USART_Parity_No;
+		USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+		USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+		USART_Init(USART1, &USART_InitStructure);
 
-	USART_ClearFlag(USART1, USART_FLAG_CTS | USART_FLAG_LBD  | USART_FLAG_TC  | USART_FLAG_RXNE );
+		USART_ClearFlag(USART1, USART_FLAG_CTS | USART_FLAG_LBD  | USART_FLAG_TC  | USART_FLAG_RXNE );
 
-	USART_ITConfig(USART1, USART_IT_TC, ENABLE);
-	USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
+		USART_ITConfig(USART1, USART_IT_TC, ENABLE);
+		USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
 
-	USART_Cmd(USART1, ENABLE);
+		USART_Cmd(USART1, ENABLE);
 
 	//------------------------флаги ошибок--------------------------------
 
@@ -292,7 +291,8 @@ void Proto_Init(void) //using 0
 	COMMAND_ERR=0x0;//неподдерживаемая команда
 
 	//TransferBuf=&RecieveBuf[0];	 //буфер ответа =буфер запроса
-	TransferBuf=RecieveBuf=&tab.uart_buf;
+	TransferBuf=&tab.uart_buf;
+	RecieveBuf= &tab.uart_buf;
 	ChannelsInit();
 
 
@@ -381,7 +381,7 @@ unsigned char  Channel_Set_Parameters(void) //using 0 //Установить п�
 {
 	 unsigned char   index=0, store_data=0;//i=0;
 	 uint8_t len=0,i=0;
-//	LED=1;
+
 	   while(index<RecieveBuf[5]-1)				   // данные по каналам
 	      {
 			  	if(RecieveBuf[6+index]<CHANNEL_NUMBER)
@@ -438,7 +438,6 @@ unsigned char  Channel_Set_Parameters(void) //using 0 //Установить п�
 	   {
 	   		//Store_Channels_Data();	//сохраним настройки каналов в ППЗУ
 		}
-//	   LED=0;
 	   return Request_Error(FR_SUCCESFUL);
 }
 //-----------------------------------------------------------------------------
@@ -721,7 +720,6 @@ void ProtoBufHandling(void) //using 0 //процесс обработки при
 	{
        COMMAND_ERR=0x1;//несуществующая команда
 	   buf_len=Request_Error(FR_COMMAND_NOT_EXIST);
-	  // PROTO_STATE=PROTO_ERR_HANDLING;//на обработчик ошибки
     }
   }
 
@@ -741,7 +739,7 @@ void ProtoProcess( void *pvParameters ) //главный процесс
 
 				crc_n=RecieveBuf[recieve_count-1];
 				transf_count=0;
-				if(CRC_Check(&RecieveBuf,(recieve_count-CRC_LEN))==crc_n)
+				if(CRC_Check(RecieveBuf,(recieve_count-CRC_LEN))==crc_n)
 				{
 
 					ProtoBufHandling();//процедура обработки сообщения
@@ -757,12 +755,11 @@ void ProtoProcess( void *pvParameters ) //главный процесс
 				else
 				{
 					crc_n_ERR=0x1;//несовпадение crc_n
+					USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
 
 				}
-
 			}
 		}
-		//--------------------------------------------------
 	}
 }
 //-----------------------crc_n------------------------------------------------------------

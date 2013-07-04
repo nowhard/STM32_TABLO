@@ -5,7 +5,7 @@
 #include "indicator.h"
 
 struct bus{//структура шины
-	struct indicator *indicators;//указатель на динамически выделяемую память свойств индикаторов
+	//struct indicator *indicators;//указатель на динамически выделяемую память свойств индикаторов
 	uint8_t indicators_num;//количество индикаторов на шине
 	uint16_t **bus_buf;//динамически выделяемая память под буфер шины
 };

@@ -60,16 +60,17 @@ int main(void)
 {
 
 	SystemInit();
-	//prvSetupHardware();
 
+//	spi1_config();
+//	spi2_config();
+//	spi3_config();
+//
+//	tablo_devices_init();
 
-	spi1_config();
     Proto_Init();
 
-	tablo_indicator_struct_init();
 
-
-    xTaskCreate(SPI_Test,(signed char*)"SPI",256,NULL, tskIDLE_PRIORITY + 1, NULL);
+//    xTaskCreate(SPI_Test,(signed char*)"SPI",256,NULL, tskIDLE_PRIORITY + 1, NULL);
 
     vTaskStartScheduler();
 

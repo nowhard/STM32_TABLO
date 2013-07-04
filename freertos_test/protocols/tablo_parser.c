@@ -4,6 +4,7 @@
 #include "tablo.h"
 
 
+
 const uint8_t Sym_table[2][SYM_TAB_LEN]={{'0','1','2','3','4','5','6','7','8','9','A','b','C','d','E','F','h','I','I','J','L','O','P','r','t','U','u','.','-','_',' '},
                                          {0x7E/*0*/,0x30/*1*/,0x6D/*2*/,0x79/*3*/,0x33/*4*/,0x5B/*5*/,0x5F/*6*/,0x70/*7*/,0x7F/*8*/,0x7B/*9*/,0x77/*A*/,
                                           0x1F/*b*/,0x4E/*C*/,0x3D/*d*/,0x4F/*E*/,0x47/*F*/,0x17/*h*/,0x30/*I*/,0x10/*i*/,0x3C/*J*/,0xE/*L*/,0x7E/*O*/,
@@ -11,91 +12,7 @@ const uint8_t Sym_table[2][SYM_TAB_LEN]={{'0','1','2','3','4','5','6','7','8','9
 
 extern struct tablo tab;//структура табло
 
-/*void tablo_proto_parser(uint8_t *proto_buf)//
-{
-   uint8_t i=0,j=0,ind_state=IND_CLOSE;
-   uint8_t len=0;//
-
-   uint8_t current_indicator=0;
-   uint8_t chr_counter=0;
-   uint8_t num_buf[32]={0};
-
-
-   if(proto_buf[0]!=':')//начало кадра
-   {
-       //error
-       return;
-   }
-
-   len=proto_buf[1];
-
-   if(len>FRAME_MAX_LEN)//
-   {
-       //error
-       return;
-   }
-
-   for(i=2;i<len;i++)//
-   {
-       switch(proto_buf[i])
-       {
-           case '[':
-           {
-                ind_state=IND_OPEN;
-           }
-           break;
-
-           case ']':
-           {
-                if(ind_state==IND_CLOSE)//
-                {
-                   //error!
-                }
-
-                if(indicators[current_indicator].type=IND_TYPE_SEGMENT)
-                {
-                    str_to_ind(&num_buf,current_indicator);
-                }
-                else
-                {
-                    //
-                }
-                ind_state=IND_CLOSE;
-                chr_counter=0;
-           }
-           break;
-
-           default:
-           {
-              if((proto_buf[i-1]=='[') && (ind_state==IND_OPEN))
-              {
-                  if(proto_buf[i]=='*')//яркость
-                  {
-                      for(j=0;j<INDICATORS_NUM;j++)
-                      {
-                          indicators[j].brightness=IND_BRIGHTNESS|(proto_buf[i+1]&0xF);
-                      }
-                      i+=2;
-                      ind_state=IND_CLOSE;
-                  }
-                  else
-                  {
-                      current_indicator=proto_buf[i];
-                      num_buf[chr_counter+1]='\0';
-                      chr_counter=0;
-                  }
-              }
-              else
-              {
-                  num_buf[chr_counter]=proto_buf[i];
-                  chr_counter++;
-              }
-           }
-       }
-   }
-   return;
-}
-
+/*
 uint8_t str_to_ind(uint8_t *str,uint8_t ind_num)//
 {
     uint8_t i=0,j=0;
@@ -154,3 +71,95 @@ void ln_to_ind(uint8_t *buf)//
 {
 
 }*/
+
+void tablo_proto_parser(uint8_t *proto_buf)//
+{
+   uint8_t i=0,j=0,ind_state=IND_CLOSE;
+   uint8_t len=0;//
+
+   uint8_t current_indicator=0;
+   uint8_t chr_counter=0;
+   uint8_t num_buf[32]={0};
+
+
+   if(tab.tablo_proto_buf[0]!=':')//начало кадра
+   {
+       //error
+       return;
+   }
+
+   len=tab.tablo_proto_buf[1];
+
+   if(len>FRAME_MAX_LEN)//
+   {
+       //error
+       return;
+   }
+
+   for(i=2;i<len;i++)//
+   {
+       switch(tab.tablo_proto_buf[i])
+       {
+           case '[':
+           {
+                ind_state=IND_OPEN;
+           }
+           break;
+
+           case ']':
+           {
+                if(ind_state==IND_CLOSE)//
+                {
+                   //error!
+                }
+
+                if(tab.indicators[current_indicator].type=IND_TYPE_SEGMENT)
+                {
+                    //str_to_ind(&num_buf,current_indicator);
+                	str_to_ind(&tab.indicators[current_indicator],&num_buf);
+                }
+                else
+                {
+                    //
+                }
+                ind_state=IND_CLOSE;
+                chr_counter=0;
+           }
+           break;
+
+           default:
+           {
+              if((tab.tablo_proto_buf[i-1]=='[') && (ind_state==IND_OPEN))
+              {
+                  if(tab.tablo_proto_buf[i]=='*')//яркость
+                  {
+                      for(j=0;j<IND_ALL_NUM;j++)
+                      {
+                          tab.indicators[j].brightness=IND_BRIGHTNESS|(tab.tablo_proto_buf[i+1]&0xF);
+                      }
+                      i+=2;
+                      ind_state=IND_CLOSE;
+                  }
+                  else
+                  {
+                      current_indicator=tab.tablo_proto_buf[i];
+                      num_buf[chr_counter+1]='\0';
+                      chr_counter=0;
+                  }
+              }
+              else
+              {
+                  num_buf[chr_counter]=tab.tablo_proto_buf[i];
+                  chr_counter++;
+              }
+           }
+       }
+   }
+   return;
+}
+
+uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
+{
+	//перед доступом к буферу шины критическая секция
+	return 0;
+}

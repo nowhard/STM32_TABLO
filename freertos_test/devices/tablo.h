@@ -7,6 +7,7 @@
 
 struct tablo{//основная структура устройства
 	struct bus buses[BUS_NUM];//создаем шиины табло
+	struct indicator indicators[IND_ALL_NUM];//индикаторы устройства
 	uint8_t uart_buf[0xFF];//буфер UART
 	uint8_t tablo_proto_buf[0xFF];//кадр табло
 };

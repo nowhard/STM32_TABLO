@@ -8,6 +8,15 @@
 #include "stm32f10x_dma.h"
 #include <misc.h>
 
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+
+
+//static void spi1_task(void *pvParameters);//задачи шин
+//static void spi2_task(void *pvParameters);
+//static void spi3_task(void *pvParameters);
 
 
 uint8_t spi_buses_init(void)//инициализация шин SPI и выделение памяти под буферы
@@ -86,7 +95,6 @@ void	spi1_config(void)//конфигурация аппаратных интер
 		DMA_Init(DMA1_Channel3, &DMA_InitStructure);
 
 
-
 		DMA_ClearFlag(DMA1_FLAG_TC3);
 
 		// Enable DMA request
@@ -122,3 +130,4 @@ void spi3_write_buf(uint16_t* pBuffer, uint16_t len)
 {
 
 }
+
