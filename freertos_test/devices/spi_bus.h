@@ -7,7 +7,8 @@
 struct bus{//структура шины
 	//struct indicator *indicators;//указатель на динамически выделяемую память свойств индикаторов
 	uint8_t indicators_num;//количество индикаторов на шине
-	uint16_t **bus_buf;//динамически выделяемая память под буфер шины
+//	uint16_t **bus_buf;//динамически выделяемая память под буфер шины
+	uint16_t bus_buf[IND_COMMAND_LEN][IND_SPI_BUS_1_NUM];
 };
 
 #define BUS_NUM	3//количество шин табло

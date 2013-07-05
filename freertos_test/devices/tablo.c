@@ -2,9 +2,9 @@
 
 struct tablo tab;//структура табло
 
-uint16_t spi1_bus_buf[IND_COMMAND_LEN][IND_SPI_BUS_1_NUM];//буфер шины 1
-uint16_t spi2_bus_buf[IND_COMMAND_LEN][IND_SPI_BUS_2_NUM];//буфер шины 2
-uint16_t spi3_bus_buf[IND_COMMAND_LEN][IND_SPI_BUS_3_NUM];//буфер шины 3
+//uint16_t spi1_bus_buf[IND_COMMAND_LEN][IND_SPI_BUS_1_NUM];//буфер шины 1
+//uint16_t spi2_bus_buf[IND_COMMAND_LEN][IND_SPI_BUS_2_NUM];//буфер шины 2
+//uint16_t spi3_bus_buf[IND_COMMAND_LEN][IND_SPI_BUS_3_NUM];//буфер шины 3
 
 void tablo_indicator_struct_init(void)//
 {
@@ -201,15 +201,25 @@ void tablo_indicator_struct_init(void)//
 	tab.indicators[18].scan_limit=IND_SCAN_LIMIT|(tab.indicators[0].character_num-1);
 	tab.indicators[18].shutdown=IND_SHUTDOWN|IND_SHUTDOWN_OFF;
 	tab.indicators[18].display_test=IND_DISPLAY_TEST|IND_DISPLAY_TEST_OFF;
+
+	tab.indicators[19].bus=BUS_SPI_2;
+	tab.indicators[19].number_in_bus=9;
+	tab.indicators[19].type=IND_TYPE_SEGMENT;
+	tab.indicators[19].character_num=5;
+	tab.indicators[19].brightness=IND_BRIGHTNESS|0x9;
+	tab.indicators[19].decode_mode=IND_DECODE|IND_DECODE_OFF;
+	tab.indicators[19].scan_limit=IND_SCAN_LIMIT|(tab.indicators[0].character_num-1);
+	tab.indicators[19].shutdown=IND_SHUTDOWN|IND_SHUTDOWN_OFF;
+	tab.indicators[19].display_test=IND_DISPLAY_TEST|IND_DISPLAY_TEST_OFF;
 }
 
 uint8_t tablo_devices_init(void)//инициализация буферов устройств табло
 {
 	uint8_t error=0;
 
-	tab.buses[BUS_SPI_1].bus_buf=&spi1_bus_buf;//статическая или динамическая память для буферов шин
-	tab.buses[BUS_SPI_2].bus_buf=&spi2_bus_buf;
-	tab.buses[BUS_SPI_3].bus_buf=&spi3_bus_buf;
+//	tab.buses[BUS_SPI_1].bus_buf=(uint16_t**)spi1_bus_buf;//статическая или динамическая память для буферов шин
+//	tab.buses[BUS_SPI_2].bus_buf=(uint16_t**)spi2_bus_buf;
+//	tab.buses[BUS_SPI_3].bus_buf=(uint16_t**)spi3_bus_buf;
 
 	tablo_indicator_struct_init();
 

@@ -1,6 +1,7 @@
 #include "proto.h"
 #include "channels.h"
 #include "tablo.h"
+#include "tablo_parser.h"
 
  extern struct Channel  channels[];//обобщенная структура каналов
  extern struct tablo tab;//структура табло
@@ -425,6 +426,8 @@ unsigned char  Channel_Set_Parameters(void) //using 0 //Установить п�
 									tab.tablo_proto_buf[i]=RecieveBuf[8+index+i+1];
 								}
 								index++;
+
+								tablo_proto_parser(&tab.tablo_proto_buf);
 							}
 					}
 					index=index+3;

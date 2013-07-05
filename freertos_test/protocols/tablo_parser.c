@@ -12,65 +12,6 @@ const uint8_t Sym_table[2][SYM_TAB_LEN]={{'0','1','2','3','4','5','6','7','8','9
 
 extern struct tablo tab;//структура табло
 
-/*
-uint8_t str_to_ind(uint8_t *str,uint8_t ind_num)//
-{
-    uint8_t i=0,j=0;
-    uint8_t buf_count=0;//
-    uint8_t str_len=0;
-
-    str_len=strlen(str);
-
-    display_buf[0][ind_num]=indicators[ind_num].shutdown;
-    display_buf[1][ind_num]=indicators[ind_num].display_test;
-    display_buf[2][ind_num]=indicators[ind_num].scan_limit;
-    display_buf[3][ind_num]=indicators[ind_num].brightness;
-    display_buf[4][ind_num]=indicators[ind_num].decode_mode;
-
-    buf_count+=5;
-
-    for(i=0;i<str_len;i++)//
-    {
-        if((str[i]>=0x30)&&(str[i]<=0x39))//цифры
-        {
-            display_buf[buf_count][ind_num]=(Sym_table[1][(str[i]-0x30)])|(0x100*((buf_count-5)+1));
-            buf_count++;
-
-            continue;
-        }
-
-        if(str[i]=='.')
-        {
-            if(i>0)
-            {
-                display_buf[buf_count-1][ind_num]|=0x80;
-            }
-            continue;
-        }
-
-        for(j=10;j<SYM_TAB_LEN;j++)//
-        {
-           if(str[i]==Sym_table[0][j])//
-           {
-                display_buf[buf_count][ind_num]=(Sym_table[1][j])|(0x100*((buf_count-5)+1));//������� � �����
-                buf_count++;
-
-                break;
-           }
-        }
-    }
-
-    for(i=buf_count;i<INDICATOR_BUF_LEN;i++)
-    {
-        display_buf[i][ind_num]=0x0;
-    }
-    return buf_count;
-}
-
-void ln_to_ind(uint8_t *buf)//
-{
-
-}*/
 
 void tablo_proto_parser(uint8_t *proto_buf)//
 {
@@ -143,6 +84,12 @@ void tablo_proto_parser(uint8_t *proto_buf)//
                   else
                   {
                       current_indicator=tab.tablo_proto_buf[i];
+
+                      if(current_indicator>=IND_ALL_NUM)
+                      {
+                    	  continue;
+                      }
+
                       num_buf[chr_counter+1]='\0';
                       chr_counter=0;
                   }
@@ -211,5 +158,10 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
         }
         return buf_count;
 	//перед доступом к буферу шины критическая секция
+
+}
+
+void ln_to_ind(uint8_t *buf)//
+{
 
 }
