@@ -200,40 +200,55 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 	tab.buses[ind->bus].bus_buf[11][ind->number_in_bus]=0x700;
 	tab.buses[ind->bus].bus_buf[12][ind->number_in_bus]=0x800;
 
-//	if(ust1>=0)
-//	{
-//		tab.buses[ind->bus].bus_buf[(ust1>>2)+5][ind->number_in_bus]|=(((ust1>>2)+1)<<8)|LED_BAR_STAMP_ORANGE[ust1%4];
-//	}
-//
-//	if(ust2>=0)
-//	{
-//		tab.buses[ind->bus].bus_buf[(ust2>>2)+5][ind->number_in_bus]|=(((ust2>>2)+1)<<8)|LED_BAR_STAMP_RED[ust2%4];
-//	}
+
+	if((ust1>=0) && (ust1<=31))//ставим первую уставку
+	{
+		if(inverse==0x0)
+		{
+			tab.buses[ind->bus].bus_buf[(ust1>>2)+5][ind->number_in_bus]|=(((ust1>>2)+1)<<8)|LED_BAR_STAMP_RED[ust1%4];
+		}
+		else
+		{
+			tab.buses[ind->bus].bus_buf[(ust1>>2)+5][ind->number_in_bus]|=(((ust1>>2)+1)<<8)|LED_BAR_STAMP_GREEN[ust1%4];
+		}
+	}
+
+	if((ust2>=0) && (ust2<=31))//ставим вторую уставку
+	{
+		if(inverse==0x0)
+		{
+			tab.buses[ind->bus].bus_buf[(ust2>>2)+5][ind->number_in_bus]|=(((ust2>>2)+1)<<8)|LED_BAR_STAMP_RED[ust2%4];
+		}
+		else
+		{
+			tab.buses[ind->bus].bus_buf[(ust2>>2)+5][ind->number_in_bus]|=(((ust2>>2)+1)<<8)|LED_BAR_STAMP_GREEN[ust2%4];
+		}
+	}
 
 
 	for(i=0;i<value;i++)
 	{
-//		if(i<ust1)
-//		{
-			if(inverse==0x0)
+		if(inverse==0x0)
+		{
+//			if(i==ust1 || i==ust2)
+//			{
+//				//tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_RED[i%4];
+//			}
+			if((i!=ust1) && (i!=ust2))
 			{
 				tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_GREEN[i%4];
 			}
-			else
+		}
+		else
+		{
+//			if(i==ust1 || i==ust2)
+//			{
+//				//tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_GREEN[i%4];
+//			}
+			if((i!=ust1) && (i!=ust2))
 			{
 				tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_RED[i%4];
 			}
-//		}
-//		else
-//		{
-//			if(i<ust2)
-//			{
-//				tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_ORANGE[i%4];
-//			}
-//			else
-//			{
-//				tab.buses[ind->bus].bus_buf[((i>>2))+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_RED[i%4];
-//			}
-//		}
+		}
 	}
 }
