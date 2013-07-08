@@ -71,6 +71,30 @@ static void SPI_Test(void *pvParameters)
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,1);
 
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
+			//------------------------------------------------
+			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
+
+			spi2_write_buf(&tab.buses[BUS_SPI_2].bus_buf[i][0],1);
+//
+//
+			while(DMA_GetFlagStatus(DMA1_FLAG_TC5)==RESET);
+			DMA_Cmd(DMA1_Channel5, DISABLE);
+//
+////
+			while(SPI2->SR & SPI_SR_BSY);
+
+//						for(j=0;j<2/*INDICATORS_NUM*/;j++)
+//						{
+//							SPI_I2S_ClearFlag(SPI1, SPI_I2S_FLAG_TXE);
+//							while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET);
+//							SPI_I2S_SendData(SPI2, &tab.buses[BUS_SPI_2].bus_buf[j][0]);
+//
+//						}
+
+//
+			GPIO_WriteBit(GPIOB, GPIO_Pin_12,1);
+
+			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
         }
 		vTaskDelay(50);
 	}
@@ -83,7 +107,7 @@ int main(void)
 	SystemInit();
 
 	spi1_config();
-//	spi2_config();
+	spi2_config();
 //	spi3_config();
 //
 	tablo_devices_init();

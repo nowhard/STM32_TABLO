@@ -1,30 +1,30 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
    <processor signature="4.7.2 -mcpu=cortex-m3 -mthumb -g -nostartfiles -Map=tablo_proto_test.map -O0 --gc-sections -LC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test -TC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test/link.ld -g">
-      <target file="tablo_proto_test.elf" lastModified="13fae5e6918">
-         <source file="..\obj\tablo_parser.o" lastModified="13fae5d47ab"/>
-         <source file="..\obj\startup_stm32f10x_md_vl.o" lastModified="13fa86f589a"/>
-         <source file="..\obj\core_cm3.o" lastModified="13fa86f5975"/>
-         <source file="..\obj\proto.o" lastModified="13fae5d4c7d"/>
-         <source file="..\obj\system_stm32f10x.o" lastModified="13fa86f5c92"/>
-         <source file="..\obj\stm32f10x_gpio.o" lastModified="13fa86f5d1e"/>
-         <source file="..\obj\indicator.o" lastModified="13fadd0d189"/>
-         <source file="..\obj\main.o" lastModified="13fae5e664a"/>
-         <source file="..\obj\timers.o" lastModified="13fae140361"/>
-         <source file="..\obj\tablo.o" lastModified="13fae5d5140"/>
-         <source file="..\obj\stm32f10x_rcc.o" lastModified="13fa86f6174"/>
-         <source file="..\obj\tasks.o" lastModified="13fae14049a"/>
-         <source file="..\obj\stm32f10x_usart.o" lastModified="13fa86f6358"/>
-         <source file="..\obj\list.o" lastModified="13fae140526"/>
-         <source file="..\obj\port.o" lastModified="13fae140594"/>
-         <source file="..\obj\queue.o" lastModified="13fae14065f"/>
-         <source file="..\obj\stm32f10x_dma.o" lastModified="13fa86f65d9"/>
-         <source file="..\obj\croutine.o" lastModified="13fae1406fb"/>
-         <source file="..\obj\channels.o" lastModified="13fa86f66e2"/>
-         <source file="..\obj\spi_bus.o" lastModified="13fae5d520b"/>
-         <source file="..\obj\misc.o" lastModified="13fa86f67ec"/>
-         <source file="..\obj\stm32f10x_spi.o" lastModified="13fa86f6898"/>
-         <source file="..\obj\heap_1.o" lastModified="13fae140814"/>
+      <target file="tablo_proto_test.elf" lastModified="13fbcfe605b">
+         <source file="..\obj\tablo_parser.o" lastModified="13fbcf10644"/>
+         <source file="..\obj\startup_stm32f10x_md_vl.o" lastModified="13fbcf10692"/>
+         <source file="..\obj\core_cm3.o" lastModified="13fbcf10700"/>
+         <source file="..\obj\proto.o" lastModified="13fbcf10a0d"/>
+         <source file="..\obj\system_stm32f10x.o" lastModified="13fbcf10ad8"/>
+         <source file="..\obj\stm32f10x_gpio.o" lastModified="13fbcf10b74"/>
+         <source file="..\obj\indicator.o" lastModified="13fbcf10be2"/>
+         <source file="..\obj\main.o" lastModified="13fbcfe3350"/>
+         <source file="..\obj\timers.o" lastModified="13fbcf10eef"/>
+         <source file="..\obj\tablo.o" lastModified="13fbcf10f7b"/>
+         <source file="..\obj\stm32f10x_rcc.o" lastModified="13fbcf11037"/>
+         <source file="..\obj\tasks.o" lastModified="13fbcf1116f"/>
+         <source file="..\obj\stm32f10x_usart.o" lastModified="13fbcf1122b"/>
+         <source file="..\obj\list.o" lastModified="13fbcf112b8"/>
+         <source file="..\obj\port.o" lastModified="13fbcf11335"/>
+         <source file="..\obj\queue.o" lastModified="13fbcf1140f"/>
+         <source file="..\obj\stm32f10x_dma.o" lastModified="13fbcf1149c"/>
+         <source file="..\obj\croutine.o" lastModified="13fbcf11538"/>
+         <source file="..\obj\channels.o" lastModified="13fbcf115b5"/>
+         <source file="..\obj\spi_bus.o" lastModified="13fbcfe5e19"/>
+         <source file="..\obj\misc.o" lastModified="13fbcf116ce"/>
+         <source file="..\obj\stm32f10x_spi.o" lastModified="13fbcf1177a"/>
+         <source file="..\obj\heap_1.o" lastModified="13fbcf11807"/>
       </target>
    </processor>
 </history>
