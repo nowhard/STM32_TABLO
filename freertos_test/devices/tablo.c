@@ -113,7 +113,7 @@ void tablo_indicator_struct_init(void)//
 	tab.indicators[9].display_test=IND_DISPLAY_TEST|IND_DISPLAY_TEST_OFF;
 
 	tab.indicators[10].bus=BUS_SPI_2;
-	tab.indicators[10].number_in_bus=0;
+	tab.indicators[10].number_in_bus=5;
 	tab.indicators[10].type=IND_TYPE_SEGMENT;
 	tab.indicators[10].character_num=5;
 	tab.indicators[10].brightness=IND_BRIGHTNESS|0x9;
@@ -163,12 +163,12 @@ void tablo_indicator_struct_init(void)//
 	tab.indicators[14].display_test=IND_DISPLAY_TEST|IND_DISPLAY_TEST_OFF;
 
 	tab.indicators[15].bus=BUS_SPI_2;
-	tab.indicators[15].number_in_bus=5;
-	tab.indicators[15].type=IND_TYPE_SEGMENT;
-	tab.indicators[15].character_num=5;
+	tab.indicators[15].number_in_bus=0;
+	tab.indicators[15].type=IND_TYPE_LINE;
+	tab.indicators[15].character_num=0x8;
 	tab.indicators[15].brightness=IND_BRIGHTNESS|0x9;
 	tab.indicators[15].decode_mode=IND_DECODE|IND_DECODE_OFF;
-	tab.indicators[15].scan_limit=IND_SCAN_LIMIT|(tab.indicators[0].character_num-1);
+	tab.indicators[15].scan_limit=IND_SCAN_LIMIT|0xFF;
 	tab.indicators[15].shutdown=IND_SHUTDOWN|IND_SHUTDOWN_OFF;
 	tab.indicators[15].display_test=IND_DISPLAY_TEST|IND_DISPLAY_TEST_OFF;
 

@@ -8,7 +8,7 @@
 
 void tablo_proto_parser(uint8_t *proto_buf);//
 uint8_t str_to_ind(struct indicator *ind,uint8_t *str);
-void ln_to_ind(uint8_t *buf);//
+void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len);//
 
 
 #define FRAME_MAX_LEN   150//

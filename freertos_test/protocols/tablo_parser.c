@@ -54,14 +54,14 @@ void tablo_proto_parser(uint8_t *proto_buf)//
                    //error!
                 }
 
-                if(tab.indicators[current_indicator].type=IND_TYPE_SEGMENT)
+                if(tab.indicators[current_indicator].type==IND_TYPE_SEGMENT)
                 {
                     //str_to_ind(&num_buf,current_indicator);
                 	str_to_ind(&tab.indicators[current_indicator],&num_buf);
                 }
                 else
                 {
-                    //
+                	ln_to_ind(&tab.indicators[current_indicator],&num_buf,chr_counter);
                 }
                 ind_state=IND_CLOSE;
                 chr_counter=0;
@@ -91,7 +91,7 @@ void tablo_proto_parser(uint8_t *proto_buf)//
                       }
 
                       num_buf[chr_counter+1]='\0';
-                      chr_counter=0;
+                      //chr_counter=0;
                   }
               }
               else
@@ -118,6 +118,11 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
     	tab.buses[ind->bus].bus_buf[2][ind->number_in_bus]=ind->scan_limit;
     	tab.buses[ind->bus].bus_buf[3][ind->number_in_bus]=ind->brightness;
     	tab.buses[ind->bus].bus_buf[4][ind->number_in_bus]=ind->decode_mode;
+    	tab.buses[ind->bus].bus_buf[5][ind->number_in_bus]=0x0;
+    	tab.buses[ind->bus].bus_buf[6][ind->number_in_bus]=0x0;
+    	tab.buses[ind->bus].bus_buf[7][ind->number_in_bus]=0x0;
+    	tab.buses[ind->bus].bus_buf[8][ind->number_in_bus]=0x0;
+    	tab.buses[ind->bus].bus_buf[9][ind->number_in_bus]=0x0;
 
         buf_count+=5;
 
@@ -152,16 +157,83 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
             }
         }
 
-        for(i=buf_count;i<IND_ALL_NUM;i++)
-        {
-        	tab.buses[ind->bus].bus_buf[i][ind->number_in_bus]=0x0;
-        }
+//        for(i=buf_count;i<IND_ALL_NUM;i++)
+//        {
+//        	tab.buses[ind->bus].bus_buf[i][ind->number_in_bus]=0x0;
+//        }
         return buf_count;
 	//перед доступом к буферу шины критическая секция
 
 }
 
-void ln_to_ind(uint8_t *buf)//
+
+const uint8_t   LED_BAR_STAMP_RED[4]   ={8 ,128,4 ,16};
+const uint8_t   LED_BAR_STAMP_GREEN[4] ={64,2  ,32,1 };
+const uint8_t   LED_BAR_STAMP_ORANGE[4]={72,130,36,17};
+
+void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 {
 
+	uint8_t inverse=0;
+	uint8_t	value=0;
+	uint8_t ust1=0;//уставки
+	uint8_t	ust2=0;
+
+	uint8_t i=0;
+
+	inverse=buf[0];
+	value=buf[1];
+	ust1=buf[2];
+	ust2=buf[3];
+
+	tab.buses[ind->bus].bus_buf[0][ind->number_in_bus]=ind->shutdown;
+	tab.buses[ind->bus].bus_buf[1][ind->number_in_bus]=ind->display_test;
+	tab.buses[ind->bus].bus_buf[2][ind->number_in_bus]=ind->scan_limit;
+	tab.buses[ind->bus].bus_buf[3][ind->number_in_bus]=ind->brightness;
+	tab.buses[ind->bus].bus_buf[4][ind->number_in_bus]=ind->decode_mode;
+	tab.buses[ind->bus].bus_buf[5][ind->number_in_bus]=0x100;
+	tab.buses[ind->bus].bus_buf[6][ind->number_in_bus]=0x200;
+	tab.buses[ind->bus].bus_buf[7][ind->number_in_bus]=0x300;
+	tab.buses[ind->bus].bus_buf[8][ind->number_in_bus]=0x400;
+	tab.buses[ind->bus].bus_buf[9][ind->number_in_bus]=0x500;
+	tab.buses[ind->bus].bus_buf[10][ind->number_in_bus]=0x600;
+	tab.buses[ind->bus].bus_buf[11][ind->number_in_bus]=0x700;
+	tab.buses[ind->bus].bus_buf[12][ind->number_in_bus]=0x800;
+
+//	if(ust1>=0)
+//	{
+//		tab.buses[ind->bus].bus_buf[(ust1>>2)+5][ind->number_in_bus]|=(((ust1>>2)+1)<<8)|LED_BAR_STAMP_ORANGE[ust1%4];
+//	}
+//
+//	if(ust2>=0)
+//	{
+//		tab.buses[ind->bus].bus_buf[(ust2>>2)+5][ind->number_in_bus]|=(((ust2>>2)+1)<<8)|LED_BAR_STAMP_RED[ust2%4];
+//	}
+
+
+	for(i=0;i<value;i++)
+	{
+//		if(i<ust1)
+//		{
+			if(inverse==0x0)
+			{
+				tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_GREEN[i%4];
+			}
+			else
+			{
+				tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_RED[i%4];
+			}
+//		}
+//		else
+//		{
+//			if(i<ust2)
+//			{
+//				tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_ORANGE[i%4];
+//			}
+//			else
+//			{
+//				tab.buses[ind->bus].bus_buf[((i>>2))+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_RED[i%4];
+//			}
+//		}
+	}
 }
