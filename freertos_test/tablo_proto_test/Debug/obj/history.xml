@@ -4,14 +4,14 @@
       <target file="stm32f10x_spi.o" lastModified="13fc21c3f72">
          <source file="..\..\..\stm_lib\src\stm32f10x_spi.c" lastModified="13f614d4aec"/>
       </target>
-      <target file="channels.o" lastModified="13fc21c3dbc">
-         <source file="..\..\..\protocols\channels.c" lastModified="13f667f50a3"/>
-      </target>
       <target file="tasks.o" lastModified="13fc21c3996">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13438131dbe"/>
       </target>
-      <target file="tablo_parser.o" lastModified="13fc21c2959">
-         <source file="..\..\..\protocols\tablo_parser.c" lastModified="13fbe125977"/>
+      <target file="channels.o" lastModified="13fc21c3dbc">
+         <source file="..\..\..\protocols\channels.c" lastModified="13f667f50a3"/>
+      </target>
+      <target file="tablo_parser.o" lastModified="13fc2a9b05e">
+         <source file="..\..\..\protocols\tablo_parser.c" lastModified="13fc2a977ca"/>
       </target>
       <target file="stm32f10x_rcc.o" lastModified="13fc21c386d">
          <source file="..\..\..\stm_lib\src\stm32f10x_rcc.c" lastModified="13f614cfb55"/>
@@ -55,20 +55,20 @@
       <target file="spi_bus.o" lastModified="13fc21c3e58">
          <source file="..\..\..\devices\spi_bus.c" lastModified="13fbcfe55ad"/>
       </target>
-      <target file="heap_1.o" lastModified="13fc21c3ffe">
-         <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\MemMang\heap_1.c" lastModified="13438131d70"/>
-      </target>
       <target file="stm32f10x_dma.o" lastModified="13fc21c3ca3">
          <source file="..\..\..\stm_lib\src\stm32f10x_dma.c" lastModified="13f751e7fc4"/>
+      </target>
+      <target file="heap_1.o" lastModified="13fc21c3ffe">
+         <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\MemMang\heap_1.c" lastModified="13438131d70"/>
       </target>
       <target file="startup_stm32f10x_md_vl.o" lastModified="13fc21c29a8">
          <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md_vl.c" lastModified="13f614cf0f4"/>
       </target>
-      <target file="stm32f10x_usart.o" lastModified="13fc21c3a51">
-         <source file="..\..\..\stm_lib\src\stm32f10x_usart.c" lastModified="13f614d65d6"/>
-      </target>
       <target file="main.o" lastModified="13fc239de74">
          <source file="..\..\..\main.c" lastModified="13fc21fddb7"/>
+      </target>
+      <target file="stm32f10x_usart.o" lastModified="13fc21c3a51">
+         <source file="..\..\..\stm_lib\src\stm32f10x_usart.c" lastModified="13f614d65d6"/>
       </target>
    </processor>
    <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m3 -mthumb -Wall -ffunction-sections -g -O0 -c -DSTM32F100RB -DSTM32F10X_MD_VL -DUSE_STDPERIPH_DRIVER -D__ASSEMBLY__ -ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\FreeRTOSV7.1.0 -ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\FreeRTOSV7.1.0\Source\portable\ARM_CM3 -ID:\PROJECTS\STM32\workspace -ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\cmsis -ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\cmsis_boot -ID:\PROJECTS\STM32\workspace\tablo_proto_test -ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test -ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\stm_lib -ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\FreeRTOSV7.1.0\Source\portable -ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\stm_lib\inc -ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\FreeRTOSV7.1.0\Source\include -ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\FreeRTOSV7.1.0\Source -ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\uso">

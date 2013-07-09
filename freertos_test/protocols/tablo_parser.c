@@ -118,11 +118,14 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
     	tab.buses[ind->bus].bus_buf[2][ind->number_in_bus]=ind->scan_limit;
     	tab.buses[ind->bus].bus_buf[3][ind->number_in_bus]=ind->brightness;
     	tab.buses[ind->bus].bus_buf[4][ind->number_in_bus]=ind->decode_mode;
-    	tab.buses[ind->bus].bus_buf[5][ind->number_in_bus]=0x0;
-    	tab.buses[ind->bus].bus_buf[6][ind->number_in_bus]=0x0;
-    	tab.buses[ind->bus].bus_buf[7][ind->number_in_bus]=0x0;
-    	tab.buses[ind->bus].bus_buf[8][ind->number_in_bus]=0x0;
-    	tab.buses[ind->bus].bus_buf[9][ind->number_in_bus]=0x0;
+    	tab.buses[ind->bus].bus_buf[5][ind->number_in_bus]=0x100;
+    	tab.buses[ind->bus].bus_buf[6][ind->number_in_bus]=0x200;
+    	tab.buses[ind->bus].bus_buf[7][ind->number_in_bus]=0x300;
+    	tab.buses[ind->bus].bus_buf[8][ind->number_in_bus]=0x400;
+    	tab.buses[ind->bus].bus_buf[9][ind->number_in_bus]=0x500;
+    	tab.buses[ind->bus].bus_buf[10][ind->number_in_bus]=0x600;
+    	tab.buses[ind->bus].bus_buf[11][ind->number_in_bus]=0x700;
+    	tab.buses[ind->bus].bus_buf[12][ind->number_in_bus]=0x800;
 
         buf_count+=5;
 
