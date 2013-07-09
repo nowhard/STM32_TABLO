@@ -13,16 +13,29 @@
 #include "queue.h"
 #include "semphr.h"
 
+#include "tablo.h"
 
-//static void spi1_task(void *pvParameters);//задачи шин
-//static void spi2_task(void *pvParameters);
+extern struct tablo tab;//структура табло
+
+static void spi1_task(void *pvParameters);//задачи шин
+static void spi2_task(void *pvParameters);
 //static void spi3_task(void *pvParameters);
+
+xSemaphoreHandle xSPI_Buf_Mutex;
 
 
 uint8_t spi_buses_init(void)//инициализация шин SPI и выделение памяти под буферы
 {
 	uint8_t error=0;
+	 xTaskCreate(spi1_task,(signed char*)"SPI_1_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+	 xTaskCreate(spi2_task,(signed char*)"SPI_2_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
 
+	 xSPI_Buf_Mutex=xSemaphoreCreateMutex();
+
+	 if( xSPI_Buf_Mutex != NULL )
+	 {
+		//мьютекс создан удачно
+	 }
 
 	return error;
 }
@@ -204,5 +217,64 @@ void spi2_write_buf(uint16_t* pBuffer, uint16_t len)
 void spi3_write_buf(uint16_t* pBuffer, uint16_t len)
 {
 
+}
+
+static void spi1_task(void *pvParameters)//задачи шин
+{
+	uint8_t i=0;
+	while(1)
+	{
+		for(i=0;i<IND_COMMAND_LEN;i++)
+		{
+			GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
+
+			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
+			{
+				 spi1_write_buf(&tab.buses[BUS_SPI_1].bus_buf[i][0],1);
+
+				 while(DMA_GetFlagStatus(DMA1_FLAG_TC3)==RESET);
+				 DMA_Cmd(DMA1_Channel3, DISABLE);
+
+
+				 while(SPI1->SR & SPI_SR_BSY);
+
+				 xSemaphoreGive( xSPI_Buf_Mutex );
+			}
+
+			GPIO_WriteBit(GPIOA, GPIO_Pin_4,1);
+
+			GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
+		}
+		vTaskDelay(50);
+	}
+}
+
+
+static void spi2_task(void *pvParameters)
+{
+	uint8_t i=0;
+	while(1)
+	{
+		for(i=0;i<IND_COMMAND_LEN;i++)
+		{
+			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
+			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
+			{
+				spi2_write_buf(&tab.buses[BUS_SPI_2].bus_buf[i][0],1);
+
+				while(DMA_GetFlagStatus(DMA1_FLAG_TC5)==RESET);
+				DMA_Cmd(DMA1_Channel5, DISABLE);
+
+				while(SPI2->SR & SPI_SR_BSY);
+
+				xSemaphoreGive( xSPI_Buf_Mutex );
+			}
+
+			GPIO_WriteBit(GPIOB, GPIO_Pin_12,1);
+
+			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
+		}
+		vTaskDelay(50);
+	}
 }
 

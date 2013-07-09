@@ -3,7 +3,14 @@
 #include <string.h>
 #include "tablo.h"
 
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
 
+#include "spi_bus.h"
+
+extern xSemaphoreHandle xSPI_Buf_Mutex;
 
 const uint8_t Sym_table[2][SYM_TAB_LEN]={{'0','1','2','3','4','5','6','7','8','9','A','b','C','d','E','F','h','I','I','J','L','O','P','r','t','U','u','.','-','_',' '},
                                          {0x7E/*0*/,0x30/*1*/,0x6D/*2*/,0x79/*3*/,0x33/*4*/,0x5B/*5*/,0x5F/*6*/,0x70/*7*/,0x7F/*8*/,0x7B/*9*/,0x77/*A*/,
@@ -54,15 +61,21 @@ void tablo_proto_parser(uint8_t *proto_buf)//
                    //error!
                 }
 
-                if(tab.indicators[current_indicator].type==IND_TYPE_SEGMENT)
-                {
-                    //str_to_ind(&num_buf,current_indicator);
-                	str_to_ind(&tab.indicators[current_indicator],&num_buf);
-                }
-                else
-                {
-                	ln_to_ind(&tab.indicators[current_indicator],&num_buf,chr_counter);
-                }
+    			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
+    			{
+					if(tab.indicators[current_indicator].type==IND_TYPE_SEGMENT)
+					{
+						//str_to_ind(&num_buf,current_indicator);
+						str_to_ind(&tab.indicators[current_indicator],&num_buf);
+					}
+					else
+					{
+						ln_to_ind(&tab.indicators[current_indicator],&num_buf,chr_counter);
+					}
+					xSemaphoreGive( xSPI_Buf_Mutex );
+    			}
+
+
                 ind_state=IND_CLOSE;
                 chr_counter=0;
            }

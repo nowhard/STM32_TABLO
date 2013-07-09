@@ -350,8 +350,7 @@ void Proto_Init(void) //
 	//DE_RE=0;//линия на прием
 	CUT_OUT_NULL=0;
 
-	 xTaskCreate(ProtoProcess,(signed char*)"PROTO",64,
-	            NULL, tskIDLE_PRIORITY + 1, NULL);
+	 xTaskCreate(ProtoProcess,(signed char*)"PROTO",64,NULL, tskIDLE_PRIORITY + 1, NULL);
 
 	vSemaphoreCreateBinary( xProtoSemaphore );
 	return;

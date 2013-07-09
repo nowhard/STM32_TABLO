@@ -222,6 +222,7 @@ uint8_t tablo_devices_init(void)//инициализация буферов ус
 //	tab.buses[BUS_SPI_3].bus_buf=(uint16_t**)spi3_bus_buf;
 
 	tablo_indicator_struct_init();
+	spi_buses_init();
 
 	return error;
 }
