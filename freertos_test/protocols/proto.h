@@ -10,28 +10,28 @@
 #include "misc.h"
 
 //#include "preferences.h"
-//������� �� FreeRTOS:
+// FreeRTOS:
 
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
 
-void Proto_Init(void);//������������� ���������, ����������
-void ProtoProcess( void *pvParameters );//������� ��������� ���������
+void Proto_Init(void);//
+void ProtoProcess( void *pvParameters );//
 
 #define CHANNEL_NUMBER	1
 
-#define DEVICE_NAME_LENGTH_SYM	20//����� ����� � ������
+#define DEVICE_NAME_LENGTH_SYM	20//
 #define DEVICE_VER_LENGTH_SYM 0x8
 #define DEVICE_DESC_MAX_LENGTH_SYM 40
 
 //--------------------------------------------------------------------------------
-#define MAX_LENGTH_REC_BUF 	256 //������������ ����� ������������ �����
-#define MIN_LENGTH_REC_BUF	5 //����������� ����� ������������ �����
+#define MAX_LENGTH_REC_BUF 	256 //максимальная длина буфера приема
+#define MIN_LENGTH_REC_BUF	5 //
 
-#define MAX_LENGTH_TR_BUF  	256 //������������ ����� ������������� �����
-#define CRC_LEN				1 //����� ���� CRC
+#define MAX_LENGTH_TR_BUF  	256 //макс. длина буфера передачи
+#define CRC_LEN				1 //длина CRC
 //-------------------------��� ��������-------------------------------------------
 #define  GET_DEV_INFO_REQ 				0x1 //�������� ���������� �� ����������	(��� �������)
 #define  GET_DEV_INFO_RESP				0x2	//�������� ���������� �� ����������	(��� ������)
@@ -97,31 +97,33 @@ void ProtoProcess( void *pvParameters );//������� ������
 #define PROTO_BUF_TRANSFER	6	//�������� ������ ��������
 #define	PROTO_ERR_HANDLING	7	//��������� ������
 //--------------------------------------------------------------------
+#define PROTO_TYPE_OLD	0x0
+#define PROTO_TYPE_NEW	0x1
+//--------------------------------------------------------------------
 
-
-unsigned char Send_Info(void);     //������� ���������� �� ����������
-unsigned char Node_Full_Init(void);//������ ������������� ����
-unsigned char Channel_List_Init(void);//������������� ������ ������� ���� (��� ������ ������);
-unsigned char Channel_Get_Data(void);//������ ������ �� �������, �������� ���������� ���������;
-unsigned char Channel_Set_Parameters(void);//���������� ��������� �� �������, �������� ���������� ���������;
-unsigned char Channel_Set_Order_Query(void);//������ ������������������ ������;
-unsigned char Channel_Get_Data_Order(void);//������ ������ �� �������, �������� ������������������ ������;
-unsigned char Channel_Set_State(void);//���������� ��������� �� �������, �������� ���������� ���������;
-unsigned char Channel_Get_Data_Order_M2(void);//������ ������ �� �������, �������� ������������������ ������;
-unsigned char Channel_Set_Reset_State_Flags(void);//	���������/����� ������ ���������
-unsigned char Channel_All_Get_Data(void);//������ ���������� �� ���� ������� ���� (����������� �����);
-unsigned char Channel_Set_Address_Desc(void);//���������� ����� ����� ����������, ���, ��������, ������ �������� � �����������
-unsigned char Channel_Set_Calibrate(void);//���������� ������� ��� ������ ����� ����������
-unsigned char Request_Error(unsigned char error_code);//	��������� ������/�����;
+uint8_t Send_Info(void);     //������� ���������� �� ����������
+uint8_t Node_Full_Init(void);//������ ������������� ����
+uint8_t Channel_List_Init(void);//������������� ������ ������� ���� (��� ������ ������);
+uint8_t Channel_Get_Data(void);//������ ������ �� �������, �������� ���������� ���������;
+uint8_t Channel_Set_Parameters(void);//���������� ��������� �� �������, �������� ���������� ���������;
+uint8_t Channel_Set_Order_Query(void);//������ ������������������ ������;
+uint8_t Channel_Get_Data_Order(void);//������ ������ �� �������, �������� ������������������ ������;
+uint8_t Channel_Set_State(void);//���������� ��������� �� �������, �������� ���������� ���������;
+uint8_t Channel_Get_Data_Order_M2(void);//������ ������ �� �������, �������� ������������������ ������;
+uint8_t Channel_Set_Reset_State_Flags(void);//	���������/����� ������ ���������
+uint8_t Channel_All_Get_Data(void);//������ ���������� �� ���� ������� ���� (����������� �����);
+uint8_t Channel_Set_Address_Desc(void);//���������� ����� ����� ����������, ���, ��������, ������ �������� � �����������
+uint8_t Channel_Set_Calibrate(void);//���������� ������� ��� ������ ����� ����������
+uint8_t Request_Error(uint8_t error_code);//	��������� ������/�����;
 
 
 void ProtoBufHandling(void); //������� ��������� ��������� �������
 void Store_Dev_Address_Desc(void);
 void Restore_Dev_Address_Desc(void);
 
-unsigned char  CRC_Check( unsigned char  *Spool,unsigned char Count);//������ CRC
+uint8_t  CRC_Check( uint8_t *Spool,uint8_t Count);//������ CRC
 
-//void Store_Dev_Address_Desc(unsigned char addr,void* name,void* ver,void* desc,unsigned char desc_len);//��������� � ���� ����� ����� ����������, ���, ������, ��������
+//void Store_Dev_Address_Desc(uint8_t addr,void* name,void* ver,void* desc,uint8_t desc_len);//��������� � ���� ����� ����� ����������, ���, ������, ��������
 //void Restore_Dev_Address_Desc(void);//������������ �� ���� ����� � ���������� �� ����������
  //------------------------------------------------------------------------------
 

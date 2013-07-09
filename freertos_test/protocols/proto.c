@@ -8,46 +8,48 @@
 
 //typedef enum {FAILED = 0, PASSED = !FAILED} TestStatus;
 //-----------------------------------------------------------------------------------
-unsigned char   DEV_NAME[DEVICE_NAME_LENGTH_SYM] ="<<TABLO>>"; //имя устройства
-unsigned char   NOTICE[DEVICE_DESC_MAX_LENGTH_SYM]="<-- GEOSPHERA_2013 -->";//примечание
-unsigned char   VERSION[DEVICE_VER_LENGTH_SYM] ="\x30\x30\x30\x30\x31";	// версия программы ПЗУ	не больше 5 байт
+uint8_t   DEV_NAME[DEVICE_NAME_LENGTH_SYM] ="<<TABLO>>"; //имя устройства
+uint8_t   NOTICE[DEVICE_DESC_MAX_LENGTH_SYM]="<-- GEOSPHERA_2013 -->";//примечание
+uint8_t   VERSION[DEVICE_VER_LENGTH_SYM] ="\x30\x30\x30\x30\x31";	// версия программы ПЗУ	не больше 5 байт
 
-volatile  unsigned char   ADRESS_DEV=0xF;
+uint8_t   ADRESS_DEV=0xF;
 
-unsigned char   dev_desc_len=20;//длина описания устройства
+uint8_t   dev_desc_len=20;//длина описания устройства
 //--------------------------------global variable------------------------------------
 
-volatile unsigned char   	recieve_count;//счетчик приемного буфера
-volatile unsigned char  	transf_count;//счетчик передаваемых байтов
-volatile unsigned char  	buf_len;//длина передаваемого буфера
+uint8_t   	recieve_count;//счетчик приемного буфера
+uint8_t  	transf_count;//счетчик передаваемых байтов
+uint8_t  	buf_len;//длина передаваемого буфера
 
 //------------------------флаги ошибок--------------------------------
-volatile  unsigned char   crc_n_ERR;	//ошибка сrc
-volatile  unsigned char   COMMAND_ERR;//неподдерживаемая команда
+uint8_t   crc_n_ERR;	//ошибка сrc
+uint8_t   COMMAND_ERR;//неподдерживаемая команда
 
 
 
-volatile  unsigned char   CUT_OUT_NULL;//флаг-вырезаем 0 после 0xD7
-volatile  unsigned char   frame_len=0;//длина кадра, которую вытаскиваем из шестого байта кадра
+uint8_t   CUT_OUT_NULL;//флаг-вырезаем 0 после 0xD7
+uint8_t   frame_len=0;//длина кадра, которую вытаскиваем из шестого байта кадра
 //--------------------------------------------------------------------
-//volatile  unsigned char    RecieveBuf[MAX_LENGTH_REC_BUF]={0} ; //буфер принимаемых данных
-volatile  unsigned char    *RecieveBuf;
-volatile  unsigned char    *TransferBuf;
+//volatile  uint8_t    RecieveBuf[MAX_LENGTH_REC_BUF]={0} ; //буфер принимаемых данных
+uint8_t    *RecieveBuf;
+uint8_t    *TransferBuf;
 
-//volatile unsigned char /*data*/   TransferBuf[MAX_LENGTH_TR_BUF] ; //буфер передаваемых данных
+//volatile uint8_t /*data*/   TransferBuf[MAX_LENGTH_TR_BUF] ; //буфер передаваемых данных
 //--------------------------------------------------------------------
-volatile  unsigned char    STATE_BYTE=0xC0;//байт состояния устройства
+uint8_t    STATE_BYTE=0xC0;//байт состояния устройства
 
 
 
-volatile unsigned int fr_err=0;
+uint16_t fr_err=0;
 
-volatile unsigned char  symbol=0xFF;//принятый символ
+uint8_t  symbol=0xFF;//принятый символ
+
+uint8_t	proto_type=PROTO_TYPE_OLD;
 //-----------------------------------------------------------------------------------
 union //объединение для конвертирования char->long
 {
 	float result_float;
-	unsigned char result_char[4];
+	uint8_t result_char[4];
 }
 sym_8_to_float;
 
@@ -70,16 +72,57 @@ void USART1_IRQHandler (void)
    //----------------------обрабатываем возможные ошибки длины кадра-------------
    		if(recieve_count>MAX_LENGTH_REC_BUF)	//если посылка слишком длинная
    		{
-   			recieve_count=0;
-
+   			recieve_count=0x0;
    			return;
    		}
 
+//		if(recieve_count==0x0)
+//		{
+//			if(symbol==':')//признак старого протокола
+//			{
+//				proto_type=PROTO_TYPE_OLD;
+//			}
+//			else//новый протокол
+//			{
+//				proto_type=PROTO_TYPE_NEW;
+//			}
+//		}
+switch(proto_type)
+{
+	case PROTO_TYPE_OLD:
+	{
+		if(symbol==':')
+		{
+			recieve_count=0x0;
+		}
 
-   //--------------------------начало кадра...проверка до длины кадра--------
+		tab.tablo_proto_buf[recieve_count]=symbol;
+		recieve_count++;
+
+		if(recieve_count>1)
+		{
+			if(tab.tablo_proto_buf[1]==(recieve_count-2))//кадр принят
+			{
+  				 xSemaphoreGiveFromISR( xProtoSemaphore, &xHigherPriorityTaskWoken );
+
+  				 if( xHigherPriorityTaskWoken != pdFALSE )
+  				 {
+  					portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
+  				 }
+			}
+		}
+
+
+
+	}
+	break;
+
+	case PROTO_TYPE_NEW:
+	{
+	//--------------------------начало кадра...проверка до длины кадра--------
    	    if(recieve_count<6)
    		{
-   				switch(recieve_count)
+   	    		switch(recieve_count)
    				{
    					case  0:   //первый символ 0
    					{
@@ -190,6 +233,8 @@ void USART1_IRQHandler (void)
    				 }
    			}
    		}
+	}
+}
 
    	}
    //----------------------------передача----------------------------------------------------------------
@@ -209,7 +254,7 @@ void USART1_IRQHandler (void)
    			{
    					if(CUT_OUT_NULL==0)
    					{
-   						if(TransferBuf[transf_count]==(unsigned char)0xD7)//проверим, это  ,0xD7 или другое
+   						if(TransferBuf[transf_count]==(uint8_t)0xD7)//проверим, это  ,0xD7 или другое
    						{
    							CUT_OUT_NULL=0x1;
    						}
@@ -218,7 +263,7 @@ void USART1_IRQHandler (void)
    					}
    					else
    					{
-   						USART_SendData(USART1,(unsigned char)0x0);
+   						USART_SendData(USART1,(uint8_t)0x0);
    						CUT_OUT_NULL=0;
    					}
    			}
@@ -312,9 +357,9 @@ void Proto_Init(void) //
 	return;
 }
 //-----------------------------------------------------------------------------
-unsigned char Send_Info(void) //using 0    //посылка информации об устройстве
+uint8_t Send_Info(void) //using 0    //посылка информации об устройстве
 {
-	    unsigned char    i=0;
+		uint8_t    i=0;
 
 	   //заголовок кадра---
 	   TransferBuf[0]=0x00;
@@ -363,24 +408,24 @@ unsigned char Send_Info(void) //using 0    //посылка информации
 	return (34+CHANNEL_NUMBER*2+dev_desc_len);
 }
 //-----------------------------------------------------------------------------
-unsigned char Node_Full_Init(void) //using 0 //полная инициализация узла
+uint8_t Node_Full_Init(void) //using 0 //полная инициализация узла
 {
 	return 0;
 }
 //-----------------------------------------------------------------------------
-unsigned char Channel_List_Init(void) //using 0 //Инициализация списка каналов узла (без потери данных);
+uint8_t Channel_List_Init(void) //using 0 //Инициализация списка каналов узла (без потери данных);
 {
 	return 0;
 }
 //-----------------------------------------------------------------------------
-unsigned char Channel_Get_Data(void) //using 0 //Выдать данные по каналам, согласно абсолютной нумерации;
+uint8_t Channel_Get_Data(void) //using 0 //Выдать данные по каналам, согласно абсолютной нумерации;
 {
 	return 0;
 }
 //-----------------------------------------------------------------------------
-unsigned char  Channel_Set_Parameters(void) //using 0 //Установить параметры по каналам, согласно абсолютной нумерации;
+uint8_t  Channel_Set_Parameters(void) //using 0 //Установить параметры по каналам, согласно абсолютной нумерации;
 {
-	 unsigned char   index=0, store_data=0;//i=0;
+	 uint8_t   index=0, store_data=0;//i=0;
 	 uint8_t len=0,i=0;
 
 	   while(index<RecieveBuf[5]-1)				   // данные по каналам
@@ -444,35 +489,35 @@ unsigned char  Channel_Set_Parameters(void) //using 0 //Установить п�
 	   return Request_Error(FR_SUCCESFUL);
 }
 //-----------------------------------------------------------------------------
-unsigned char Channel_Set_Order_Query(void) //using 0 //Задать последовательность опроса;
+uint8_t Channel_Set_Order_Query(void) //using 0 //Задать последовательность опроса;
 {
 	return 0;
 }
 //-----------------------------------------------------------------------------
-unsigned char Channel_Get_Data_Order(void) //using 0 //Выдать данные по каналам, согласно последовательности опроса;
+uint8_t Channel_Get_Data_Order(void) //using 0 //Выдать данные по каналам, согласно последовательности опроса;
 {
 	return 0;
 }
 //-----------------------------------------------------------------------------
-unsigned char Channel_Set_State(void) //using 0 //Установить состояния по каналам, согласно абсолютной нумерации;
+uint8_t Channel_Set_State(void) //using 0 //Установить состояния по каналам, согласно абсолютной нумерации;
 {
 	return 0;
 }
 //-----------------------------------------------------------------------------
-unsigned char  Channel_Get_Data_Order_M2(void) //using 0 //Выдать данные по каналам, согласно последовательности опроса;
+uint8_t  Channel_Get_Data_Order_M2(void) //using 0 //Выдать данные по каналам, согласно последовательности опроса;
 {
 	return 0;
 }
 //-----------------------------------------------------------------------------
-unsigned char Channel_Set_Reset_State_Flags(void) //using 0 //	Установка/Сброс флагов состояния
+uint8_t Channel_Set_Reset_State_Flags(void) //using 0 //	Установка/Сброс флагов состояния
 {
 	STATE_BYTE=0x40;
 	return	Request_Error(FR_SUCCESFUL);//ошибки нет, подтверждение
 }
 //-----------------------------------------------------------------------------
-unsigned char Channel_All_Get_Data(void) //using 0 //Выдать информацию по всем каналам узла (расширенный режим);
+uint8_t Channel_All_Get_Data(void) //using 0 //Выдать информацию по всем каналам узла (расширенный режим);
 {
-	   unsigned char  index=0,i=0;
+	   uint8_t  index=0,i=0;
 
 
 	   TransferBuf[0]=0x00;TransferBuf[1]=0xD7;TransferBuf[2]=0x29;
@@ -618,11 +663,11 @@ unsigned char Channel_All_Get_Data(void) //using 0 //Выдать информа
 		   }
 
 		  TransferBuf[5]=index+2; 						 //
-		  TransferBuf[index+7]=CRC_Check(&TransferBuf[1],(unsigned int)(index+7)-1); //
-		  return (unsigned char)(7+index+1);
+		  TransferBuf[index+7]=CRC_Check(&TransferBuf[1],(uint8_t)(index+7)-1); //
+		  return (uint8_t)(7+index+1);
 }
 
-unsigned char Request_Error(unsigned char error_code) //using 0 //	Ошибочный запрос/ответ;
+uint8_t Request_Error(uint8_t error_code) //using 0 //	Ошибочный запрос/ответ;
 {
 	TransferBuf[0]=0x00;TransferBuf[1]=0xD7;TransferBuf[2]=0x29;
     TransferBuf[3]=ADRESS_DEV;  // адрес узла
@@ -731,7 +776,7 @@ void ProtoBufHandling(void) //using 0 //процесс обработки при
 //-----------------------------------------------------------------------------------
 void ProtoProcess( void *pvParameters ) //главный процесс
 {
-			unsigned char   crc_n;
+	uint8_t   crc_n;
 	while(1)
 	{
 		if( xProtoSemaphore != NULL )
@@ -739,38 +784,51 @@ void ProtoProcess( void *pvParameters ) //главный процесс
 
 			if( xSemaphoreTake( xProtoSemaphore, ( portTickType ) 10 ) == pdTRUE )
 			{
-
-				crc_n=RecieveBuf[recieve_count-1];
-				transf_count=0;
-				if(CRC_Check(RecieveBuf,(recieve_count-CRC_LEN))==crc_n)
+				switch(proto_type)
 				{
+					case PROTO_TYPE_OLD:
+					{
+						tablo_proto_parser(&tab.tablo_proto_buf);
+						recieve_count=0x0;
+					}
+					break;
 
-					ProtoBufHandling();//процедура обработки сообщения
+					case PROTO_TYPE_NEW:
+					{
+						crc_n=RecieveBuf[recieve_count-1];
+						transf_count=0;
+						if(CRC_Check(RecieveBuf,(recieve_count-CRC_LEN))==crc_n)
+						{
 
-					transf_count=0;
-					recieve_count=0;
-					CUT_OUT_NULL=0;
+							ProtoBufHandling();//процедура обработки сообщения
 
-					USART_SendData(USART1,TransferBuf[transf_count]);
+							transf_count=0;
+							recieve_count=0;
+							CUT_OUT_NULL=0;
 
-					transf_count++;//инкрементируем счетчик переданных
-				}
-				else
-				{
-					crc_n_ERR=0x1;//несовпадение crc_n
-					USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
+							USART_SendData(USART1,TransferBuf[transf_count]);
 
+							transf_count++;//инкрементируем счетчик переданных
+						}
+						else
+						{
+							crc_n_ERR=0x1;//несовпадение crc_n
+							USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
+
+						}
+					}
+					break;
 				}
 			}
 		}
 	}
 }
 //-----------------------crc_n------------------------------------------------------------
- unsigned char  CRC_Check( unsigned char  *Spool_pr,unsigned char Count_pr )  //проверить
+uint8_t  CRC_Check( uint8_t  *Spool_pr,uint8_t Count_pr )  //проверить
 {
-	unsigned char crc_n = 0;
-	unsigned char  *Spool;
-	unsigned char  Count ;
+	uint8_t crc_n = 0;
+	uint8_t  *Spool;
+	uint8_t  Count ;
 
 	Spool=Spool_pr;
 	Count=Count_pr;
@@ -779,9 +837,9 @@ void ProtoProcess( void *pvParameters ) //главный процесс
         {
 	        crc_n = crc_n ^ (*Spool++);//
 	        // циклический сдвиг вправо
-	        crc_n = ((crc_n & 0x01) ? (unsigned char)0x80: (unsigned char)0x00) | (unsigned char)(crc_n >> 1);
+	        crc_n = ((crc_n & 0x01) ? (uint8_t)0x80: (uint8_t)0x00) | (uint8_t)(crc_n >> 1);
 	        // инверсия битов с 2 по 5, если бит 7 равен 1
-	        if (crc_n & (unsigned char)0x80) crc_n = crc_n ^ (unsigned char)0x3C;
+	        if (crc_n & (uint8_t)0x80) crc_n = crc_n ^ (uint8_t)0x3C;
 			Count--;
         }
     return crc_n;

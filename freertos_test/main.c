@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <math.h>
 
-//������� �� FreeRTOS:
+//FreeRTOS:
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -25,45 +25,21 @@
  extern struct tablo tab;//структура табло
 static void SPI_Test(void *pvParameters);
 
-uint16_t buf={0xC01,0x9FF,0xF00,0xA0E,0xB05,0x101,0x201,0x301,0x401,0x501};
 
 static void SPI_Test(void *pvParameters)
 {
-	uint8_t i=0,j=0;
+	uint8_t i=0;
 
 	while(1)
 	{
-
-
 		for(i=0;i<IND_COMMAND_LEN;i++)
 		{
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
-
-			//---------------------
-//			tab.buses[BUS_SPI_1].bus_buf[0][0]=0xC01;
-//			tab.buses[BUS_SPI_1].bus_buf[1][0]=0x9FF;
-//			tab.buses[BUS_SPI_1].bus_buf[2][0]=0xF00;
-//			tab.buses[BUS_SPI_1].bus_buf[3][0]=0xA0E;
-//			tab.buses[BUS_SPI_1].bus_buf[4][0]=0xB05;
-//			tab.buses[BUS_SPI_1].bus_buf[5][0]=0x101;
-//			tab.buses[BUS_SPI_1].bus_buf[6][0]=0x201;
-//			tab.buses[BUS_SPI_1].bus_buf[7][0]=0x301;
-//			tab.buses[BUS_SPI_1].bus_buf[8][0]=0x401;
-//			tab.buses[BUS_SPI_1].bus_buf[9][0]=0x501;
-//			tab.buses[BUS_SPI_1].bus_buf[10][0]=0x601;
-//			tab.buses[BUS_SPI_1].bus_buf[11][0]=0x701;
-//			tab.buses[BUS_SPI_1].bus_buf[12][0]=0x801;
-
-			//---------------------
-
-
 			spi1_write_buf(&tab.buses[BUS_SPI_1].bus_buf[i][0],1);
-			//_start_spi_dma(&display_buf[i][0],2);
-
 
 			while(DMA_GetFlagStatus(DMA1_FLAG_TC3)==RESET);
 			 DMA_Cmd(DMA1_Channel3, DISABLE);
-			//DMA_ClearFlag(DMA1_FLAG_TC3);
+
 
 			while(SPI1->SR & SPI_SR_BSY);
 
@@ -75,23 +51,13 @@ static void SPI_Test(void *pvParameters)
 			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
 
 			spi2_write_buf(&tab.buses[BUS_SPI_2].bus_buf[i][0],1);
-//
-//
+
 			while(DMA_GetFlagStatus(DMA1_FLAG_TC5)==RESET);
 			DMA_Cmd(DMA1_Channel5, DISABLE);
-//
-////
+
 			while(SPI2->SR & SPI_SR_BSY);
 
-//						for(j=0;j<2/*INDICATORS_NUM*/;j++)
-//						{
-//							SPI_I2S_ClearFlag(SPI1, SPI_I2S_FLAG_TXE);
-//							while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET);
-//							SPI_I2S_SendData(SPI2, &tab.buses[BUS_SPI_2].bus_buf[j][0]);
-//
-//						}
 
-//
 			GPIO_WriteBit(GPIOB, GPIO_Pin_12,1);
 
 			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
@@ -103,7 +69,6 @@ static void SPI_Test(void *pvParameters)
 
 int main(void)
 {
-
 	SystemInit();
 
 	spi1_config();
@@ -113,7 +78,6 @@ int main(void)
 	tablo_devices_init();
 
     Proto_Init();
-
 
     xTaskCreate(SPI_Test,(signed char*)"SPI",64,NULL, tskIDLE_PRIORITY + 1, NULL);
 
