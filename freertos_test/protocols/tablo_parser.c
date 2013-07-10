@@ -154,9 +154,23 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
 
             if(str[i]=='.')
             {
-                if(i>0)
+                if(i==0)
                 {
-                	tab.buses[ind->bus].bus_buf[buf_count-1][ind->number_in_bus]|=0x80;
+                	tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]|=0x80;
+                	buf_count++;
+                }
+
+            	if(i>0)
+                {
+                	if(str[i-1]=='.')
+                	{
+                    	tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]|=0x80;
+                    	buf_count++;
+                	}
+                	else
+                	{
+                		tab.buses[ind->bus].bus_buf[buf_count-1][ind->number_in_bus]|=0x80;
+                	}
                 }
                 continue;
             }
@@ -170,6 +184,11 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
 
                     break;
                }
+            }
+
+            if(buf_count>ind->character_num)//буфер больше количества знакомест
+            {
+            	break;
             }
         }
 
