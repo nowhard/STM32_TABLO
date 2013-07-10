@@ -186,7 +186,7 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
                }
             }
 
-            if(buf_count>ind->character_num)//буфер больше количества знакомест
+            if(buf_count>(ind->character_num+5))//буфер больше количества знакомест
             {
             	break;
             }
