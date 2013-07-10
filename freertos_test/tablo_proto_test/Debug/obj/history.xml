@@ -21,8 +21,8 @@
       <target file="channels.o" lastModified="13fc32734e0">
          <source file="..\..\..\protocols\channels.c" lastModified="13f667f50a3"/>
       </target>
-      <target file="tablo_parser.o" lastModified="13fc372481d">
-         <source file="..\..\..\protocols\tablo_parser.c" lastModified="13fc37236a8"/>
+      <target file="tablo_parser.o" lastModified="13fc85ef295">
+         <source file="..\..\..\protocols\tablo_parser.c" lastModified="13fc85eea48"/>
       </target>
       <target file="stm32f10x_rcc.o" lastModified="13fc3272dcb">
          <source file="..\..\..\stm_lib\src\stm32f10x_rcc.c" lastModified="13f614cfb55"/>
@@ -30,8 +30,11 @@
       <target file="core_cm3.o" lastModified="13fc327256f">
          <source file="..\..\..\cmsis\core_cm3.c" lastModified="13f614ce4cf"/>
       </target>
-      <target file="proto.o" lastModified="13fc3420d30">
-         <source file="..\..\..\protocols\proto.c" lastModified="13fc341a5db"/>
+      <target file="stm32f10x_pwr.o" lastModified="13fc8234a8c">
+         <source file="..\..\..\stm_lib\src\stm32f10x_pwr.c" lastModified="13fc75f7d0f"/>
+      </target>
+      <target file="proto.o" lastModified="13fc85bf4c6">
+         <source file="..\..\..\protocols\proto.c" lastModified="13fc85bd4ab"/>
       </target>
       <target file="croutine.o" lastModified="13fc3273473">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\croutine.c" lastModified="13438131cf3"/>
@@ -75,11 +78,11 @@
       <target file="startup_stm32f10x_md_vl.o" lastModified="13fc32724f2">
          <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md_vl.c" lastModified="13f614cf0f4"/>
       </target>
-      <target file="main.o" lastModified="13fc3272a03">
-         <source file="..\..\..\main.c" lastModified="13fc327189e"/>
-      </target>
       <target file="stm32f10x_usart.o" lastModified="13fc3273156">
          <source file="..\..\..\stm_lib\src\stm32f10x_usart.c" lastModified="13f614d65d6"/>
+      </target>
+      <target file="main.o" lastModified="13fc85bf582">
+         <source file="..\..\..\main.c" lastModified="13fc750c9b1"/>
       </target>
    </processor>
 </history>

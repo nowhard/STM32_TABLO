@@ -21,7 +21,7 @@
          <include file="..\..\..\FreeRTOSV7.1.0\Source\portable\ARM_CM3\portmacro.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\mpu_wrappers.h"/>
       </source>
-      <source file="..\..\..\protocols\tablo_parser.c" lastModified="13fc3723e78">
+      <source file="..\..\..\protocols\tablo_parser.c" lastModified="13fc85ef218">
          <include file="..\..\..\protocols\tablo_parser.h"/>
          <include file="..\..\..\devices\tablo.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\FreeRTOS.h"/>
@@ -31,6 +31,9 @@
          <include file="..\..\..\devices\spi_bus.h"/>
       </source>
       <source file="..\..\..\stm_lib\inc\stm32f10x_rcc.h" lastModified="13f614cfb45">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\inc\stm32f10x_pwr.h" lastModified="13fc75f7d00">
          <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
       </source>
       <source file="..\..\..\stm_lib\src\stm32f10x_gpio.c" lastModified="13f614d1759">
@@ -129,7 +132,7 @@
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\portable.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\list.h"/>
       </source>
-      <source file="..\..\..\main.c" lastModified="13fc327206e">
+      <source file="..\..\..\main.c" lastModified="13fc750d181">
          <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
          <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
          <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
@@ -152,7 +155,7 @@
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\queue.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\timers.h"/>
       </source>
-      <source file="..\..\..\protocols\proto.h" lastModified="13fc239d3d5">
+      <source file="..\..\..\protocols\proto.h" lastModified="13fc85be6eb">
          <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
          <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
          <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
@@ -174,7 +177,11 @@
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\ARM_CM3\portmacro.h" lastModified="13438132abe">
       </source>
-      <source file="..\..\..\protocols\proto.c" lastModified="13fc341a5db">
+      <source file="..\..\..\stm_lib\src\stm32f10x_pwr.c" lastModified="13fc75f7d0f">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_pwr.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+      </source>
+      <source file="..\..\..\protocols\proto.c" lastModified="13fc85bd4ab">
          <include file="..\..\..\protocols\proto.h"/>
          <include file="..\..\..\protocols\channels.h"/>
          <include file="..\..\..\devices\tablo.h"/>
@@ -227,6 +234,9 @@
       </source>
       <source file="..\..\..\devices\indicator.c" lastModified="13f9e906937">
          <include file="..\..\..\devices\indicator.h"/>
+      </source>
+      <source file="..\..\..\devices\tablo.c" lastModified="13fc37a07d1">
+         <include file="..\..\..\devices\tablo.h"/>
       </source>
    </includePath>
    <includePath signature="/ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\FreeRTOSV7.1.0 /ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\FreeRTOSV7.1.0\Source\portable\ARM_CM3 /ID:\PROJECTS\STM32\workspace /ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\cmsis /ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\cmsis_boot /ID:\PROJECTS\STM32\workspace\tablo_proto_test /ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test /ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\stm_lib /ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\FreeRTOSV7.1.0\Source\portable /ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\stm_lib\inc /ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\FreeRTOSV7.1.0\Source\include /ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\FreeRTOSV7.1.0\Source /ID:\PROJECTS\STM32\workspace\tablo_proto_test\freertos_test\uso">
@@ -513,18 +523,6 @@
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\task.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\queue.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\timers.h"/>
-      </source>
-      <source file="..\..\..\protocols\proto.h" lastModified="13fc239d3d5">
-         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
-         <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
-         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
-         <include file="..\..\..\stm_lib\inc\stm32f10x_tim.h"/>
-         <include file="..\..\..\stm_lib\inc\stm32f10x_usart.h"/>
-         <include file="..\..\..\stm_lib\inc\misc.h"/>
-         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\FreeRTOS.h"/>
-         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\task.h"/>
-         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\queue.h"/>
-         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\semphr.h"/>
       </source>
       <source file="..\..\..\stm_lib\src\stm32f10x_rcc.c" lastModified="13f614cfb55">
          <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>

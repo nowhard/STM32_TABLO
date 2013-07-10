@@ -30,13 +30,13 @@ void tablo_proto_parser(uint8_t *proto_buf)//
    uint8_t num_buf[32]={0};
 
 
-   if(tab.tablo_proto_buf[0]!=':')//начало кадра
+   if(proto_buf[0]!=':')//начало кадра
    {
        //error
        return;
    }
 
-   len=tab.tablo_proto_buf[1];
+   len=proto_buf[1];
 
    if(len>FRAME_MAX_LEN)//
    {
@@ -46,7 +46,7 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 
    for(i=2;i<len;i++)//
    {
-       switch(tab.tablo_proto_buf[i])
+       switch(proto_buf[i])
        {
            case '[':
            {
@@ -83,20 +83,20 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 
            default:
            {
-              if((tab.tablo_proto_buf[i-1]=='[') && (ind_state==IND_OPEN))
+              if((proto_buf[i-1]=='[') && (ind_state==IND_OPEN))
               {
-                  if(tab.tablo_proto_buf[i]=='*')//яркость
+                  if(proto_buf[i]=='*')//яркость
                   {
                       for(j=0;j<IND_ALL_NUM;j++)
                       {
-                          tab.indicators[j].brightness=IND_BRIGHTNESS|(tab.tablo_proto_buf[i+1]&0xF);
+                          tab.indicators[j].brightness=IND_BRIGHTNESS|(proto_buf[i+1]&0xF);
                       }
                       i+=2;
                       ind_state=IND_CLOSE;
                   }
                   else
                   {
-                      current_indicator=tab.tablo_proto_buf[i];
+                      current_indicator=proto_buf[i];
 
                       if(current_indicator>=IND_ALL_NUM)
                       {
@@ -109,7 +109,7 @@ void tablo_proto_parser(uint8_t *proto_buf)//
               }
               else
               {
-                  num_buf[chr_counter]=tab.tablo_proto_buf[i];
+                  num_buf[chr_counter]=proto_buf[i];
                   chr_counter++;
               }
            }
@@ -216,6 +216,11 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 	tab.buses[ind->bus].bus_buf[11][ind->number_in_bus]=0x700;
 	tab.buses[ind->bus].bus_buf[12][ind->number_in_bus]=0x800;
 
+
+	if(value==0xFF)//при значении 0xFF гасим столбец
+	{
+		return;
+	}
 
 	if((ust1>=0) && (ust1<=31))//ставим первую уставку
 	{
