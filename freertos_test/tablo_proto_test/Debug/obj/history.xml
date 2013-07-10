@@ -42,8 +42,8 @@
       <target file="queue.o" lastModified="13fc327333a">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\queue.c" lastModified="13438131dae"/>
       </target>
-      <target file="tablo.o" lastModified="13fc3286dcd">
-         <source file="..\..\..\devices\tablo.c" lastModified="13fc3286031"/>
+      <target file="tablo.o" lastModified="13fc37a183c">
+         <source file="..\..\..\devices\tablo.c" lastModified="13fc37a07d1"/>
       </target>
       <target file="list.o" lastModified="13fc32731f2">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\list.c" lastModified="13438131cf3"/>
@@ -63,8 +63,8 @@
       <target file="system_stm32f10x.o" lastModified="13fc327284d">
          <source file="..\..\..\cmsis_boot\system_stm32f10x.c" lastModified="13f614cf114"/>
       </target>
-      <target file="spi_bus.o" lastModified="13fc36d2432">
-         <source file="..\..\..\devices\spi_bus.c" lastModified="13fc36d1c72"/>
+      <target file="spi_bus.o" lastModified="13fc37835e0">
+         <source file="..\..\..\devices\spi_bus.c" lastModified="13fc376f959"/>
       </target>
       <target file="stm32f10x_dma.o" lastModified="13fc32733c7">
          <source file="..\..\..\stm_lib\src\stm32f10x_dma.c" lastModified="13f751e7fc4"/>
