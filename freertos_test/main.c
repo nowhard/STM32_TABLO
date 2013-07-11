@@ -22,17 +22,47 @@
 #include "tablo.h"
 #include "proto.h"
 
+static void Init_Task(void *pvParameters);//инициализация и тест индикаторов
+
+static void Init_Task(void *pvParameters)
+{
+	uint8_t i=0;
+
+//	spi1_config();
+//	spi2_config();
+//	spi3_config();
+
+	for(i=0;i<IND_ALL_NUM;i++)
+	{
+
+	}
+
+//	tablo_devices_init();
+
+	for(i=0;i<IND_ALL_NUM;i++)
+	{
+
+	}
+
+
+//    Proto_Init();
+    vTaskDelete( NULL );
+
+}
 
 int main(void)
 {
 	SystemInit();
 
+
+	// xTaskCreate(Init_Task,(signed char*)"INIT",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+
 	spi1_config();
 	spi2_config();
-//	spi3_config();
-//
+////	spi3_config();
+////
 	tablo_devices_init();
-
+//
     Proto_Init();
 
     vTaskStartScheduler();
