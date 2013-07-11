@@ -113,7 +113,7 @@
          <include file="..\..\..\stm_lib\inc\stm32f10x_usart.h"/>
          <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
       </source>
-      <source file="..\..\..\FreeRTOSConfig.h" lastModified="13fcc715c4f">
+      <source file="..\..\..\FreeRTOSConfig.h" lastModified="13fccd7ec2b">
          <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
       </source>
       <source file="..\..\..\stm_lib\inc\stm32f10x_spi.h" lastModified="13f614d4aec">
