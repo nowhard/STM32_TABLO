@@ -24,7 +24,10 @@ void	spi2_config(void);//
 void 	spi3_config(void);//
 
 void spi1_write_buf(uint16_t* pBuffer, uint16_t len);//перекинуть буфер через dma
+void spi1_read_buf(uint16_t* pBuffer, uint16_t len);
 void spi2_write_buf(uint16_t* pBuffer, uint16_t len);
+void spi2_read_buf(uint16_t* pBuffer, uint16_t len);
 void spi3_write_buf(uint16_t* pBuffer, uint16_t len);
+void spi3_read_buf(uint16_t* pBuffer, uint16_t len);
 
 #endif

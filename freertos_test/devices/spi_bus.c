@@ -90,8 +90,8 @@ void	spi1_config(void)//конфигурация аппаратных интер
 
 		RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
 
-
-		DMA_StructInit(&DMA_InitStructure);
+//---------------------------
+		DMA_StructInit(&DMA_InitStructure);//mosi
 
 		DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI1->DR);
 		//DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
@@ -109,9 +109,29 @@ void	spi1_config(void)//конфигурация аппаратных интер
 
 
 		DMA_ClearFlag(DMA1_FLAG_TC3);
+//-----------------------------
+		DMA_StructInit(&DMA_InitStructure);//miso
 
+		DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI1->DR);
+		//DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
+		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+		//DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
+		DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+		DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+		DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+		DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+		DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
+		DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+		DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+		DMA_Init(DMA1_Channel2, &DMA_InitStructure);
+
+
+		DMA_ClearFlag(DMA1_FLAG_TC2);
+//-----------------------------
 		// Enable DMA request
 		SPI_I2S_DMACmd(SPI1, SPI_I2S_DMAReq_Tx, ENABLE);
+		SPI_I2S_DMACmd(SPI1, SPI_I2S_DMAReq_Rx, ENABLE);
 }
 
 void	spi2_config(void)//
@@ -184,9 +204,30 @@ void	spi2_config(void)//
 
 
 	DMA_ClearFlag(DMA1_FLAG_TC5);
+	//-----------------------------
+	DMA_StructInit(&DMA_InitStructure);//miso
+
+	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI1->DR);
+	//DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
+	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+	//DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
+	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+	DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
+	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+	DMA_Init(DMA1_Channel4, &DMA_InitStructure);
+
+
+	DMA_ClearFlag(DMA1_FLAG_TC4);
+	//-----------------------------
 
 	// Enable DMA request
 	SPI_I2S_DMACmd(SPI2, SPI_I2S_DMAReq_Tx, ENABLE);
+	SPI_I2S_DMACmd(SPI2, SPI_I2S_DMAReq_Rx, ENABLE);
 }
 
 void 	spi3_config(void)//
@@ -204,6 +245,16 @@ void spi1_write_buf(uint16_t* pBuffer, uint16_t len)//перекинуть бу�
 	  DMA_Cmd(DMA1_Channel3, ENABLE);
 }
 
+void spi1_read_buf(uint16_t* pBuffer, uint16_t len)//перекинуть буфер через dma
+{
+	  DMA1_Channel2->CMAR = (uint32_t)pBuffer;
+	  DMA1_Channel2->CNDTR = len;
+
+	  DMA_ClearFlag(DMA1_FLAG_TC2);
+
+	  DMA_Cmd(DMA1_Channel2, ENABLE);
+}
+
 void spi2_write_buf(uint16_t* pBuffer, uint16_t len)
 {
 	  DMA1_Channel5->CMAR = (uint32_t)pBuffer;
@@ -212,6 +263,16 @@ void spi2_write_buf(uint16_t* pBuffer, uint16_t len)
 	  DMA_ClearFlag(DMA1_FLAG_TC5);
 
 	  DMA_Cmd(DMA1_Channel5, ENABLE);
+}
+
+void spi2_read_buf(uint16_t* pBuffer, uint16_t len)
+{
+	  DMA1_Channel4->CMAR = (uint32_t)pBuffer;
+	  DMA1_Channel4->CNDTR = len;
+
+	  DMA_ClearFlag(DMA1_FLAG_TC4);
+
+	  DMA_Cmd(DMA1_Channel4, ENABLE);
 }
 
 void spi3_write_buf(uint16_t* pBuffer, uint16_t len)
