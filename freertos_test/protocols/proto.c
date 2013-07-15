@@ -78,17 +78,17 @@ void USART1_IRQHandler (void)
    			return;
    		}
 
-//		if(recieve_count==0x0)
-//		{
-//			if(symbol==':')//признак старого протокола
-//			{
-//				proto_type=PROTO_TYPE_OLD;
-//			}
-//			else//новый протокол
-//			{
-//				proto_type=PROTO_TYPE_NEW;
-//			}
-//		}
+		if(recieve_count==0x0)
+		{
+			if(symbol==':')//признак старого протокола
+			{
+				proto_type=PROTO_TYPE_OLD;
+			}
+			else//новый протокол
+			{
+				proto_type=PROTO_TYPE_NEW;
+			}
+		}
 switch(proto_type)
 {
 	case PROTO_TYPE_OLD:

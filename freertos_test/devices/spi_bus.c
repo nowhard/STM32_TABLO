@@ -293,11 +293,17 @@ static void spi1_task(void *pvParameters)//задачи шин
 			{
 				 spi1_write_buf(&tab.buses[BUS_SPI_1].bus_buf[i][0],IND_SPI_BUS_1_NUM);
 
-				 while(DMA_GetFlagStatus(DMA1_FLAG_TC3)==RESET);
+				 while(DMA_GetFlagStatus(DMA1_FLAG_TC3)==RESET)
+				 {
+					 taskYIELD();
+				 }
 				 DMA_Cmd(DMA1_Channel3, DISABLE);
 
 
-				 while(SPI1->SR & SPI_SR_BSY);
+				 while(SPI1->SR & SPI_SR_BSY)
+				 {
+					 taskYIELD();
+				 }
 
 				 xSemaphoreGive( xSPI_Buf_Mutex );
 			}
@@ -323,10 +329,16 @@ static void spi2_task(void *pvParameters)
 			{
 				spi2_write_buf(&tab.buses[BUS_SPI_2].bus_buf[i][0],IND_SPI_BUS_2_NUM);
 
-				while(DMA_GetFlagStatus(DMA1_FLAG_TC5)==RESET);
+				while(DMA_GetFlagStatus(DMA1_FLAG_TC5)==RESET)
+				{
+					taskYIELD();
+				}
 				DMA_Cmd(DMA1_Channel5, DISABLE);
 
-				while(SPI2->SR & SPI_SR_BSY);
+				while(SPI2->SR & SPI_SR_BSY)
+				{
+					taskYIELD();
+				}
 
 				xSemaphoreGive( xSPI_Buf_Mutex );
 			}

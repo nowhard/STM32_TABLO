@@ -60,21 +60,33 @@ static void Init_Task(void *pvParameters)
 	spi1_write_buf(&buf_out,2);
 
 
-	 while(DMA_GetFlagStatus(DMA1_FLAG_TC3)==RESET);
+	 while(DMA_GetFlagStatus(DMA1_FLAG_TC3)==RESET)
+	 {
+		 taskYIELD();
+	 }
 	 DMA_Cmd(DMA1_Channel3, DISABLE);
 
 
-	 while(SPI1->SR & SPI_SR_BSY);
+	 while(SPI1->SR & SPI_SR_BSY)
+	 {
+		 taskYIELD();
+	 }
 
 	vTaskDelay(20);
 
 	spi1_read_buf(&buf_in,1);
 
-	 while(DMA_GetFlagStatus(DMA1_FLAG_TC2)==RESET);
+	 while(DMA_GetFlagStatus(DMA1_FLAG_TC2)==RESET)
+	 {
+		 taskYIELD();
+	 }
 	 DMA_Cmd(DMA1_Channel2, DISABLE);
 
 
-	 while(SPI1->SR & SPI_SR_BSY);
+	 while(SPI1->SR & SPI_SR_BSY)
+	 {
+
+	 }
 
 
 	 tablo_devices_init();
