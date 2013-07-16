@@ -1,31 +1,33 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
    <processor signature="4.7.2 -mcpu=cortex-m3 -mthumb -g -nostartfiles -Map=tablo_proto_test.map -O0 --gc-sections -LC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test -TC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test/link.ld -g">
-      <target file="tablo_proto_test.elf" lastModified="13fe1deca83">
-         <source file="..\obj\tablo_parser.o" lastModified="13fe167d524"/>
-         <source file="..\obj\startup_stm32f10x_md_vl.o" lastModified="13fe167d582"/>
-         <source file="..\obj\core_cm3.o" lastModified="13fe167d5e0"/>
-         <source file="..\obj\proto.o" lastModified="13fe1dec5b1"/>
-         <source file="..\obj\system_stm32f10x.o" lastModified="13fe167d8ce"/>
-         <source file="..\obj\stm32f10x_pwr.o" lastModified="13fe167d93b"/>
-         <source file="..\obj\stm32f10x_gpio.o" lastModified="13fe167d9d8"/>
-         <source file="..\obj\indicator.o" lastModified="13fe167da35"/>
-         <source file="..\obj\main.o" lastModified="13fe1697855"/>
-         <source file="..\obj\timers.o" lastModified="13fe167dd62"/>
-         <source file="..\obj\tablo.o" lastModified="13fe167ddee"/>
-         <source file="..\obj\stm32f10x_rcc.o" lastModified="13fe167de9a"/>
-         <source file="..\obj\tasks.o" lastModified="13fe167dfc3"/>
-         <source file="..\obj\stm32f10x_usart.o" lastModified="13fe167e07f"/>
-         <source file="..\obj\list.o" lastModified="13fe167e10b"/>
-         <source file="..\obj\port.o" lastModified="13fe167e188"/>
-         <source file="..\obj\queue.o" lastModified="13fe167e253"/>
-         <source file="..\obj\stm32f10x_dma.o" lastModified="13fe167e2e0"/>
-         <source file="..\obj\croutine.o" lastModified="13fe167e37c"/>
-         <source file="..\obj\channels.o" lastModified="13fe167e3f9"/>
-         <source file="..\obj\spi_bus.o" lastModified="13fe169794f"/>
-         <source file="..\obj\misc.o" lastModified="13fe167e522"/>
-         <source file="..\obj\stm32f10x_spi.o" lastModified="13fe167e5de"/>
-         <source file="..\obj\heap_1.o" lastModified="13fe167e66a"/>
+      <target file="tablo_proto_test.elf" lastModified="13fe63c4874">
+         <source file="..\obj\tablo_parser.o" lastModified="13fe63b69dc"/>
+         <source file="..\obj\startup_stm32f10x_md_vl.o" lastModified="13fe63b6a2a"/>
+         <source file="..\obj\core_cm3.o" lastModified="13fe63b6a88"/>
+         <source file="..\obj\buzzer.o" lastModified="13fe63b6af5"/>
+         <source file="..\obj\proto.o" lastModified="13fe63c4642"/>
+         <source file="..\obj\system_stm32f10x.o" lastModified="13fe63b6d76"/>
+         <source file="..\obj\stm32f10x_pwr.o" lastModified="13fe63b6df3"/>
+         <source file="..\obj\stm32f10x_gpio.o" lastModified="13fe63b6e8f"/>
+         <source file="..\obj\indicator.o" lastModified="13fe63b6eed"/>
+         <source file="..\obj\main.o" lastModified="13fe63b711f"/>
+         <source file="..\obj\timers.o" lastModified="13fe63b71ac"/>
+         <source file="..\obj\tablo.o" lastModified="13fe63b7238"/>
+         <source file="..\obj\stm32f10x_rcc.o" lastModified="13fe63b72f4"/>
+         <source file="..\obj\tasks.o" lastModified="13fe63b744c"/>
+         <source file="..\obj\stm32f10x_usart.o" lastModified="13fe63b7507"/>
+         <source file="..\obj\keyboard.o" lastModified="13fe63b7574"/>
+         <source file="..\obj\list.o" lastModified="13fe63b7601"/>
+         <source file="..\obj\port.o" lastModified="13fe63b767e"/>
+         <source file="..\obj\queue.o" lastModified="13fe63b7759"/>
+         <source file="..\obj\stm32f10x_dma.o" lastModified="13fe63b77e5"/>
+         <source file="..\obj\croutine.o" lastModified="13fe63b7882"/>
+         <source file="..\obj\channels.o" lastModified="13fe63b791e"/>
+         <source file="..\obj\spi_bus.o" lastModified="13fe63b79d9"/>
+         <source file="..\obj\misc.o" lastModified="13fe63b7a56"/>
+         <source file="..\obj\stm32f10x_spi.o" lastModified="13fe63b7b12"/>
+         <source file="..\obj\heap_1.o" lastModified="13fe63b7b9f"/>
       </target>
    </processor>
 </history>

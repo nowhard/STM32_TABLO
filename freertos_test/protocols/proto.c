@@ -105,7 +105,8 @@ switch(proto_type)
 		{
 			if(tab.tablo_proto_buf[1]==(recieve_count-2))//кадр принят
 			{
-  				 xSemaphoreGiveFromISR( xProtoSemaphore, &xHigherPriorityTaskWoken );
+				 USART_ITConfig(USART1, USART_IT_RXNE , DISABLE);
+				xSemaphoreGiveFromISR( xProtoSemaphore, &xHigherPriorityTaskWoken );
 
   				 if( xHigherPriorityTaskWoken != pdFALSE )
   				 {
@@ -790,6 +791,7 @@ void ProtoProcess( void *pvParameters ) //главный процесс
 					{
 						tablo_proto_parser(&tab.tablo_proto_buf);
 						recieve_count=0x0;
+						USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
 					}
 					break;
 
