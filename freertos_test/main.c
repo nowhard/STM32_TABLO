@@ -21,6 +21,7 @@
 #include "spi_bus.h"
 #include "tablo.h"
 #include "proto.h"
+#include "keyboard.h"
 
 extern struct tablo tab;//структура табло
 static void Init_Task(void *pvParameters);//инициализация и тест индикаторов
@@ -101,6 +102,7 @@ static void Init_Task(void *pvParameters)
 	vTaskDelay(2000);
 
     Proto_Init();
+    keyboard_init();
     vTaskDelete( NULL );
 
 }
@@ -119,6 +121,8 @@ int main(void)
 	//tablo_devices_init();
 //
    // Proto_Init();
+
+
 
     vTaskStartScheduler();
 

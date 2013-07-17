@@ -57,7 +57,7 @@ sym_8_to_float;
 
 xSemaphoreHandle xProtoSemaphore;
 
-void USART1_IRQHandler (void)
+void USART1_IRQHandler (void)//следует разработать систему распознавания старого протокола или заменить на выбор вручную
 {
  	static portBASE_TYPE xHigherPriorityTaskWoken;
  	  xHigherPriorityTaskWoken = pdFALSE;
@@ -84,9 +84,16 @@ void USART1_IRQHandler (void)
 			{
 				proto_type=PROTO_TYPE_OLD;
 			}
-			else//новый протокол
+			else
 			{
-				proto_type=PROTO_TYPE_NEW;
+				if((symbol==0x0) || (symbol==0xD7))//новый протокол
+				{
+					proto_type=PROTO_TYPE_NEW;
+				}
+				else//ошибка кадра или не с начала
+				{
+					return;
+				}
 			}
 		}
 switch(proto_type)

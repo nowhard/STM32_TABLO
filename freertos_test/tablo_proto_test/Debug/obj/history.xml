@@ -12,82 +12,82 @@
       </target>
    </processor>
    <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m3 -mthumb -Wall -ffunction-sections -g -O0 -c -DSTM32F100RB -DSTM32F10X_MD_VL -DUSE_STDPERIPH_DRIVER -D__ASSEMBLY__ -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\devices -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\portable -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\protocols -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_boot -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\include -ID:\PROJECTS\GIT_REPOSITORY\STM32 -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\stm_lib -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\stm_lib\inc -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0 -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\portable\ARM_CM3">
-      <target file="stm32f10x_spi.o" lastModified="13fe63b7b12">
+      <target file="stm32f10x_spi.o" lastModified="13febca7c32">
          <source file="..\..\..\stm_lib\src\stm32f10x_spi.c" lastModified="13f614d4aec"/>
       </target>
-      <target file="buzzer.o" lastModified="13fe63b6af5">
+      <target file="buzzer.o" lastModified="13febca6c82">
          <source file="..\..\..\devices\buzzer.c" lastModified="13fe24eb44b"/>
       </target>
-      <target file="tasks.o" lastModified="13fe63b744c">
-         <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13438131dbe"/>
-      </target>
-      <target file="channels.o" lastModified="13fe63b791e">
+      <target file="channels.o" lastModified="13febca7a3e">
          <source file="..\..\..\protocols\channels.c" lastModified="13f667f50a3"/>
       </target>
-      <target file="tablo_parser.o" lastModified="13fe63b69dc">
+      <target file="tasks.o" lastModified="13febca753c">
+         <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13438131dbe"/>
+      </target>
+      <target file="tablo_parser.o" lastModified="13febca6b59">
          <source file="..\..\..\protocols\tablo_parser.c" lastModified="13fc8dbb1c3"/>
       </target>
-      <target file="stm32f10x_rcc.o" lastModified="13fe63b72f4">
+      <target file="stm32f10x_rcc.o" lastModified="13febca7423">
          <source file="..\..\..\stm_lib\src\stm32f10x_rcc.c" lastModified="13f614cfb55"/>
       </target>
-      <target file="core_cm3.o" lastModified="13fe63b6a88">
+      <target file="core_cm3.o" lastModified="13febca6c15">
          <source file="..\..\..\cmsis\core_cm3.c" lastModified="13f614ce4cf"/>
       </target>
-      <target file="stm32f10x_pwr.o" lastModified="13fe63b6df3">
+      <target file="stm32f10x_pwr.o" lastModified="13febca6f80">
          <source file="..\..\..\stm_lib\src\stm32f10x_pwr.c" lastModified="13fc75f7d0f"/>
       </target>
-      <target file="proto.o" lastModified="13fe63c4642">
-         <source file="..\..\..\protocols\proto.c" lastModified="13fe63c3337"/>
+      <target file="proto.o" lastModified="13fec0b80e8">
+         <source file="..\..\..\protocols\proto.c" lastModified="13fec09a070"/>
       </target>
-      <target file="croutine.o" lastModified="13fe63b7882">
+      <target file="croutine.o" lastModified="13febca79c1">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\croutine.c" lastModified="13438131cf3"/>
       </target>
-      <target file="misc.o" lastModified="13fe63b7a56">
+      <target file="misc.o" lastModified="13febca7b76">
          <source file="..\..\..\stm_lib\src\misc.c" lastModified="13f614d72b7"/>
       </target>
-      <target file="queue.o" lastModified="13fe63b7759">
+      <target file="queue.o" lastModified="13febca7888">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\queue.c" lastModified="13438131dae"/>
       </target>
-      <target file="keyboard.o" lastModified="13fe63b7574">
-         <source file="..\..\..\devices\keyboard.c" lastModified="13fe24e7657"/>
+      <target file="keyboard.o" lastModified="13fec3f9a5f">
+         <source file="..\..\..\devices\keyboard.c" lastModified="13fec3f80dc"/>
       </target>
-      <target file="tablo.o" lastModified="13fe63b7238">
+      <target file="tablo.o" lastModified="13febca7377">
          <source file="..\..\..\devices\tablo.c" lastModified="13fd2293425"/>
       </target>
-      <target file="list.o" lastModified="13fe63b7601">
+      <target file="list.o" lastModified="13febca7730">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\list.c" lastModified="13438131cf3"/>
       </target>
-      <target file="indicator.o" lastModified="13fe63b6eed">
+      <target file="indicator.o" lastModified="13febca7099">
          <source file="..\..\..\devices\indicator.c" lastModified="13f9e906937"/>
       </target>
-      <target file="port.o" lastModified="13fe63b767e">
+      <target file="port.o" lastModified="13febca77bd">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\ARM_CM3\port.c" lastModified="13438131d12"/>
       </target>
-      <target file="stm32f10x_gpio.o" lastModified="13fe63b6e8f">
-         <source file="..\..\..\stm_lib\src\stm32f10x_gpio.c" lastModified="13f614d1759"/>
-      </target>
-      <target file="timers.o" lastModified="13fe63b71ac">
+      <target file="timers.o" lastModified="13febca72db">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\timers.c" lastModified="13438131dce"/>
       </target>
-      <target file="system_stm32f10x.o" lastModified="13fe63b6d76">
+      <target file="stm32f10x_gpio.o" lastModified="13febca702b">
+         <source file="..\..\..\stm_lib\src\stm32f10x_gpio.c" lastModified="13f614d1759"/>
+      </target>
+      <target file="system_stm32f10x.o" lastModified="13febca6ef3">
          <source file="..\..\..\cmsis_boot\system_stm32f10x.c" lastModified="13f614cf114"/>
       </target>
-      <target file="spi_bus.o" lastModified="13fe63b79d9">
+      <target file="spi_bus.o" lastModified="13febca7ae9">
          <source file="..\..\..\devices\spi_bus.c" lastModified="13fe1696673"/>
       </target>
-      <target file="stm32f10x_dma.o" lastModified="13fe63b77e5">
-         <source file="..\..\..\stm_lib\src\stm32f10x_dma.c" lastModified="13f751e7fc4"/>
-      </target>
-      <target file="heap_1.o" lastModified="13fe63b7b9f">
+      <target file="heap_1.o" lastModified="13febca7cce">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\MemMang\heap_1.c" lastModified="13438131d70"/>
       </target>
-      <target file="startup_stm32f10x_md_vl.o" lastModified="13fe63b6a2a">
+      <target file="stm32f10x_dma.o" lastModified="13febca7924">
+         <source file="..\..\..\stm_lib\src\stm32f10x_dma.c" lastModified="13f751e7fc4"/>
+      </target>
+      <target file="startup_stm32f10x_md_vl.o" lastModified="13febca6bb7">
          <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md_vl.c" lastModified="13f614cf0f4"/>
       </target>
-      <target file="main.o" lastModified="13fe63b711f">
-         <source file="..\..\..\main.c" lastModified="13fe1696db6"/>
+      <target file="main.o" lastModified="13fec3adfdc">
+         <source file="..\..\..\main.c" lastModified="13fec0b72fe"/>
       </target>
-      <target file="stm32f10x_usart.o" lastModified="13fe63b7507">
+      <target file="stm32f10x_usart.o" lastModified="13febca7607">
          <source file="..\..\..\stm_lib\src\stm32f10x_usart.c" lastModified="13f614d65d6"/>
       </target>
    </processor>
