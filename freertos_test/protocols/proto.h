@@ -87,15 +87,8 @@ void ProtoProcess( void *pvParameters );//
 #define	FR_CHANNEL_NUM_TOO_MUCH						0xC//������� ����� ������� � �����.
 #define	FR_CHNL_TYPE_ERROR							0xD//�������������� ���� ������
 #define	FR_CHNL_NOT_EXIST							0xF//������������� �����
-//--------------------------��������� ��������� ��������--------------
-#define PROTO_RESTART		0	//������� ����� � ���������
-#define PROTO_WAIT 			1	//�������� ������
-#define	PROTO_PLACE_BUF		2	//����� ������ � �����
-#define	PROTO_ADDR_CHECK	3	//�������� ������
-#define	PROTO_CRC_CHECK		4	//�������� ����������� �����
-#define	PROTO_BUF_HANDLING	5	//��������� �������
-#define PROTO_BUF_TRANSFER	6	//�������� ������ ��������
-#define	PROTO_ERR_HANDLING	7	//��������� ������
+//--------------------------------------------------------------------
+
 //--------------------------------------------------------------------
 #define PROTO_TYPE_OLD	0x0
 #define PROTO_TYPE_NEW	0x1

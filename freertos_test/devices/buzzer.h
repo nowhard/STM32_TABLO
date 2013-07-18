@@ -15,9 +15,15 @@
 #define BUZZER_EFFECT_6	0x6
 #define BUZZER_EFFECT_7	0x7
 
+#define BUZZER_PIN	GPIO_Pin_6
+#define BUZZER_PORT GPIOC
+
 struct buzzer{
 	uint8_t buzzer_enable;//включить/выключить гудок
 	uint8_t buzzer_effect;// тип звукового эффекта
 };
+
+void buzzer_init(void);
+void buzzer_task(void *pvParameters );
 
 #endif

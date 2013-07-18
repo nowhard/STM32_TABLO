@@ -443,37 +443,43 @@ uint8_t  Channel_Set_Parameters(void) //using 0 //Установить пара�
 			    {
 					switch((RecieveBuf[6+index+1]>>4)&0xF)
 					{
-					 		case 0x0://АЦП
-							{
-								if((channels[RecieveBuf[6+index]].settings.set.modific!=RecieveBuf[6+index+1])||(channels[RecieveBuf[6+index]].settings.set.state_byte_1!=RecieveBuf[6+index+2]) || (channels[RecieveBuf[6+index]].settings.set.state_byte_2!=RecieveBuf[6+index+3]))
-								{
-									channels[RecieveBuf[6+index]].settings.set.state_byte_1=RecieveBuf[6+index+2];
-									channels[RecieveBuf[6+index]].settings.set.state_byte_2=RecieveBuf[6+index+3];
-									channels[RecieveBuf[6+index]].settings.set.modific	   =RecieveBuf[6+index+1]&0xF;
-									//debug----------------
-									//if(channels[RecieveBuf[6+index]].settings.set.modific==3)
-									{
-										GPIOC->ODR |= GPIO_Pin_8;
-									}
-									//-----------------
-									store_data=1;
+//					 		case CHNL_ADC://АЦП
+//							{
+//								if((channels[RecieveBuf[6+index]].settings.set.modific!=RecieveBuf[6+index+1])||(channels[RecieveBuf[6+index]].settings.set.state_byte_1!=RecieveBuf[6+index+2]) || (channels[RecieveBuf[6+index]].settings.set.state_byte_2!=RecieveBuf[6+index+3]))
+//								{
+//									channels[RecieveBuf[6+index]].settings.set.state_byte_1=RecieveBuf[6+index+2];
+//									channels[RecieveBuf[6+index]].settings.set.state_byte_2=RecieveBuf[6+index+3];
+//									channels[RecieveBuf[6+index]].settings.set.modific	   =RecieveBuf[6+index+1]&0xF;
+//									//debug----------------
+//									//if(channels[RecieveBuf[6+index]].settings.set.modific==3)
+////									{
+////										GPIOC->ODR |= GPIO_Pin_8;
+////									}
+//									//-----------------
+//									store_data=1;
+//
+//								}
+//								index=index+1;
+//							}
+//							break;
 
-								}
-								index=index+1;
+//							case 0x2://частотомер
+//							{
+//							/*   if(channels[RecieveBuf[6+index]].settings.set.state_byte_1!=RecieveBuf[6+index+2])
+//							   {
+//							   		channels[RecieveBuf[6+index]].settings.set.state_byte_1=RecieveBuf[6+index+2];
+//									store_data=1;
+//							   }*/
+//							}
+//							break;
+
+							case CHNL_DEV_STATE://установка дискретных выводов
+							{
+								tab.buz.buzzer_effect=0x1;
 							}
 							break;
 
-							case 0x2://частотомер
-							{
-							/*   if(channels[RecieveBuf[6+index]].settings.set.state_byte_1!=RecieveBuf[6+index+2])
-							   {
-							   		channels[RecieveBuf[6+index]].settings.set.state_byte_1=RecieveBuf[6+index+2];
-									store_data=1;
-							   }*/
-							}
-							break;
-
-							case 0x8://кадр табло
+							case CHNL_MEMORY://кадр табло
 							{
 								for(i=0;i<RecieveBuf[8+index];i++)
 								{

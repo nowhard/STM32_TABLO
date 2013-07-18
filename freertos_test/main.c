@@ -22,6 +22,7 @@
 #include "tablo.h"
 #include "proto.h"
 #include "keyboard.h"
+#include "buzzer.h"
 
 extern struct tablo tab;//структура табло
 static void Init_Task(void *pvParameters);//инициализация и тест индикаторов
@@ -101,8 +102,9 @@ static void Init_Task(void *pvParameters)
 
 	vTaskDelay(2000);
 
-    Proto_Init();
-    keyboard_init();
+ //   Proto_Init();
+//    keyboard_init();
+ //   buzzer_init();
     vTaskDelete( NULL );
 
 }
