@@ -102,9 +102,9 @@ static void Init_Task(void *pvParameters)
 
 	vTaskDelay(2000);
 
- //   Proto_Init();
+    Proto_Init();
 //    keyboard_init();
- //   buzzer_init();
+    buzzer_init();
     vTaskDelete( NULL );
 
 }
@@ -114,7 +114,7 @@ int main(void)
 	SystemInit();
 
 
-	 xTaskCreate(Init_Task,(signed char*)"INIT",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+	 xTaskCreate(Init_Task,(signed char*)"INIT",128,NULL, tskIDLE_PRIORITY + 1, NULL);
 
 	//spi1_config();
 	//spi2_config();

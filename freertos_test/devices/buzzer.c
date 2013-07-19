@@ -33,10 +33,6 @@ void buzzer_init(void)
 
     GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,0);
 
-//    tab.buz.buzzer_enable=1;
-//    tab.buz.buzzer_effect=BUZZER_EFFECT_0;
-
-
     xTaskCreate(buzzer_task,(signed char*)"BUZZER",64,NULL, tskIDLE_PRIORITY + 1, NULL);
 }
 void buzzer_task(void *pvParameters )

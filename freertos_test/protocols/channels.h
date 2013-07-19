@@ -9,7 +9,7 @@
 //#include "preferences.h"
 #include "misc.h"
 //---------------------------------------
-#define CHANNEL_NUMBER	1//���������� �������
+#define CHANNEL_NUMBER	2//���������� �������
 //---------------------------------------
 #if defined (STM32F10X_HD) || defined (STM32F10X_HD_VL) || defined (STM32F10X_CL) || defined (STM32F10X_XL)
   #define FLASH_PAGE_SIZE    ((uint16_t)0x800)

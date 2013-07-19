@@ -360,7 +360,7 @@ void Proto_Init(void) //
 	//DE_RE=0;//линия на прием
 	CUT_OUT_NULL=0;
 
-	 xTaskCreate(ProtoProcess,(signed char*)"PROTO",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+	 xTaskCreate(ProtoProcess,(signed char*)"PROTO",128,NULL, tskIDLE_PRIORITY + 1, NULL);
 
 	vSemaphoreCreateBinary( xProtoSemaphore );
 	return;
@@ -437,7 +437,7 @@ uint8_t  Channel_Set_Parameters(void) //using 0 //Установить пара�
 	 uint8_t   index=0, store_data=0;//i=0;
 	 uint8_t len=0,i=0;
 
-	   while(index<RecieveBuf[5]-1)				   // данные по каналам
+	   while(index<(RecieveBuf[5]-1))				   // данные по каналам
 	      {
 			  	if(RecieveBuf[6+index]<CHANNEL_NUMBER)
 			    {
@@ -475,7 +475,28 @@ uint8_t  Channel_Set_Parameters(void) //using 0 //Установить пара�
 
 							case CHNL_DEV_STATE://установка дискретных выводов
 							{
-								tab.buz.buzzer_effect=0x1;
+								switch((RecieveBuf[6+index+1])&0xF)
+								{
+									case CHNL_DEV_STATE_GET:
+									{
+
+									}
+									break;
+
+									case CHNL_DEV_STATE_SET:
+									{
+										tab.buz.buzzer_effect=(RecieveBuf[8+index]>>1)&0x7;
+										tab.buz.buzzer_enable=RecieveBuf[8+index]&0x1;
+										index+=CHNL_DEV_STATE_SET_LEN;
+									}
+									break;
+
+									case CHNL_DEV_STATE_GET_SET:
+									{
+
+									}
+									break;
+								}
 							}
 							break;
 
@@ -485,12 +506,11 @@ uint8_t  Channel_Set_Parameters(void) //using 0 //Установить пара�
 								{
 									tab.tablo_proto_buf[i]=RecieveBuf[8+index+i+1];
 								}
-								index++;
 
 								tablo_proto_parser(&tab.tablo_proto_buf);
+								index+=RecieveBuf[6+2+index]+3;
 							}
 					}
-					index=index+3;
 				}
 				else
 				{
