@@ -202,9 +202,13 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
 }
 
 
-const uint8_t   LED_BAR_STAMP_RED[4]   ={8 ,128,4 ,16};
-const uint8_t   LED_BAR_STAMP_GREEN[4] ={64,2  ,32,1 };
-const uint8_t   LED_BAR_STAMP_ORANGE[4]={72,130,36,17};
+//const uint8_t   LED_BAR_STAMP_RED[4]   ={8 ,128,4 ,16};
+//const uint8_t   LED_BAR_STAMP_GREEN[4] ={64,2  ,32,1 };
+//const uint8_t   LED_BAR_STAMP_ORANGE[4]={72,130,36,17};
+
+const uint8_t   LED_BAR_STAMP_RED[4]   ={64 ,16,4 ,1};
+const uint8_t   LED_BAR_STAMP_GREEN[4] ={32,8  ,2,128 };
+const uint8_t   LED_BAR_STAMP_ORANGE[4]={96,24,6,129};
 
 void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 {
