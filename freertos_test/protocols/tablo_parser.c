@@ -146,7 +146,14 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
         {
             if((str[i]>=0x30)&&(str[i]<=0x39))//С†РёС„СЂС‹
             {
-            	tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]=(Sym_table[1][(str[i]-0x30)])|(0x100*((buf_count-5)+1));
+               	uint8_t sym=Sym_table[1][(str[i]-0x30)];//коррекция ошибки индикатора
+               	sym&=0x9F;
+               	sym|=((Sym_table[1][(str[i]-0x30)]<<5)&0x60);
+               	sym&=0xFC;
+               	sym|=((Sym_table[1][(str[i]-0x30)]>>5)&0x3);
+
+
+            	tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]=(/*Sym_table[1][(str[i]-0x30)]*/sym)|(0x100*((buf_count-5)+1));
                 buf_count++;
 
                 continue;
@@ -179,7 +186,12 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
             {
                if(str[i]==Sym_table[0][j])//
                {
-            	   tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]=(Sym_table[1][j])|(0x100*((buf_count-5)+1));//
+                  	uint8_t sym=Sym_table[1][(str[i]-0x30)];//коррекция ошибки индикатора
+                  	sym&=0x9F;
+                  	sym|=((Sym_table[1][(str[i]-0x30)]<<5)&0x60);
+                  	sym&=0xFC;
+                  	sym|=((Sym_table[1][(str[i]-0x30)]>>5)&0x3);
+            	   tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]=(/*Sym_table[1][j]*/sym)|(0x100*((buf_count-5)+1));//
                     buf_count++;
 
                     break;

@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
    <processor signature="4.7.2 -mcpu=cortex-m3 -mthumb -g -nostartfiles -Map=tablo_proto_test.map -O0 --gc-sections -LC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test -TC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test/link.ld -g">
-      <target file="tablo_proto_test.elf" lastModified="141360e0301">
-         <source file="..\obj\tablo_parser.o" lastModified="141360e00bf"/>
+      <target file="tablo_proto_test.elf" lastModified="141369262b3">
+         <source file="..\obj\tablo_parser.o" lastModified="1413678ec15"/>
          <source file="..\obj\startup_stm32f10x_md_vl.o" lastModified="1413609ccf0"/>
          <source file="..\obj\core_cm3.o" lastModified="1413609cd5e"/>
          <source file="..\obj\buzzer.o" lastModified="1413609cdfa"/>
@@ -11,9 +11,9 @@
          <source file="..\obj\stm32f10x_pwr.o" lastModified="1413609d1c3"/>
          <source file="..\obj\stm32f10x_gpio.o" lastModified="1413609d25f"/>
          <source file="..\obj\indicator.o" lastModified="1413609d2cc"/>
-         <source file="..\obj\main.o" lastModified="1413609d4a1"/>
+         <source file="..\obj\main.o" lastModified="14136925ff4"/>
          <source file="..\obj\timers.o" lastModified="1413609d52e"/>
-         <source file="..\obj\tablo.o" lastModified="1413609d5ba"/>
+         <source file="..\obj\tablo.o" lastModified="1413682e58d"/>
          <source file="..\obj\stm32f10x_rcc.o" lastModified="1413609d666"/>
          <source file="..\obj\tasks.o" lastModified="1413609d7ae"/>
          <source file="..\obj\stm32f10x_usart.o" lastModified="1413609d85a"/>

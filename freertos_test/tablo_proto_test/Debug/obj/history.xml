@@ -24,8 +24,8 @@
       <target file="tasks.o" lastModified="1413609d7ae">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13438131dbe"/>
       </target>
-      <target file="tablo_parser.o" lastModified="141360e00bf">
-         <source file="..\..\..\protocols\tablo_parser.c" lastModified="141360dea49"/>
+      <target file="tablo_parser.o" lastModified="1413678ec15">
+         <source file="..\..\..\protocols\tablo_parser.c" lastModified="1413678e241"/>
       </target>
       <target file="stm32f10x_rcc.o" lastModified="1413609d666">
          <source file="..\..\..\stm_lib\src\stm32f10x_rcc.c" lastModified="13f614cfb55"/>
@@ -51,8 +51,8 @@
       <target file="keyboard.o" lastModified="1413609d8f6">
          <source file="..\..\..\devices\keyboard.c" lastModified="13fec3f80dc"/>
       </target>
-      <target file="tablo.o" lastModified="1413609d5ba">
-         <source file="..\..\..\devices\tablo.c" lastModified="13fd2293425"/>
+      <target file="tablo.o" lastModified="1413682e58d">
+         <source file="..\..\..\devices\tablo.c" lastModified="1413682d81f"/>
       </target>
       <target file="list.o" lastModified="1413609d983">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\list.c" lastModified="13438131cf3"/>
@@ -84,11 +84,11 @@
       <target file="startup_stm32f10x_md_vl.o" lastModified="1413609ccf0">
          <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md_vl.c" lastModified="13f614cf0f4"/>
       </target>
+      <target file="main.o" lastModified="14136925ff4">
+         <source file="..\..\..\main.c" lastModified="141368db2b0"/>
+      </target>
       <target file="stm32f10x_usart.o" lastModified="1413609d85a">
          <source file="..\..\..\stm_lib\src\stm32f10x_usart.c" lastModified="13f614d65d6"/>
-      </target>
-      <target file="main.o" lastModified="1413609d4a1">
-         <source file="..\..\..\main.c" lastModified="13ff6d4ec9d"/>
       </target>
    </processor>
 </history>
