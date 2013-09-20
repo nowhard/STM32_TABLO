@@ -62,10 +62,12 @@ void tablo_proto_parser(uint8_t *proto_buf)//
                    //error!
                 }
 
+
     			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
     			{
 					if(tab.indicators[current_indicator].type==IND_TYPE_SEGMENT)
 					{
+						num_buf[chr_counter]='\0';
 						str_to_ind(&tab.indicators[current_indicator],&num_buf/*&test_buf*/);
 					}
 					else
@@ -83,34 +85,37 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 
            default:
            {
-              if((proto_buf[i-1]=='[') && (ind_state==IND_OPEN))
+              if(ind_state==IND_OPEN)
               {
-                  if(proto_buf[i]=='*')//
-                  {
-                      for(j=0;j<IND_ALL_NUM;j++)
-                      {
-                          tab.indicators[j].brightness=IND_BRIGHTNESS|(proto_buf[i+1]&0xF);
-                      }
-                      i+=2;
-                      ind_state=IND_CLOSE;
-                  }
-                  else
-                  {
-                      current_indicator=proto_buf[i];
+				  if(proto_buf[i-1]=='[')
+				  {
+					  if(proto_buf[i]=='*')//
+					  {
+						  for(j=0;j<IND_ALL_NUM;j++)
+						  {
+							  tab.indicators[j].brightness=IND_BRIGHTNESS|(proto_buf[i+1]&0xF);
+						  }
+						  i+=2;
+						  ind_state=IND_CLOSE;
+					  }
+					  else
+					  {
+						  current_indicator=proto_buf[i];
 
-                      if(current_indicator>=IND_ALL_NUM)
-                      {
-                    	  continue;//переработать
-                      }
-
-                      num_buf[chr_counter]='\0';
-                      //chr_counter=0;
-                  }
-              }
-              else
-              {
-            	  num_buf[chr_counter]=proto_buf[i];
-                  chr_counter++;
+//						  if(current_indicator>=IND_ALL_NUM)///применить фильтр каналов!!!
+//						  {
+//							  continue;//переработать
+//						  }
+//
+//						  num_buf[chr_counter]='\0';
+						  //chr_counter=0;
+					  }
+				  }
+				  else
+				  {
+					  num_buf[chr_counter]=proto_buf[i];
+					  chr_counter++;
+				  }
               }
            }
        }
