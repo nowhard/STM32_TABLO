@@ -17,8 +17,9 @@ const uint8_t Sym_table[2][SYM_TAB_LEN]={{'0','1','2','3','4','5','6','7','8','9
                                           0x1F/*b*/,0x4E/*C*/,0x3D/*d*/,0x4F/*E*/,0x47/*F*/,0x17/*h*/,0x30/*I*/,0x10/*i*/,0x3C/*J*/,0xE/*L*/,0x7E/*O*/,
                                           0x67/*P*/,0x05/*r*/,0x0F/*t*/,0x3E/*U*/,0x1C/*u*/,0x80/*.*/,0x01/*-*/,0x08/*_*/,0x00/* */}};
 
-extern struct tablo tab;//—Å—Ç—Ä—É–∫—Ç—É—Ä–∞ —Ç–∞–±–ª–æ
+extern struct tablo tab;//
 
+uint8_t test_buf[]="CAt";
 
 void tablo_proto_parser(uint8_t *proto_buf)//
 {
@@ -30,7 +31,7 @@ void tablo_proto_parser(uint8_t *proto_buf)//
    uint8_t num_buf[32]={0};
 
 
-   if(proto_buf[0]!=':')//–Ω–∞—á–∞–ª–æ –∫–∞–¥—Ä–∞
+   if(proto_buf[0]!=':')//
    {
        //error
        return;
@@ -65,8 +66,7 @@ void tablo_proto_parser(uint8_t *proto_buf)//
     			{
 					if(tab.indicators[current_indicator].type==IND_TYPE_SEGMENT)
 					{
-						//str_to_ind(&num_buf,current_indicator);
-						str_to_ind(&tab.indicators[current_indicator],&num_buf);
+						str_to_ind(&tab.indicators[current_indicator],&num_buf/*&test_buf*/);
 					}
 					else
 					{
@@ -85,7 +85,7 @@ void tablo_proto_parser(uint8_t *proto_buf)//
            {
               if((proto_buf[i-1]=='[') && (ind_state==IND_OPEN))
               {
-                  if(proto_buf[i]=='*')//—è—Ä–∫–æ—Å—Ç—å
+                  if(proto_buf[i]=='*')//
                   {
                       for(j=0;j<IND_ALL_NUM;j++)
                       {
@@ -100,16 +100,16 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 
                       if(current_indicator>=IND_ALL_NUM)
                       {
-                    	  continue;
+                    	  continue;//ÔÂÂ‡·ÓÚ‡Ú¸
                       }
 
-                      num_buf[chr_counter+1]='\0';
+                      num_buf[chr_counter]='\0';
                       //chr_counter=0;
                   }
               }
               else
               {
-                  num_buf[chr_counter]=proto_buf[i];
+            	  num_buf[chr_counter]=proto_buf[i];
                   chr_counter++;
               }
            }
@@ -120,7 +120,7 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 
 uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
 {
-    uint8_t i=0,j=0;
+    int8_t i=0,j=0;
     uint8_t buf_count=0;//
     uint8_t str_len=0;
 
@@ -142,9 +142,9 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
 
         buf_count+=5;
 
-        for(i=0;i<str_len;i++)//
+        for(i=(str_len-1);i>=0;i--)//
         {
-            if((str[i]>=0x30)&&(str[i]<=0x39))//—Ü–∏—Ñ—Ä—ã
+            if((str[i]>=0x30)&&(str[i]<=0x39))//
             {
                	uint8_t sym=Sym_table[1][(str[i]-0x30)];//ÍÓÂÍˆËˇ Ó¯Ë·ÍË ËÌ‰ËÍ‡ÚÓ‡
                	sym&=0x9F;
@@ -153,7 +153,7 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
                	sym|=((Sym_table[1][(str[i]-0x30)]>>5)&0x3);
 
 
-            	tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]=(/*Sym_table[1][(str[i]-0x30)]*/sym)|(0x100*((buf_count-5)+1));
+            	tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]|=(/*Sym_table[1][(str[i]-0x30)]*/sym)|(0x100*((buf_count-5)+1));
                 buf_count++;
 
                 continue;
@@ -161,44 +161,43 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
 
             if(str[i]=='.')
             {
-                if(i==0)
+             	if(i<(str_len-1))
                 {
-                	tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]|=0x80;
-                	buf_count++;
-                }
-
-            	if(i>0)
-                {
-                	if(str[i-1]=='.')
+                	if(str[i+1]=='.')
                 	{
-                    	tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]|=0x80;
+                    	tab.buses[ind->bus].bus_buf[buf_count+1][ind->number_in_bus]|=0x80;
                     	buf_count++;
                 	}
                 	else
                 	{
-                		tab.buses[ind->bus].bus_buf[buf_count-1][ind->number_in_bus]|=0x80;
+                		tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]|=0x80;
                 	}
                 }
+             	else
+             	{
+             		tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]|=0x80;
+             	}
                 continue;
             }
-
+//
             for(j=10;j<SYM_TAB_LEN;j++)//
             {
                if(str[i]==Sym_table[0][j])//
                {
-                  	uint8_t sym=Sym_table[1][(str[i]-0x30)];//ÍÓÂÍˆËˇ Ó¯Ë·ÍË ËÌ‰ËÍ‡ÚÓ‡
+                  	uint8_t sym=Sym_table[1][j];//ÍÓÂÍˆËˇ Ó¯Ë·ÍË ËÌ‰ËÍ‡ÚÓ‡
                   	sym&=0x9F;
-                  	sym|=((Sym_table[1][(str[i]-0x30)]<<5)&0x60);
+                  	sym|=((Sym_table[1][j]<<5)&0x60);
                   	sym&=0xFC;
-                  	sym|=((Sym_table[1][(str[i]-0x30)]>>5)&0x3);
-            	   tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]=(/*Sym_table[1][j]*/sym)|(0x100*((buf_count-5)+1));//
+                  	sym|=((Sym_table[1][j]>>5)&0x3);
+
+                	tab.buses[ind->bus].bus_buf[buf_count][ind->number_in_bus]|=(/*Sym_table[1][(str[i]-0x30)]*/sym)|(0x100*((buf_count-5)+1));
                     buf_count++;
 
                     break;
                }
             }
 
-            if(buf_count>(ind->character_num+5))//–±—É—Ñ–µ—Ä –±–æ–ª—å—à–µ –∫–æ–ª–∏—á–µ—Å—Ç–≤–∞ –∑–Ω–∞–∫–æ–º–µ—Å—Ç
+            if(buf_count>(ind->character_num+5))//
             {
             	break;
             }
@@ -209,7 +208,6 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
 //        	tab.buses[ind->bus].bus_buf[i][ind->number_in_bus]=0x0;
 //        }
         return buf_count;
-	//–ø–µ—Ä–µ–¥ –¥–æ—Å—Ç—É–ø–æ–º –∫ –±—É—Ñ–µ—Ä—É —à–∏–Ω—ã –∫—Ä–∏—Ç–∏—á–µ—Å–∫–∞—è —Å–µ–∫—Ü–∏—è
 
 }
 
@@ -227,7 +225,7 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 
 	uint8_t inverse=0;
 	uint8_t	value=0;
-	uint8_t ust1=0;//—É—Å—Ç–∞–≤–∫–∏
+	uint8_t ust1=0;//
 	uint8_t	ust2=0;
 
 	uint8_t i=0;
@@ -252,12 +250,12 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 	tab.buses[ind->bus].bus_buf[12][ind->number_in_bus]=0x800;
 
 
-	if(value==0xFF)//–ø—Ä–∏ –∑–Ω–∞—á–µ–Ω–∏–∏ 0xFF –≥–∞—Å–∏–º —Å—Ç–æ–ª–±–µ—Ü
+	if(value==0xFF)//
 	{
 		return;
 	}
 
-	if((ust1>=0) && (ust1<=31))//—Å—Ç–∞–≤–∏–º –ø–µ—Ä–≤—É—é —É—Å—Ç–∞–≤–∫—É
+	if((ust1>=0) && (ust1<=31))//
 	{
 		if(inverse==0x0)
 		{

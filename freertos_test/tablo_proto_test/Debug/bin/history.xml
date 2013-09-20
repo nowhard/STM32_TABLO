@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
    <processor signature="4.7.2 -mcpu=cortex-m3 -mthumb -g -nostartfiles -Map=tablo_proto_test.map -O0 --gc-sections -LC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test -TC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test/link.ld -g">
-      <target file="tablo_proto_test.elf" lastModified="141369262b3">
-         <source file="..\obj\tablo_parser.o" lastModified="1413678ec15"/>
+      <target file="tablo_proto_test.elf" lastModified="1413ac01efe">
+         <source file="..\obj\tablo_parser.o" lastModified="1413ac01a8a"/>
          <source file="..\obj\startup_stm32f10x_md_vl.o" lastModified="1413609ccf0"/>
          <source file="..\obj\core_cm3.o" lastModified="1413609cd5e"/>
          <source file="..\obj\buzzer.o" lastModified="1413609cdfa"/>
-         <source file="..\obj\proto.o" lastModified="1413609d0b9"/>
+         <source file="..\obj\proto.o" lastModified="1413a6a61d6"/>
          <source file="..\obj\system_stm32f10x.o" lastModified="1413609d146"/>
          <source file="..\obj\stm32f10x_pwr.o" lastModified="1413609d1c3"/>
          <source file="..\obj\stm32f10x_gpio.o" lastModified="1413609d25f"/>
          <source file="..\obj\indicator.o" lastModified="1413609d2cc"/>
-         <source file="..\obj\main.o" lastModified="14136925ff4"/>
+         <source file="..\obj\main.o" lastModified="1413a084a72"/>
          <source file="..\obj\timers.o" lastModified="1413609d52e"/>
-         <source file="..\obj\tablo.o" lastModified="1413682e58d"/>
+         <source file="..\obj\tablo.o" lastModified="1413a79fe4c"/>
          <source file="..\obj\stm32f10x_rcc.o" lastModified="1413609d666"/>
          <source file="..\obj\tasks.o" lastModified="1413609d7ae"/>
          <source file="..\obj\stm32f10x_usart.o" lastModified="1413609d85a"/>
@@ -24,7 +24,7 @@
          <source file="..\obj\stm32f10x_dma.o" lastModified="1413609db87"/>
          <source file="..\obj\croutine.o" lastModified="1413609dc23"/>
          <source file="..\obj\channels.o" lastModified="1413609dca0"/>
-         <source file="..\obj\spi_bus.o" lastModified="1413609dd4c"/>
+         <source file="..\obj\spi_bus.o" lastModified="1413a0eae30"/>
          <source file="..\obj\misc.o" lastModified="1413609ddc9"/>
          <source file="..\obj\stm32f10x_spi.o" lastModified="1413609de75"/>
          <source file="..\obj\heap_1.o" lastModified="1413609df01"/>
