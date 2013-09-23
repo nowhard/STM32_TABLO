@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
    <processor signature="4.7.2 -mcpu=cortex-m3 -mthumb -g -nostartfiles -Map=tablo_proto_test.map -O0 --gc-sections -LC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test -TC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test/link.ld -g">
-      <target file="tablo_proto_test.elf" lastModified="1413b329656">
+      <target file="tablo_proto_test.elf" lastModified="1413b3552f6">
          <source file="..\obj\tablo_parser.o" lastModified="1413b2024c8"/>
          <source file="..\obj\startup_stm32f10x_md_vl.o" lastModified="1413609ccf0"/>
          <source file="..\obj\core_cm3.o" lastModified="1413609cd5e"/>
@@ -24,7 +24,7 @@
          <source file="..\obj\stm32f10x_dma.o" lastModified="1413609db87"/>
          <source file="..\obj\croutine.o" lastModified="1413609dc23"/>
          <source file="..\obj\channels.o" lastModified="1413609dca0"/>
-         <source file="..\obj\spi_bus.o" lastModified="1413a0eae30"/>
+         <source file="..\obj\spi_bus.o" lastModified="1413b354f5c"/>
          <source file="..\obj\misc.o" lastModified="1413609ddc9"/>
          <source file="..\obj\stm32f10x_spi.o" lastModified="1413609de75"/>
          <source file="..\obj\heap_1.o" lastModified="1413609df01"/>

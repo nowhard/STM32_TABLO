@@ -18,11 +18,11 @@
       <target file="buzzer.o" lastModified="1413609cdfa">
          <source file="..\..\..\devices\buzzer.c" lastModified="13ff6d30f61"/>
       </target>
-      <target file="channels.o" lastModified="1413609dca0">
-         <source file="..\..\..\protocols\channels.c" lastModified="13ff6d7632b"/>
-      </target>
       <target file="tasks.o" lastModified="1413609d7ae">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13438131dbe"/>
+      </target>
+      <target file="channels.o" lastModified="1413609dca0">
+         <source file="..\..\..\protocols\channels.c" lastModified="13ff6d7632b"/>
       </target>
       <target file="tablo_parser.o" lastModified="1413b2024c8">
          <source file="..\..\..\protocols\tablo_parser.c" lastModified="1413ae66f77"/>
@@ -63,32 +63,32 @@
       <target file="port.o" lastModified="1413609da10">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\ARM_CM3\port.c" lastModified="13438131d12"/>
       </target>
-      <target file="timers.o" lastModified="1413609d52e">
-         <source file="..\..\..\FreeRTOSV7.1.0\Source\timers.c" lastModified="13438131dce"/>
-      </target>
       <target file="stm32f10x_gpio.o" lastModified="1413609d25f">
          <source file="..\..\..\stm_lib\src\stm32f10x_gpio.c" lastModified="13f614d1759"/>
+      </target>
+      <target file="timers.o" lastModified="1413609d52e">
+         <source file="..\..\..\FreeRTOSV7.1.0\Source\timers.c" lastModified="13438131dce"/>
       </target>
       <target file="system_stm32f10x.o" lastModified="1413609d146">
          <source file="..\..\..\cmsis_boot\system_stm32f10x.c" lastModified="13f614cf114"/>
       </target>
-      <target file="spi_bus.o" lastModified="1413a0eae30">
-         <source file="..\..\..\devices\spi_bus.c" lastModified="1413a0e9dd5"/>
-      </target>
-      <target file="heap_1.o" lastModified="1413609df01">
-         <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\MemMang\heap_1.c" lastModified="13438131d70"/>
+      <target file="spi_bus.o" lastModified="1413b354f5c">
+         <source file="..\..\..\devices\spi_bus.c" lastModified="1413b354411"/>
       </target>
       <target file="stm32f10x_dma.o" lastModified="1413609db87">
          <source file="..\..\..\stm_lib\src\stm32f10x_dma.c" lastModified="13f751e7fc4"/>
       </target>
+      <target file="heap_1.o" lastModified="1413609df01">
+         <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\MemMang\heap_1.c" lastModified="13438131d70"/>
+      </target>
       <target file="startup_stm32f10x_md_vl.o" lastModified="1413609ccf0">
          <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md_vl.c" lastModified="13f614cf0f4"/>
       </target>
-      <target file="main.o" lastModified="1413a084a72">
-         <source file="..\..\..\main.c" lastModified="1413a078bf5"/>
-      </target>
       <target file="stm32f10x_usart.o" lastModified="1413609d85a">
          <source file="..\..\..\stm_lib\src\stm32f10x_usart.c" lastModified="13f614d65d6"/>
+      </target>
+      <target file="main.o" lastModified="1413a084a72">
+         <source file="..\..\..\main.c" lastModified="1413a078bf5"/>
       </target>
    </processor>
 </history>
