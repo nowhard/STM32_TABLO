@@ -268,7 +268,6 @@ switch(proto_type)
 
    	}
    	portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
-
 }
 //------------------------------------------------------------------------------
 void Proto_Init(void) //
@@ -869,103 +868,4 @@ uint8_t  CRC_Check( uint8_t  *Spool_pr,uint8_t Count_pr )
     return crc_n;
 }
  //-----------------------------------------------------------------------------------------------
-/*
- void Store_Dev_Address_Desc(void)
- {
 
-	 uint16_t i=0;
-	 unsigned int blocks=0;
-	 uint32_t EraseCounter = 0x00, Address = 0x00;
-	 uint32_t NbrOfPage = 0x00;
-	 volatile FLASH_Status FLASHStatus = FLASH_COMPLETE;
-	 volatile TestStatus MemoryProgramStatus = PASSED;
-
-	 FLASH_UnlockBank1();
-
-	 Define the number of page to be erased
-	NbrOfPage = (DESC_BANK1_WRITE_END_ADDR - DESC_BANK1_WRITE_START_ADDR) / FLASH_PAGE_SIZE;
-
-	 Clear All pending flags
-	FLASH_ClearFlag(FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPRTERR);
-
-	 Erase the FLASH pages
-	for(EraseCounter = 0; (EraseCounter < NbrOfPage) && (FLASHStatus == FLASH_COMPLETE); EraseCounter++)
-	{
-		FLASHStatus = FLASH_ErasePage(DESC_BANK1_WRITE_START_ADDR + (FLASH_PAGE_SIZE * EraseCounter));
-	}
-
-	 Program Flash Bank1
-	Address = DESC_BANK1_WRITE_START_ADDR;
-
-	FLASH_ProgramWord(Address, (uint32_t)ADRESS_DEV);//Р В Р’В·Р В Р’В°Р В РЎвЂ”Р В РЎвЂ�Р РЋРІвЂљВ¬Р В Р’ВµР В РЎпїЅ Р В Р’В°Р В РўвЂ�Р РЋР вЂљР В Р’ВµР РЋР С“
-	Address = Address + 4;
-
-	 for(i=0;i<(DEVICE_NAME_LENGTH>>2);i+=4)
-	 {
-	        FLASHStatus = FLASH_ProgramWord(Address,((uint32_t*)(&DEV_NAME))[i]);
-	        Address = Address + 4;
-	 }
-
-	 for(i=0;i<(DEVICE_VER_LENGTH>>2);i+=4)
-	 {
-	        FLASHStatus = FLASH_ProgramWord(Address,((uint32_t*)(&VERSION))[i]);
-	        Address = Address + 4;
-	 }
-
-	FLASH_ProgramWord(Address, (uint32_t)dev_desc_len);//Р В Р’В·Р В Р’В°Р В РЎвЂ”Р В РЎвЂ�Р РЋРІвЂљВ¬Р В Р’ВµР В РЎпїЅ Р В РўвЂ�Р В Р’В»Р В РЎвЂ�Р В Р вЂ¦Р РЋРЎвЂњ Р В РЎвЂўР В РЎвЂ”Р В РЎвЂ�Р РЋР С“Р В Р’В°Р В Р вЂ¦Р В РЎвЂ�Р РЋР РЏ
-	Address = Address + 4;
-
- 	for(i=0;i<(dev_desc_len>>2+1);i++)
- 	{
- 		 FLASHStatus = FLASH_ProgramWord(Address,((uint32_t*)(&NOTICE))[i]);
- 		Address+=4;
- 	}
- 	FLASH_LockBank1();
- //LED=0;
- 	return;
- }
- //-----------------------------------------------------------------------------------------------
- void Restore_Dev_Address_Desc(void)//???
- {
- 	unsigned int blocks=0,i=0;
- 	uint32_t Address;
- 	Address = DESC_BANK1_WRITE_START_ADDR;
-
- 	ADRESS_DEV=(*(__IO uint32_t*) Address);
- 	Address++;//Р В РЎвЂ”Р РЋР вЂљР В РЎвЂўР РЋРІР‚РЋР В РЎвЂ�Р РЋРІР‚С™Р В Р’В°Р В Р’В»Р В РЎвЂ� Р В Р’В°Р В РўвЂ�Р РЋР вЂљР В Р’ВµР РЋР С“ Р РЋРЎвЂњР РЋР С“Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР В РІвЂћвЂ“Р РЋР С“Р РЋРІР‚С™Р В Р вЂ Р В Р’В°, Р В РЎвЂ”Р В Р’ВµР РЋР вЂљР В Р’ВµР РЋРІР‚В¦Р В РЎвЂўР В РўвЂ�Р В РЎвЂ�Р В РЎпїЅ Р В Р вЂ¦Р В Р’В° Р РЋР С“Р В Р’В»Р В Р’ВµР В РўвЂ�Р РЋРЎвЂњР РЋР вЂ№Р РЋРІР‚В°Р В РЎвЂ�Р В РІвЂћвЂ“
-
- 	if(ADRESS_DEV<1 || ADRESS_DEV>15)
- 		ADRESS_DEV=1;
-
-
- 	for(i=0;i<(DEVICE_NAME_LENGTH>>2);i++)
- 	{
- 		((uint32_t*)(&DEV_NAME))[i]=(*(__IO uint32_t*) Address);
- 		Address+=4;
- 	}
-
-
-
- 	for(i=0;i<(DEVICE_VER_LENGTH>>4);i++)
- 	{
- 		((uint32_t*)(&VERSION))[i]=(*(__IO uint32_t*) Address);
- 		Address+=4;
- 	}
-
-
- 	dev_desc_len==(*(__IO uint32_t*) Address);
- 	Address++;
-
- 	if(dev_desc_len>DEVICE_DESC_MAX_LENGTH_SYM)
- 		dev_desc_len=DEVICE_DESC_MAX_LENGTH_SYM;
-
-
-
- 	for(i=0;i<(dev_desc_len>>2+1);i++)
- 	{
- 		((uint32_t*)(&NOTICE))[i]=(*(__IO uint32_t*) Address);
- 		Address+=4;
- 	}
- 	return;
- }
-*/
