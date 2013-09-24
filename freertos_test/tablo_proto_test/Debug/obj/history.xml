@@ -10,14 +10,14 @@
       <target file="stm32f4xx_tim.o" lastModified="1414ea893dd">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_tim.c" lastModified="14125d83d92"/>
       </target>
-      <target file="indicator.o" lastModified="1414ea88a0a">
-         <source file="..\..\..\devices\indicator.c" lastModified="13f9e906937"/>
-      </target>
       <target file="timers.o" lastModified="1414af07669">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\timers.c" lastModified="13e3b1eb910"/>
       </target>
-      <target file="proto.o" lastModified="1414ea8899c">
-         <source file="..\..\..\protocols\proto.c" lastModified="1414ea6138b"/>
+      <target file="indicator.o" lastModified="1414ea88a0a">
+         <source file="..\..\..\devices\indicator.c" lastModified="13f9e906937"/>
+      </target>
+      <target file="proto.o" lastModified="1414ed432cc">
+         <source file="..\..\..\protocols\proto.c" lastModified="1414ed42771"/>
       </target>
       <target file="tasks.o" lastModified="1414af0780f">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13e3b1eb910"/>
