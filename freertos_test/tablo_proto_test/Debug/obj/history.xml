@@ -16,8 +16,8 @@
       <target file="indicator.o" lastModified="1414ea88a0a">
          <source file="..\..\..\devices\indicator.c" lastModified="13f9e906937"/>
       </target>
-      <target file="proto.o" lastModified="1414f273180">
-         <source file="..\..\..\protocols\proto.c" lastModified="1414f27180c"/>
+      <target file="proto.o" lastModified="1414f53049e">
+         <source file="..\..\..\protocols\proto.c" lastModified="1414f52f00c"/>
       </target>
       <target file="tasks.o" lastModified="1414af0780f">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13e3b1eb910"/>
@@ -64,11 +64,11 @@
       <target file="keyboard.o" lastModified="1414ea88dd2">
          <source file="..\..\..\devices\keyboard.c" lastModified="14149d35493"/>
       </target>
-      <target file="spi_bus.o" lastModified="1414ea891da">
-         <source file="..\..\..\devices\spi_bus.c" lastModified="1414a81adff"/>
+      <target file="spi_bus.o" lastModified="1414fd940ff">
+         <source file="..\..\..\devices\spi_bus.c" lastModified="1414fd93585"/>
       </target>
-      <target file="tablo.o" lastModified="1414ea88d36">
-         <source file="..\..\..\devices\tablo.c" lastModified="1414990a74c"/>
+      <target file="tablo.o" lastModified="1414fbd1dee">
+         <source file="..\..\..\devices\tablo.c" lastModified="1414fbd0ff4"/>
       </target>
       <target file="stm32f4xx_syscfg.o" lastModified="1414ea882f5">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_syscfg.c" lastModified="14125d878f6"/>
@@ -76,8 +76,8 @@
       <target file="stm32f4xx_spi.o" lastModified="1414ea89082">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_spi.c" lastModified="14125d81f8b"/>
       </target>
-      <target file="main.o" lastModified="1414f001f7c">
-         <source file="..\..\..\main.c" lastModified="1414f0014be"/>
+      <target file="main.o" lastModified="1414f530615">
+         <source file="..\..\..\main.c" lastModified="1414f52aa87"/>
       </target>
       <target file="system_stm32f4xx.o" lastModified="1414ea88efb">
          <source file="..\..\..\cmsis_boot\system_stm32f4xx.c" lastModified="13cedfff480"/>

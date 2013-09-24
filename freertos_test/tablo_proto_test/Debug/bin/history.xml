@@ -1,20 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
    <processor signature="4.7.2 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Wall -g -nostartfiles -Map=tablo_proto_test.map -O0 --gc-sections -LC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test -TC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test/link.ld -g">
-      <target file="tablo_proto_test.elf" lastModified="1414f273f2c">
+      <target file="tablo_proto_test.elf" lastModified="1414fd94370">
          <source file="..\obj\stm32f4xx_syscfg.o" lastModified="1414ea882f5"/>
          <source file="..\obj\tablo_parser.o" lastModified="1414ea88547"/>
          <source file="..\obj\core_cm3.o" lastModified="1414af06f16"/>
          <source file="..\obj\buzzer.o" lastModified="1414ea88622"/>
          <source file="..\obj\stm32f4xx_usart.o" lastModified="1414ea886ed"/>
          <source file="..\obj\stm32f4xx_pwr.o" lastModified="1414ea887c7"/>
-         <source file="..\obj\proto.o" lastModified="1414f273180"/>
+         <source file="..\obj\proto.o" lastModified="1414f53049e"/>
          <source file="..\obj\startup_stm32f4xx.o" lastModified="1414af072ee"/>
          <source file="..\obj\indicator.o" lastModified="1414ea88a0a"/>
-         <source file="..\obj\main.o" lastModified="1414f001f7c"/>
+         <source file="..\obj\main.o" lastModified="1414f530615"/>
          <source file="..\obj\stm32f4xx_rcc.o" lastModified="1414ea88c8a"/>
          <source file="..\obj\timers.o" lastModified="1414af07669"/>
-         <source file="..\obj\tablo.o" lastModified="1414ea88d36"/>
+         <source file="..\obj\tablo.o" lastModified="1414fbd1dee"/>
          <source file="..\obj\tasks.o" lastModified="1414af0780f"/>
          <source file="..\obj\keyboard.o" lastModified="1414ea88dd2"/>
          <source file="..\obj\stm32f4xx_gpio.o" lastModified="1414ea88e6f"/>
@@ -26,7 +26,7 @@
          <source file="..\obj\croutine.o" lastModified="1414af07d2f"/>
          <source file="..\obj\stm32f4xx_spi.o" lastModified="1414ea89082"/>
          <source file="..\obj\channels.o" lastModified="1414ea8910e"/>
-         <source file="..\obj\spi_bus.o" lastModified="1414ea891da"/>
+         <source file="..\obj\spi_bus.o" lastModified="1414fd940ff"/>
          <source file="..\obj\misc.o" lastModified="1414ea89276"/>
          <source file="..\obj\heap_1.o" lastModified="1414af0807b"/>
          <source file="..\obj\stm32f4xx_tim.o" lastModified="1414ea893dd"/>

@@ -38,8 +38,8 @@ static void Init_Task(void *pvParameters)
 	uint16_t buf_out[2]={0xFFFF,1234};
 	uint16_t buf_in[1]={0x00};
 
-//	spi1_config();
-//	spi2_config();
+	spi1_config();
+	spi2_config();
 //	spi3_config();
 
 
@@ -94,7 +94,7 @@ static void Init_Task(void *pvParameters)
 //	 }
 
 
-	// tablo_devices_init();
+	 tablo_devices_init();
 
 	//tablo_proto_parser(&test_frame_1);
 

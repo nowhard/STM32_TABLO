@@ -217,10 +217,6 @@ uint8_t tablo_devices_init(void)//инициализация буферов ус
 {
 	uint8_t error=0;
 
-//	tab.buses[BUS_SPI_1].bus_buf=(uint16_t**)spi1_bus_buf;//статическая или динамическая память для буферов шин
-//	tab.buses[BUS_SPI_2].bus_buf=(uint16_t**)spi2_bus_buf;
-//	tab.buses[BUS_SPI_3].bus_buf=(uint16_t**)spi3_bus_buf;
-
 	tablo_indicator_struct_init();
 	spi_buses_init();
 
