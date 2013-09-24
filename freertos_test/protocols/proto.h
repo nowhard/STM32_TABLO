@@ -20,6 +20,11 @@
 void Proto_Init(void);//
 void ProtoProcess( void *pvParameters );//
 
+#define USARTx USART2
+#define GPIO_AF_USARTx GPIO_AF_USART2
+#define USARTx_IRQn	USART2_IRQn
+#define RCC_USARTx RCC_APB1Periph_USART2
+
 //#define CHANNEL_NUMBER	1
 
 #define DEVICE_NAME_LENGTH_SYM	20//

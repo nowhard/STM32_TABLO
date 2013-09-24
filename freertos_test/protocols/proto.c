@@ -57,20 +57,18 @@ sym_8_to_float;
 
 xSemaphoreHandle xProtoSemaphore;
 
-void USART1_IRQHandler (void)
+void USART6_IRQHandler (void)
 {
  	static portBASE_TYPE xHigherPriorityTaskWoken;
  	  xHigherPriorityTaskWoken = pdFALSE;
 
 //
 
- 	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
+ 	if(USART_GetITStatus(USART6, USART_IT_RXNE) != RESET)
    	{
+ 		USART_ClearITPendingBit(USART6, USART_IT_RXNE);
 
- 		USART_ClearITPendingBit(USART1, USART_IT_RXNE);
-
-
-   		symbol=USART_ReceiveData (USART1);
+   		symbol=USART_ReceiveData (USART6);
 
    		if(recieve_count>MAX_LENGTH_REC_BUF)
    		{
@@ -94,7 +92,7 @@ switch(proto_type)
 		{
 			if(tab.tablo_proto_buf[1]==(recieve_count-2))//
 			{
-				 USART_ITConfig(USART1, USART_IT_RXNE , DISABLE);
+				 USART_ITConfig(USART6, USART_IT_RXNE , DISABLE);
 				xSemaphoreGiveFromISR( xProtoSemaphore, &xHigherPriorityTaskWoken );
 
   				 if( xHigherPriorityTaskWoken != pdFALSE )
@@ -211,7 +209,7 @@ switch(proto_type)
 
    			if(recieve_count>=frame_len+6)//
    			{
-   				 USART_ITConfig(USART1, USART_IT_RXNE , DISABLE);
+   				 USART_ITConfig(USART6, USART_IT_RXNE , DISABLE);
 
    				 xSemaphoreGiveFromISR( xProtoSemaphore, &xHigherPriorityTaskWoken );
 
@@ -226,17 +224,17 @@ switch(proto_type)
 
    	}
    //-----------------------------------------------------------------------------------------------------------------
-   	if(USART_GetITStatus(USART1, USART_IT_TC) != RESET)
+   	if(USART_GetITStatus(USART6, USART_IT_TC) != RESET)
    	{
 
-   		USART_ClearITPendingBit(USART1, USART_IT_TC);//Р В РЎвЂўР РЋРІР‚РЋР В РЎвЂ�Р РЋРІР‚В°Р В Р’В°Р В Р’ВµР В РЎпїЅ Р В РЎвЂ”Р РЋР вЂљР В РЎвЂ�Р В Р’В·Р В Р вЂ¦Р В Р’В°Р В РЎвЂќ Р В РЎвЂ”Р РЋР вЂљР В Р’ВµР РЋР вЂљР РЋРІР‚в„–Р В Р вЂ Р В Р’В°Р В Р вЂ¦Р В РЎвЂ�Р РЋР РЏ
+   		USART_ClearITPendingBit(USART6, USART_IT_TC);//Р В РЎвЂўР РЋРІР‚РЋР В РЎвЂ�Р РЋРІР‚В°Р В Р’В°Р В Р’ВµР В РЎпїЅ Р В РЎвЂ”Р РЋР вЂљР В РЎвЂ�Р В Р’В·Р В Р вЂ¦Р В Р’В°Р В РЎвЂќ Р В РЎвЂ”Р РЋР вЂљР В Р’ВµР РЋР вЂљР РЋРІР‚в„–Р В Р вЂ Р В Р’В°Р В Р вЂ¦Р В РЎвЂ�Р РЋР РЏ
 
    		if(transf_count<buf_len)
    		{
    			if(transf_count<3)//Р В РЎвЂ”Р В Р’ВµР РЋР вЂљР В Р’ВµР В РўвЂ�Р В Р’В°Р В Р’ВµР В РЎпїЅ Р В Р’В·Р В Р’В°Р В РЎвЂ“Р В РЎвЂўР В Р’В»Р В РЎвЂўР В Р вЂ Р В РЎвЂўР В РЎвЂќ
    			{
-   				//USART_SendData(USART1,TransferBuf[transf_count]);
-   				USART1->DR =TransferBuf[transf_count];
+   				//USART_SendData(USART6,TransferBuf[transf_count]);
+   				USART6->DR =TransferBuf[transf_count];
    				transf_count++;
    			}
    			else   //Р РЋРІР‚С™Р В Р’ВµР В Р’В»Р В РЎвЂў...   Р В РЎвЂ”Р В РЎвЂўР В РўвЂ�Р РЋР С“Р РЋРІР‚С™Р В Р’В°Р В Р вЂ Р В Р’В»Р РЋР РЏР В Р’ВµР В РЎпїЅ 0 Р В РЎвЂ”Р В РЎвЂўР РЋР С“Р В Р’В»Р В Р’Вµ 0xD7
@@ -247,14 +245,14 @@ switch(proto_type)
    						{
    							CUT_OUT_NULL=0x1;
    						}
-   						//USART_SendData(USART1,TransferBuf[transf_count]);
-   						USART1->DR =TransferBuf[transf_count];
+   						//USART_SendData(USART6,TransferBuf[transf_count]);
+   						USART6->DR =TransferBuf[transf_count];
    						transf_count++;
    					}
    					else
    					{
-   						//USART_SendData(USART1,(uint8_t)0x0);
-   						USART1->DR =(uint8_t)0x0 ;
+   						//USART_SendData(USART6,(uint8_t)0x0);
+   						USART6->DR =(uint8_t)0x0 ;
    						CUT_OUT_NULL=0;
    					}
    			}
@@ -265,7 +263,7 @@ switch(proto_type)
    			recieve_count=0;
 
    			CUT_OUT_NULL=0;
-   			 USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
+   			 USART_ITConfig(USART6, USART_IT_RXNE , ENABLE);
    		}
 
    	}
@@ -276,46 +274,42 @@ switch(proto_type)
 void Proto_Init(void) //
 {
 
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 , ENABLE);
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+	  /* Enable GPIOC clock */
+	  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
 
-//	 NVIC_InitTypeDef NVIC_InitStructure;
-//	 NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
-//	  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
-//	  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 14;
-//	  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 15;
-//	  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-//	  NVIC_Init(&NVIC_InitStructure);
-
-
+	  /* Enable USART6 clock */
+	  RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART6, ENABLE);
 
 	  GPIO_InitTypeDef GPIO_InitStructure;
-
-	  // Tx on PD5 as alternate function push-pull
-	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
-	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF; //Р РµР¶РёРј Р°Р»СЊС‚РµСЂРЅР°С‚РёРІРЅРѕР№ С„СѓРЅРєС†РёРё
-	  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //Р’С‹С…РѕРґ Push-Pull
-	  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP; //Р’С‹С…РѕРґ Р±РµР· РїРѕРґС‚СЏРіРёРІР°СЋС‰РёС… СЂРµР·РёСЃС‚РѕСЂРѕРІ
+	  /* Configure port as pushpull, 50MHz and No pull up & down  */
+	  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	  GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
 	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	  GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-	  /* Rx on PD6 as input floating */
-	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
-	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF; //Р РµР¶РёРј Р°Р»СЊС‚РµСЂРЅР°С‚РёРІРЅРѕР№ С„СѓРЅРєС†РёРё
-	  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //Р’С‹С…РѕРґ Push-Pull
-	  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP; //Р’С‹С…РѕРґ Р±РµР· РїРѕРґС‚СЏРіРёРІР°СЋС‰РёС… СЂРµР·РёСЃС‚РѕСЂРѕРІ
-	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	  GPIO_Init(GPIOA, &GPIO_InitStructure);
+	  /* Configure PC6 as alternate function  */
+	  GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
+	  GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_6;
+	  GPIO_Init(GPIOC, &GPIO_InitStructure);
 
-	  GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);
-	  GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_USART1);
+	  /* Configure PC7 as alternate function  */
+	  GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
+	  GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_7;
+	  GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+	  /* Connect PC6 to USART6_Tx*/
+	  GPIO_PinAFConfig(GPIOC, GPIO_PinSource6, GPIO_AF_USART6);
+
+	  /* Connect PC7 to USART6_Rx*/
+	  GPIO_PinAFConfig(GPIOC, GPIO_PinSource7, GPIO_AF_USART6);
+
+
+
 
 
 
 	USART_InitTypeDef USART_InitStructure;
 
-		USART_DeInit(USART1);
+		USART_DeInit(USART6);
 
 	USART_InitStructure.USART_BaudRate = 57600;
 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
@@ -323,15 +317,15 @@ void Proto_Init(void) //
 	USART_InitStructure.USART_Parity = USART_Parity_No;
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-	USART_Init(USART1, &USART_InitStructure);
+	USART_Init(USART6, &USART_InitStructure);
 
-	USART_ClearFlag(USART1, USART_FLAG_CTS | USART_FLAG_LBD  | USART_FLAG_TC  | USART_FLAG_RXNE );
+	USART_ClearFlag(USART6, USART_FLAG_CTS | USART_FLAG_LBD  | USART_FLAG_TC  | USART_FLAG_RXNE );
 
-	USART_ITConfig(USART1, USART_IT_TC, ENABLE);
-	USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
+	USART_ITConfig(USART6, USART_IT_TC, ENABLE);
+	USART_ITConfig(USART6, USART_IT_RXNE , ENABLE);
 
-	USART_Cmd(USART1, ENABLE);
-	NVIC_EnableIRQ(USART1_IRQn);
+	USART_Cmd(USART6, ENABLE);
+	NVIC_EnableIRQ(USART6_IRQn);
 
 	//------------------------Р РЋРІР‚С›Р В Р’В»Р В Р’В°Р В РЎвЂ“Р В РЎвЂ� Р В РЎвЂўР РЋРІвЂљВ¬Р В РЎвЂ�Р В Р’В±Р В РЎвЂўР В РЎвЂќ--------------------------------
 
@@ -816,7 +810,7 @@ void ProtoProcess( void *pvParameters )
 					{
 						//tablo_proto_parser(&tab.tablo_proto_buf);
 						recieve_count=0x0;
-						USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
+						USART_ITConfig(USART6, USART_IT_RXNE , ENABLE);
 					}
 					break;
 
@@ -833,14 +827,14 @@ void ProtoProcess( void *pvParameters )
 							recieve_count=0;
 							CUT_OUT_NULL=0;
 
-							//USART_SendData(USART1,/*TransferBuf[transf_count]*/tab.uart_buf[transf_count]);
-							USART1->DR =TransferBuf[transf_count];
+							//USART_SendData(USART6,/*TransferBuf[transf_count]*/tab.uart_buf[transf_count]);
+							USART6->DR =TransferBuf[transf_count];
 							transf_count++;//
 						}
 						else
 						{
 							crc_n_ERR=0x1;//
-							USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
+							USART_ITConfig(USART6, USART_IT_RXNE , ENABLE);
 						}
 					}
 					break;
