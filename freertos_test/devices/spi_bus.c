@@ -1,11 +1,11 @@
 #include "spi_bus.h"
 
-#include "stm32f10x.h"
-#include "stm32f10x_gpio.h"
-#include "stm32f10x_rcc.h"
-#include "stm32f10x_tim.h"
-#include "stm32f10x_spi.h"
-#include "stm32f10x_dma.h"
+#include "stm32f4xx.h"
+#include "stm32f4xx_gpio.h"
+#include "stm32f4xx_rcc.h"
+#include "stm32f4xx_tim.h"
+#include "stm32f4xx_spi.h"
+#include "stm32f4xx_dma.h"
 #include <misc.h>
 
 #include "FreeRTOS.h"
@@ -44,7 +44,8 @@ uint8_t spi_buses_init(void)//инициализация шин SPI и выде�
 void	spi1_config(void)//конфигурация аппаратных интерфейсов
 {
 //	uint32_t i=0;
-	    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA |RCC_APB2Periph_GPIOC | RCC_APB2Periph_SPI1, ENABLE);
+	    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA |RCC_AHB1Periph_GPIOC, ENABLE);
+	    RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1,ENABLE);
 
 	    GPIO_InitTypeDef GPIO_InitStructure;
 	    SPI_InitTypeDef SPI_InitStructure;
@@ -52,7 +53,10 @@ void	spi1_config(void)//конфигурация аппаратных интер
 	    /* Configure SPI1 pins: SCK, MISO and MOSI -------------------------------*/
 	    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_5 |GPIO_Pin_7;
 	    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
+	    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
+	    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+
 	    GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 	    // MISO: ������������������ ����
@@ -61,7 +65,9 @@ void	spi1_config(void)//конфигурация аппаратных интер
 	    GPIO_Init(GPIOA, &GPIO_InitStructure);*/
 
 	    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_4;
-	    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
+	    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 	    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	    GPIO_Init(GPIOA, &GPIO_InitStructure);
 
@@ -88,55 +94,73 @@ void	spi1_config(void)//конфигурация аппаратных интер
 		DMA_InitTypeDef DMA_InitStructure;
 	  //  NVIC_InitTypeDef NVIC_InitStructure;
 
-		RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);
 
 //---------------------------
 		DMA_StructInit(&DMA_InitStructure);//mosi
+//
+//		DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI1->DR);
+//		//DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
+//		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+//		//DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
+//		DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+//		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+//		DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+//		DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+//		DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+//		DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
+//		DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+//		DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+//		DMA_Init(DMA1_Channel3, &DMA_InitStructure);
+//
+//
+//		DMA_ClearFlag(DMA1_FLAG_TC3);
 
-		DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI1->DR);
-		//DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
-		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
-		//DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
-		DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
-		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
-		DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+
+		DMA_DeInit(DMA2_Stream3);
+
+		DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable ;
+		DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_1QuarterFull ;
+		DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single ;
 		DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
 		DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+		DMA_InitStructure.DMA_PeripheralBaseAddr =(uint32_t) (&(SPI1->DR)) ;
+		DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
+		DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+		DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
 		DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
-		DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
-		DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
-		DMA_Init(DMA1_Channel3, &DMA_InitStructure);
 
-
-		DMA_ClearFlag(DMA1_FLAG_TC3);
+		DMA_Init(DMA2_Stream3,&DMA_InitStructure);
 //-----------------------------
-		DMA_StructInit(&DMA_InitStructure);//miso
-
-		DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI1->DR);
-		//DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
-		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
-		//DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
-		DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
-		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
-		DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
-		DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
-		DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
-		DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
-		DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
-		DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
-		DMA_Init(DMA1_Channel2, &DMA_InitStructure);
-
-
-		DMA_ClearFlag(DMA1_FLAG_TC2);
+//		DMA_StructInit(&DMA_InitStructure);//miso
+//
+//		DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI1->DR);
+//		//DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
+//		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+//		//DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
+//		DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+//		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+//		DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+//		DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+//		DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+//		DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
+//		DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+//		DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+//		DMA_Init(DMA1_Channel2, &DMA_InitStructure);
+//
+//
+//		DMA_ClearFlag(DMA1_FLAG_TC2);
 //-----------------------------
 		// Enable DMA request
+		 DMA_Cmd(DMA2_Stream3, ENABLE);
 		SPI_I2S_DMACmd(SPI1, SPI_I2S_DMAReq_Tx, ENABLE);
-		SPI_I2S_DMACmd(SPI1, SPI_I2S_DMAReq_Rx, ENABLE);
+//		SPI_I2S_DMACmd(SPI1, SPI_I2S_DMAReq_Rx, ENABLE);
 }
 
 void	spi2_config(void)//
 {
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
 
     GPIO_InitTypeDef GPIO_InitStructure;
@@ -145,7 +169,9 @@ void	spi2_config(void)//
     /* Configure SPI1 pins: SCK, MISO and MOSI -------------------------------*/
     GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
+    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
     GPIO_Init(GPIOB, &GPIO_InitStructure);
 
     // MISO: ������������������ ����
@@ -154,7 +180,9 @@ void	spi2_config(void)//
     GPIO_Init(GPIOA, &GPIO_InitStructure);*/
 
     GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_12;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOB, &GPIO_InitStructure);
 
@@ -181,53 +209,67 @@ void	spi2_config(void)//
 	DMA_InitTypeDef DMA_InitStructure;
   //  NVIC_InitTypeDef NVIC_InitStructure;
 
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA1, ENABLE);
 
 
 	DMA_StructInit(&DMA_InitStructure);
 
-	DMA_DeInit(DMA1_Channel5);
+	DMA_DeInit(DMA1_Stream4);
 
-	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI2->DR);
-	//DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
-	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
-	//DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
-	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
-	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
-	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
-	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
-	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
-	DMA_InitStructure.DMA_Priority = DMA_Priority_Medium;
-	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
-	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
-	DMA_Init(DMA1_Channel5, &DMA_InitStructure);
-
-
-	DMA_ClearFlag(DMA1_FLAG_TC5);
+//	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI2->DR);
+//	//DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
+//	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+//	//DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
+//	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+//	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+//	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+//	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+//	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+//	DMA_InitStructure.DMA_Priority = DMA_Priority_Medium;
+//	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+//	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+//	DMA_Init(DMA1_Channel5, &DMA_InitStructure);
+//
+//
+//	DMA_ClearFlag(DMA1_FLAG_TC5);
+//	//-----------------------------
+//	DMA_StructInit(&DMA_InitStructure);//miso
+//
+//	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI1->DR);
+//	//DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
+//	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+//	//DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
+//	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+//	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+//	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+//	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+//	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+//	DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
+//	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+//	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+//	DMA_Init(DMA1_Channel4, &DMA_InitStructure);
+//
+//
+//	DMA_ClearFlag(DMA1_FLAG_TC4);
 	//-----------------------------
-	DMA_StructInit(&DMA_InitStructure);//miso
-
-	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) (&SPI1->DR);
-	//DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)txBuffer;
-	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
-	//DMA_InitStructure.DMA_BufferSize = INDICATORS_NUM;
-	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
-	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
-	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+	DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable ;
+	DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_1QuarterFull ;
+	DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single ;
 	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
 	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+	DMA_InitStructure.DMA_PeripheralBaseAddr =(uint32_t) (&(SPI2->DR)) ;
+	DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
+	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
 	DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
-	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
-	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
-	DMA_Init(DMA1_Channel4, &DMA_InitStructure);
 
+	DMA_Init(DMA1_Stream4,&DMA_InitStructure);
 
-	DMA_ClearFlag(DMA1_FLAG_TC4);
-	//-----------------------------
-
+	DMA_Cmd(DMA1_Stream4, ENABLE);
 	// Enable DMA request
 	SPI_I2S_DMACmd(SPI2, SPI_I2S_DMAReq_Tx, ENABLE);
-	SPI_I2S_DMACmd(SPI2, SPI_I2S_DMAReq_Rx, ENABLE);
+//	SPI_I2S_DMACmd(SPI2, SPI_I2S_DMAReq_Rx, ENABLE);
 }
 
 void 	spi3_config(void)//
@@ -237,42 +279,53 @@ void 	spi3_config(void)//
 
 void spi1_write_buf(uint16_t* pBuffer, uint16_t len)//перекинуть буфер через dma
 {
-	  DMA1_Channel3->CMAR = (uint32_t)pBuffer;
-	  DMA1_Channel3->CNDTR = len;
+//	  DMA1_Channel3->CMAR = (uint32_t)pBuffer;
+//	  DMA1_Channel3->CNDTR = len;
+	  DMA2_Stream3->M0AR= (uint32_t)pBuffer;
+	  DMA2_Stream3->NDTR= len;
 
-	  DMA_ClearFlag(DMA1_FLAG_TC3);
+	  DMA_ClearFlag(DMA2_Stream3,DMA_FLAG_TCIF3);
 
-	  DMA_Cmd(DMA1_Channel3, ENABLE);
+	  DMA_Cmd(DMA2_Stream3, ENABLE);
+
 }
 
 void spi1_read_buf(uint16_t* pBuffer, uint16_t len)//перекинуть буфер через dma
 {
-	  DMA1_Channel2->CMAR = (uint32_t)pBuffer;
-	  DMA1_Channel2->CNDTR = len;
+//	  DMA1_Channel2->CMAR = (uint32_t)pBuffer;
+//	  DMA1_Channel2->CNDTR = len;
+	  DMA2_Stream3->M0AR= (uint32_t)pBuffer;
+	  DMA2_Stream3->NDTR= len;
 
-	  DMA_ClearFlag(DMA1_FLAG_TC2);
+	//  DMA_ClearFlag(DMA1_FLAG_TC2);
 
-	  DMA_Cmd(DMA1_Channel2, ENABLE);
+	  DMA_Cmd(DMA2_Stream3, ENABLE);
 }
 
 void spi2_write_buf(uint16_t* pBuffer, uint16_t len)
 {
-	  DMA1_Channel5->CMAR = (uint32_t)pBuffer;
-	  DMA1_Channel5->CNDTR = len;
+//	  DMA1_Channel5->CMAR = (uint32_t)pBuffer;
+//	  DMA1_Channel5->CNDTR = len;
 
-	  DMA_ClearFlag(DMA1_FLAG_TC5);
+	  DMA1_Stream4->M0AR= (uint32_t)pBuffer;
+	  DMA1_Stream4->NDTR= len;
 
-	  DMA_Cmd(DMA1_Channel5, ENABLE);
+	  DMA_ClearFlag(DMA1_Stream4,DMA_FLAG_TCIF4);
+
+	  DMA_Cmd(DMA1_Stream4, ENABLE);
 }
 
 void spi2_read_buf(uint16_t* pBuffer, uint16_t len)
 {
-	  DMA1_Channel4->CMAR = (uint32_t)pBuffer;
-	  DMA1_Channel4->CNDTR = len;
+//	  DMA1_Channel4->CMAR = (uint32_t)pBuffer;
+//	  DMA1_Channel4->CNDTR = len;
 
-	  DMA_ClearFlag(DMA1_FLAG_TC4);
+	  DMA1_Stream4->M0AR= (uint32_t)pBuffer;
+	  DMA1_Stream4->NDTR= len;
 
-	  DMA_Cmd(DMA1_Channel4, ENABLE);
+	//  DMA_ClearFlag(DMA1_Stream4,DMA_FLAG_TCIF4);
+
+	  DMA_Cmd(DMA1_Stream4, ENABLE);
 }
 
 void spi3_write_buf(uint16_t* pBuffer, uint16_t len)
@@ -293,11 +346,11 @@ static void spi1_task(void *pvParameters)//задачи шин
 			{
 				 spi1_write_buf(&tab.buses[BUS_SPI_1].bus_buf[i][0],IND_SPI_BUS_1_NUM);
 
-				 while(DMA_GetFlagStatus(DMA1_FLAG_TC3)==RESET)
+				 while(DMA_GetFlagStatus(DMA2_Stream3,DMA_FLAG_TCIF3)==RESET)
 				 {
 					 taskYIELD();
 				 }
-				 DMA_Cmd(DMA1_Channel3, DISABLE);
+				 DMA_Cmd(DMA2_Stream3, DISABLE);
 
 
 				 while(SPI1->SR & SPI_SR_BSY)
@@ -329,11 +382,11 @@ static void spi2_task(void *pvParameters)
 			{
 				spi2_write_buf(&tab.buses[BUS_SPI_2].bus_buf[i][0],IND_SPI_BUS_2_NUM);
 
-				while(DMA_GetFlagStatus(DMA1_FLAG_TC5)==RESET)
+				while(DMA_GetFlagStatus(DMA1_Stream4,DMA_FLAG_TCIF4)==RESET)
 				{
 					taskYIELD();
 				}
-				DMA_Cmd(DMA1_Channel5, DISABLE);
+				DMA_Cmd(DMA1_Stream4, DISABLE);
 
 				while(SPI2->SR & SPI_SR_BSY)
 				{

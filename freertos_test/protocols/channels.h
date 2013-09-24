@@ -1,17 +1,17 @@
 #ifndef CHANNELS_H
 #define CHANNELS_H
-#include <stm32f10x.h>
-#include "stm32f10x_gpio.h"
-#include "stm32f10x_rcc.h"
-#include "stm32f10x_tim.h"
-#include "stm32f10x_usart.h"
-//#include "stm32f10x_flash.h"
+#include <stm32f4xx.h>
+#include "stm32f4xx_gpio.h"
+#include "stm32f4xx_rcc.h"
+#include "stm32f4xx_tim.h"
+#include "stm32f4xx_usart.h"
+//#include "stm32f4xx_flash.h"
 //#include "preferences.h"
 #include "misc.h"
 //---------------------------------------
 #define CHANNEL_NUMBER	2//���������� �������
 //---------------------------------------
-#if defined (STM32F10X_HD) || defined (STM32F10X_HD_VL) || defined (STM32F10X_CL) || defined (STM32F10X_XL)
+#if defined (STM32f4xx_HD) || defined (STM32f4xx_HD_VL) || defined (STM32f4xx_CL) || defined (STM32f4xx_XL)
   #define FLASH_PAGE_SIZE    ((uint16_t)0x800)
 #else
   #define FLASH_PAGE_SIZE    ((uint16_t)0x400)
@@ -24,10 +24,10 @@
 #define BANK1_WRITE_START_ADDR  ((uint32_t)0x08020000)
 #define BANK1_WRITE_END_ADDR    ((uint32_t)0x08020400)
 
-#ifdef STM32F10X_XL
+#ifdef STM32f4xx_XL
   #define BANK2_WRITE_START_ADDR   ((uint32_t)0x08088000)
   #define BANK2_WRITE_END_ADDR     ((uint32_t)0x0808C000)
-#endif /* STM32F10X_XL */
+#endif /* STM32f4xx_XL */
 
 //---------------------------------------
 #define CHNL_ADC	0//канал ацп

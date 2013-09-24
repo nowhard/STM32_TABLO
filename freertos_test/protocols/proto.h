@@ -1,12 +1,12 @@
 #ifndef PROTO_H
 #define PROTO_H
 
-#include "stm32f10x.h"
-#include "stm32f10x_gpio.h"
-#include "stm32f10x_rcc.h"
-#include "stm32f10x_tim.h"
-#include "stm32f10x_usart.h"
-//#include "stm32f10x_flash.h"
+#include "stm32f4xx.h"
+#include "stm32f4xx_gpio.h"
+#include "stm32f4xx_rcc.h"
+#include "stm32f4xx_tim.h"
+#include "stm32f4xx_usart.h"
+//#include "stm32f4xx_flash.h"
 #include "misc.h"
 
 //#include "preferences.h"
@@ -20,7 +20,7 @@
 void Proto_Init(void);//
 void ProtoProcess( void *pvParameters );//
 
-#define CHANNEL_NUMBER	1
+//#define CHANNEL_NUMBER	1
 
 #define DEVICE_NAME_LENGTH_SYM	20//
 #define DEVICE_VER_LENGTH_SYM 0x8

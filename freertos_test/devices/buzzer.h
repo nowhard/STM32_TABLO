@@ -1,7 +1,7 @@
 #ifndef BUZZER_H
 #define BUZZER_H
 
-#include "stm32f10x.h"
+#include "stm32f4xx.h"
 
 #define BUZZER_ON	0x1
 #define BUZZER_OFF	0x0
