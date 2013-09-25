@@ -107,118 +107,192 @@ switch(proto_type)
 	case PROTO_TYPE_NEW:
 	{
 	//--------------------------
-   	    if(recieve_count<6)
-   		{
-   	    		switch(recieve_count)
-   				{
-   					case  0:   //
-   					{
-   	 				 	 if(symbol!=0x00)
-   						 {
-   	 				 		recieve_count=0;
 
-   	 				 	fr_err++;
-   							//return;
-   						 }
-   					}
-   					break;
+		switch(symbol)
+		{
+			case (char)(0xD7):
+			{
+				RecieveBuf[recieve_count]=symbol;
+				recieve_count++;
+				CUT_OUT_NULL=1;
+			}
+			break;
 
-   					case 1:	 //
-   					{
-   						 if(symbol!=0xD7)
-   						 {
-   							recieve_count=0;
+			case (char)(0x29):
+			{
+				if(CUT_OUT_NULL==1)
+				{
+					RecieveBuf[0]=0x0;
+					RecieveBuf[1]=0xD7;
+					RecieveBuf[2]=0x29;
+					recieve_count=0x3;
+				}
+				else
+				{
+					RecieveBuf[recieve_count]=symbol;
+					recieve_count++;
+				}
+				CUT_OUT_NULL=0;
+			}
+			break;
 
-   							//return;
-   						 }
-   					}
-   					break;
+			case (char)(0x0):
+			{
+				if(CUT_OUT_NULL==1)	  //если после 0xD7-пропускаем
+				{
+					CUT_OUT_NULL=0;
+				}
+				else
+				{
+					RecieveBuf[recieve_count]=symbol;
+					recieve_count++;
+				}
+			}
+			break;
 
-   					case 2:	 //
-   					{
-   					 	 if(symbol!=0x29)
-   						 {
-   					 		recieve_count=0;
+			default :
+			{
+				RecieveBuf[recieve_count]=symbol;
+				recieve_count++;
+				CUT_OUT_NULL=0;
 
-   							//return;
-   						 }
-   					}
-   					break;
+			}
+		}
 
-   					case 3:	//
-   					{
-   						if(symbol!=ADRESS_DEV)//
-   						{
-   							recieve_count=0;
+	   if(recieve_count>6)
+	   {
+			  if(recieve_count==6+frame_len)	  // принимаем указанное в frame_len число байт данные, 6 значит что обмен идет с компом, надо ставаить 5 чтобы обмениваться с устройствами
+			  {
+					 USART_ITConfig(USART6, USART_IT_RXNE , DISABLE);
 
-   							//return;
-   						}
-   					}
-   					break;
+					 xSemaphoreGiveFromISR( xProtoSemaphore, &xHigherPriorityTaskWoken );
 
-   					default:  //
-   					{
-   					}
-   					break;
-   				}
-
-   			RecieveBuf[recieve_count]=symbol;//
-   			recieve_count++;//
-
-   			if(recieve_count==6)
-   			{
-   				frame_len=RecieveBuf[recieve_count-1]; //
-   			}
-   		}
-   //---------------------------------------------------------
-   		else  //
-   		{
-   			switch(symbol)//
-   			{
-   				case 0xD7:
-   				{
-   					CUT_OUT_NULL=1;	//
-   					RecieveBuf[recieve_count]=symbol;
-   					recieve_count++;
-
-   				}
-   				break;
-
-   				case 0x0:
-   				{
-   					if(!CUT_OUT_NULL)  //
-   					{
-   						RecieveBuf[recieve_count]=symbol;
-   						recieve_count++;
-   					}
-   					else //
-   					{
-   						CUT_OUT_NULL=0;
-   					}
-   				}
-   				break;
-
-   				default:  //
-   				{
-   					CUT_OUT_NULL=0;
-   					RecieveBuf[recieve_count]=symbol;
-   					recieve_count++;
-   				}
-   				break;
-   			}
-
-   			if(recieve_count>=frame_len+6)//
-   			{
-   				 USART_ITConfig(USART6, USART_IT_RXNE , DISABLE);
-
-   				 xSemaphoreGiveFromISR( xProtoSemaphore, &xHigherPriorityTaskWoken );
-
-   				 if( xHigherPriorityTaskWoken != pdFALSE )
-   				 {
-   					portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
-   				 }
-   			}
-   		}
+					 if( xHigherPriorityTaskWoken != pdFALSE )
+					 {
+						portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
+					 }
+					 CUT_OUT_NULL=0;
+			  }
+	   }
+	   else
+	   {
+			   if(recieve_count==6)
+			   {
+					frame_len=RecieveBuf[recieve_count-1];  // получаем длину данных после заголовка
+			   }
+	   }
+//   	    if(recieve_count<6)
+//   		{
+//   	    		switch(recieve_count)
+//   				{
+//   					case  0:   //
+//   					{
+//   	 				 	 if(symbol!=0x00)
+//   						 {
+//   	 				 		recieve_count=0;
+//
+//   	 				 	fr_err++;
+//   							//return;
+//   						 }
+//   					}
+//   					break;
+//
+//   					case 1:	 //
+//   					{
+//   						 if(symbol!=0xD7)
+//   						 {
+//   							recieve_count=0;
+//
+//   							//return;
+//   						 }
+//   					}
+//   					break;
+//
+//   					case 2:	 //
+//   					{
+//   					 	 if(symbol!=0x29)
+//   						 {
+//   					 		recieve_count=0;
+//
+//   							//return;
+//   						 }
+//   					}
+//   					break;
+//
+//   					case 3:	//
+//   					{
+//   						if(symbol!=ADRESS_DEV)//
+//   						{
+//   							recieve_count=0;
+//
+//   							//return;
+//   						}
+//   					}
+//   					break;
+//
+//   					default:  //
+//   					{
+//   					}
+//   					break;
+//   				}
+//
+//   			RecieveBuf[recieve_count]=symbol;//
+//   			recieve_count++;//
+//
+//   			if(recieve_count==6)
+//   			{
+//   				frame_len=RecieveBuf[recieve_count-1]; //
+//   			}
+//   		}
+//   //---------------------------------------------------------
+//   		else  //
+//   		{
+//   			switch(symbol)//
+//   			{
+//   				case 0xD7:
+//   				{
+//   					CUT_OUT_NULL=1;	//
+//   					RecieveBuf[recieve_count]=symbol;
+//   					recieve_count++;
+//
+//   				}
+//   				break;
+//
+//   				case 0x0:
+//   				{
+//   					if(!CUT_OUT_NULL)  //
+//   					{
+//   						RecieveBuf[recieve_count]=symbol;
+//   						recieve_count++;
+//   					}
+//   					else //
+//   					{
+//   						CUT_OUT_NULL=0;
+//   					}
+//   				}
+//   				break;
+//
+//   				default:  //
+//   				{
+//   					CUT_OUT_NULL=0;
+//   					RecieveBuf[recieve_count]=symbol;
+//   					recieve_count++;
+//   				}
+//   				break;
+//   			}
+//
+//   			if(recieve_count>=frame_len+6)//
+//   			{
+//   				 USART_ITConfig(USART6, USART_IT_RXNE , DISABLE);
+//
+//   				 xSemaphoreGiveFromISR( xProtoSemaphore, &xHigherPriorityTaskWoken );
+//
+//   				 if( xHigherPriorityTaskWoken != pdFALSE )
+//   				 {
+//   					portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
+//   				 }
+//   			}
+//   		}
 	}
 }
 

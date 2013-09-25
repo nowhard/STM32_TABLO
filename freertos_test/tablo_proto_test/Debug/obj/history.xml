@@ -16,8 +16,8 @@
       <target file="indicator.o" lastModified="1414ea88a0a">
          <source file="..\..\..\devices\indicator.c" lastModified="13f9e906937"/>
       </target>
-      <target file="proto.o" lastModified="1415436fc18">
-         <source file="..\..\..\protocols\proto.c" lastModified="1415436be06"/>
+      <target file="proto.o" lastModified="1415520c45c">
+         <source file="..\..\..\protocols\proto.c" lastModified="1415520b6b0"/>
       </target>
       <target file="tasks.o" lastModified="1414af0780f">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13e3b1eb910"/>
