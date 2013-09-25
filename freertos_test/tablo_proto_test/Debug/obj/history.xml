@@ -64,8 +64,8 @@
       <target file="keyboard.o" lastModified="1414ea88dd2">
          <source file="..\..\..\devices\keyboard.c" lastModified="14149d35493"/>
       </target>
-      <target file="spi_bus.o" lastModified="1414ff25e03">
-         <source file="..\..\..\devices\spi_bus.c" lastModified="1414ff25345"/>
+      <target file="spi_bus.o" lastModified="1415533a0f9">
+         <source file="..\..\..\devices\spi_bus.c" lastModified="14155338eaa"/>
       </target>
       <target file="tablo.o" lastModified="1414fbd1dee">
          <source file="..\..\..\devices\tablo.c" lastModified="1414fbd0ff4"/>
