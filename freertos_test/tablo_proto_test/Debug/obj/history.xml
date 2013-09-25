@@ -16,8 +16,8 @@
       <target file="indicator.o" lastModified="1414ea88a0a">
          <source file="..\..\..\devices\indicator.c" lastModified="13f9e906937"/>
       </target>
-      <target file="proto.o" lastModified="1414fef3404">
-         <source file="..\..\..\protocols\proto.c" lastModified="1414fec8157"/>
+      <target file="proto.o" lastModified="1415436fc18">
+         <source file="..\..\..\protocols\proto.c" lastModified="1415436be06"/>
       </target>
       <target file="tasks.o" lastModified="1414af0780f">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13e3b1eb910"/>
@@ -76,7 +76,7 @@
       <target file="stm32f4xx_spi.o" lastModified="1414ea89082">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_spi.c" lastModified="14125d81f8b"/>
       </target>
-      <target file="main.o" lastModified="1414f530615">
+      <target file="main.o" lastModified="14153facba6">
          <source file="..\..\..\main.c" lastModified="1414f52aa87"/>
       </target>
       <target file="system_stm32f4xx.o" lastModified="1414ea88efb">

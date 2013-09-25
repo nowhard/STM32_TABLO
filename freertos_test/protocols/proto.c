@@ -301,8 +301,19 @@ void Proto_Init(void) //
 	  /* Connect PC7 to USART6_Rx*/
 	  GPIO_PinAFConfig(GPIOC, GPIO_PinSource7, GPIO_AF_USART6);
 
+	   NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
 
+	   NVIC_InitTypeDef NVIC_InitStructure;
 
+	   /* Place the vector table into FLASH */
+	   //NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x0);
+
+	   /* Enabling interrupt from USART1 */
+	   NVIC_InitStructure.NVIC_IRQChannel = USART6_IRQn;
+	   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 14;
+	   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	   NVIC_Init(&NVIC_InitStructure);
 
 
 
