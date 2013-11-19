@@ -39,8 +39,8 @@ struct indicator{
 
 #define IND_ALL_NUM			20//общее количество индикаторов
 
-#define IND_SPI_BUS_1_NUM	10 //количество индикаторов на шине
-#define IND_SPI_BUS_2_NUM	10
+#define IND_SPI_BUS_1_NUM	12 //количество индикаторов на шине
+#define IND_SPI_BUS_2_NUM	6
 #define IND_SPI_BUS_3_NUM	0
 
 uint8_t indicators_init(void);//инициализация и выделение памяти под индикаторы
