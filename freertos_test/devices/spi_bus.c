@@ -124,21 +124,21 @@ void	spi1_config(void)//
 
 void	spi2_config(void)//
 {
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB|RCC_AHB1Periph_GPIOC, ENABLE);
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
 
     GPIO_InitTypeDef GPIO_InitStructure;
     SPI_InitTypeDef SPI_InitStructure;
 
     /* Configure SPI1 pins: SCK, MISO and MOSI -------------------------------*/
-    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_2|GPIO_Pin_3;
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_13|GPIO_Pin_15;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-    GPIO_Init(GPIOC, &GPIO_InitStructure);
+    GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_10;
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_14;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
@@ -150,16 +150,16 @@ void	spi2_config(void)//
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
     GPIO_Init(GPIOA, &GPIO_InitStructure);*/
 
-    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_11;
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_12;
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-	GPIO_PinAFConfig(GPIOC, GPIO_PinSource2, GPIO_AF_SPI2);
-	GPIO_PinAFConfig(GPIOC, GPIO_PinSource3, GPIO_AF_SPI2);
-	GPIO_PinAFConfig(GPIOB, GPIO_PinSource10, GPIO_AF_SPI2);
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource13, GPIO_AF_SPI2);
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource14, GPIO_AF_SPI2);
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource15, GPIO_AF_SPI2);
 
     SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
     SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
@@ -177,7 +177,7 @@ void	spi2_config(void)//
     SPI_CalculateCRC(SPI2, DISABLE);
     SPI_Cmd(SPI2, ENABLE);
 
-    GPIO_WriteBit(GPIOB, GPIO_Pin_10, Bit_RESET);
+    GPIO_WriteBit(GPIOB, GPIO_Pin_12, Bit_RESET);
 //--------------------------------------------------------------------------
 	DMA_InitTypeDef DMA_InitStructure;
 
@@ -209,42 +209,42 @@ void	spi2_config(void)//
 
 void 	spi3_config(void)//
 {
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD|RCC_AHB1Periph_GPIOC, ENABLE);
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI3, ENABLE);
 
     GPIO_InitTypeDef GPIO_InitStructure;
     SPI_InitTypeDef SPI_InitStructure;
 
     /* Configure SPI1 pins: SCK, MISO and MOSI -------------------------------*/
-    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_12|GPIO_Pin_10;
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_3|GPIO_Pin_5;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-    GPIO_Init(GPIOC, &GPIO_InitStructure);
+    GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_11;
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_4;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-    GPIO_Init(GPIOC, &GPIO_InitStructure);
+    GPIO_Init(GPIOB, &GPIO_InitStructure);
 
     // MISO:
  /*   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
     GPIO_Init(GPIOA, &GPIO_InitStructure);*/
 
-    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_0;
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_6;
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOD, &GPIO_InitStructure);
+    GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-	GPIO_PinAFConfig(GPIOC, GPIO_PinSource12, GPIO_AF_SPI3);
-	GPIO_PinAFConfig(GPIOC, GPIO_PinSource11, GPIO_AF_SPI3);
-	GPIO_PinAFConfig(GPIOC, GPIO_PinSource10, GPIO_AF_SPI3);
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource3, GPIO_AF_SPI3);
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource4, GPIO_AF_SPI3);
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource5, GPIO_AF_SPI3);
 
     SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
     SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
@@ -262,7 +262,7 @@ void 	spi3_config(void)//
     SPI_CalculateCRC(SPI3, DISABLE);
     SPI_Cmd(SPI3, ENABLE);
 
-    GPIO_WriteBit(GPIOD, GPIO_Pin_0, Bit_RESET);
+    GPIO_WriteBit(GPIOB, GPIO_Pin_6, Bit_RESET);
 //--------------------------------------------------------------------------
 	DMA_InitTypeDef DMA_InitStructure;
 
@@ -400,7 +400,7 @@ static void spi2_task(void *pvParameters)
 	{
 		for(i=0;i<IND_COMMAND_LEN;i++)
 		{
-			GPIO_WriteBit(GPIOB, GPIO_Pin_11,0);
+			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
 			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
 			{
 				spi2_write_buf(&tab.buses[BUS_SPI_2].bus_buf[i][0],IND_SPI_BUS_2_NUM);
@@ -420,9 +420,9 @@ static void spi2_task(void *pvParameters)
 				xSemaphoreGive( xSPI_Buf_Mutex );
 			}
 
-			GPIO_WriteBit(GPIOB, GPIO_Pin_11,1);
+			GPIO_WriteBit(GPIOB, GPIO_Pin_12,1);
 			taskYIELD();
-			GPIO_WriteBit(GPIOB, GPIO_Pin_11,0);
+			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
 		}
 		vTaskDelay(50);
 	}
@@ -437,7 +437,7 @@ static void spi3_task(void *pvParameters)
 	{
 		for(i=0;i<IND_COMMAND_LEN;i++)
 		{
-			GPIO_WriteBit(GPIOD, GPIO_Pin_0,0);
+			GPIO_WriteBit(GPIOB, GPIO_Pin_6,0);
 			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
 			{
 				spi3_write_buf(&tab.buses[BUS_SPI_3].bus_buf[i][0],IND_SPI_BUS_3_NUM);
@@ -457,24 +457,10 @@ static void spi3_task(void *pvParameters)
 				xSemaphoreGive( xSPI_Buf_Mutex );
 			}
 
-			GPIO_WriteBit(GPIOD, GPIO_Pin_0,1);
+			GPIO_WriteBit(GPIOB, GPIO_Pin_6,1);
 			taskYIELD();
-			GPIO_WriteBit(GPIOD, GPIO_Pin_0,0);
+			GPIO_WriteBit(GPIOB, GPIO_Pin_6,0);
 		}
-
-//		spi3_write_buf(&test_buf,8);
-//		while(DMA_GetFlagStatus(DMA1_Stream5,DMA_FLAG_TCIF5)==RESET)
-//		{
-//			taskYIELD();
-//		}
-//		DMA_Cmd(DMA1_Stream5, DISABLE);
-//		DMA_ClearFlag(DMA1_Stream5,DMA_FLAG_TCIF5);
-//
-//		while(SPI3->SR & SPI_SR_BSY)
-//		{
-//			taskYIELD();
-//		}
-
 		vTaskDelay(50);
 	}
 }

@@ -25,6 +25,7 @@
 #include "proto.h"
 #include "keyboard.h"
 #include "buzzer.h"
+#include "power.h"
 
 extern struct tablo tab;//
 static void Init_Task(void *pvParameters);//
@@ -41,6 +42,8 @@ static void Init_Task(void *pvParameters)
 	spi1_config();
 	spi2_config();
 	spi3_config();
+
+	Power_Init();
 
 
 //-------------------------------
@@ -106,6 +109,9 @@ static void Init_Task(void *pvParameters)
 	//vTaskDelay(2000);
 
     Proto_Init();
+	Power_On_Channel_1();
+	Power_On_Channel_2();
+	Power_On_Channel_3();
 //    keyboard_init();
   //  buzzer_init();
     vTaskDelete( NULL );
