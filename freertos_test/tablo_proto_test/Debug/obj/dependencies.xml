@@ -47,7 +47,7 @@
       <source file="..\..\..\cmsis_lib\source\misc.c" lastModified="14125d86b88">
          <include file="..\..\..\cmsis_lib\include\misc.h"/>
       </source>
-      <source file="..\..\..\protocols\proto.c" lastModified="1427550766d">
+      <source file="..\..\..\protocols\proto.c" lastModified="14275a13fb3">
          <include file="..\..\..\protocols\proto.h"/>
          <include file="..\..\..\protocols\channels.h"/>
          <include file="..\..\..\devices\tablo.h"/>
@@ -148,6 +148,12 @@
       </source>
       <source file="..\..\..\cmsis\core_cmFunc.h" lastModified="14125d7ed9e">
       </source>
+      <source file="..\..\..\devices\power.c" lastModified="142758af8f1">
+         <include file="..\..\..\devices\power.h"/>
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+         <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
+         <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
+      </source>
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_usart.h" lastModified="14149978ccd">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
@@ -226,7 +232,7 @@
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_pwr.h" lastModified="14149991717">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
-      <source file="..\..\..\FreeRTOSConfig.h" lastModified="1414a82ad3f">
+      <source file="..\..\..\FreeRTOSConfig.h" lastModified="14275a30ddc">
       </source>
       <source file="..\..\..\cmsis_boot\startup\startup_stm32f4xx.c" lastModified="13cedd0ed70">
       </source>
@@ -654,8 +660,6 @@
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_pwr.h" lastModified="14149991717">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
-      <source file="..\..\..\FreeRTOSConfig.h" lastModified="1414a82ad3f">
-      </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\include\projdefs.h" lastModified="13e3b1eb8f0">
       </source>
       <source file="..\..\..\devices\buzzer.h" lastModified="14149bd2233">
@@ -780,8 +784,6 @@
       </source>
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_pwr.h" lastModified="14149991717">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
-      </source>
-      <source file="..\..\..\FreeRTOSConfig.h" lastModified="1414a82ad3f">
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\include\projdefs.h" lastModified="13e3b1eb8f0">
       </source>

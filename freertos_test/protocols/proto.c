@@ -57,6 +57,9 @@ sym_8_to_float;
 
 xSemaphoreHandle xProtoSemaphore;
 
+#define RS_485_RECEIVE  GPIO_WriteBit(GPIOA, GPIO_Pin_8, Bit_RESET); GPIO_WriteBit(GPIOA, GPIO_Pin_11, Bit_RESET);
+#define RS_485_TRANSMIT GPIO_WriteBit(GPIOA, GPIO_Pin_8, Bit_SET); GPIO_WriteBit(GPIOA, GPIO_Pin_11, Bit_SET);
+
 void USART1_IRQHandler (void)
 {
  	static portBASE_TYPE xHigherPriorityTaskWoken;
@@ -337,7 +340,8 @@ switch(proto_type)
    			recieve_count=0;
 
    			CUT_OUT_NULL=0;
-   			 USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
+   			USART_ITConfig(USART1, USART_IT_RXNE , ENABLE);
+   			RS_485_RECEIVE;
    		}
 
    	}
@@ -379,6 +383,8 @@ void Proto_Init(void) //
 	    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	    GPIO_Init(GPIOA, &GPIO_InitStructure);
 
+
+	    RS_485_RECEIVE;
 
 	USART_InitTypeDef USART_InitStructure;
 
@@ -919,6 +925,7 @@ void ProtoProcess( void *pvParameters )
 							CUT_OUT_NULL=0;
 
 							//USART_SendData(USART1,/*TransferBuf[transf_count]*/tab.uart_buf[transf_count]);
+							RS_485_TRANSMIT;
 							USART1->DR =TransferBuf[transf_count];
 							transf_count++;//
 						}
