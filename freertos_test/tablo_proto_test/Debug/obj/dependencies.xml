@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dependencies>
    <includePath signature="/ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\portable\GCC /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\portable\GCC\ARM_CM4F /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\devices /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\portable /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_lib /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\protocols /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_boot /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\include /ID:\PROJECTS\GIT_REPOSITORY\STM32 /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_lib\include /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0 /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis">
-      <source file="..\..\..\devices\tablo.c" lastModified="1427068f81d">
+      <source file="..\..\..\devices\tablo.c" lastModified="142743a369d">
          <include file="..\..\..\devices\tablo.h"/>
       </source>
-      <source file="..\..\..\devices\indicator.h" lastModified="142706919ed">
+      <source file="..\..\..\devices\indicator.h" lastModified="142743a6a8e">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\GCC\ARM_CM4F\port.c" lastModified="13e3b1eb900">
@@ -224,7 +224,7 @@
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\include\projdefs.h" lastModified="13e3b1eb8f0">
       </source>
-      <source file="..\..\..\main.c" lastModified="1414f52b257">
+      <source file="..\..\..\main.c" lastModified="14274465b9f">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>

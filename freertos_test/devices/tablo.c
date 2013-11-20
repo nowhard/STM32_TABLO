@@ -162,8 +162,8 @@ void tablo_indicator_struct_init(void)//
 	tab.indicators[14].shutdown=IND_SHUTDOWN|IND_SHUTDOWN_OFF;
 	tab.indicators[14].display_test=IND_DISPLAY_TEST|IND_DISPLAY_TEST_OFF;
 
-	tab.indicators[15].bus=BUS_SPI_1;
-	tab.indicators[15].number_in_bus=(IND_SPI_BUS_1_NUM-1)-11;
+	tab.indicators[15].bus=BUS_SPI_3;
+	tab.indicators[15].number_in_bus=(IND_SPI_BUS_3_NUM-1)-0;
 	tab.indicators[15].type=IND_TYPE_LINE;
 	tab.indicators[15].character_num=0x8;
 	tab.indicators[15].brightness=IND_BRIGHTNESS|0x9;

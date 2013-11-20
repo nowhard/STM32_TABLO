@@ -40,7 +40,7 @@ static void Init_Task(void *pvParameters)
 
 	spi1_config();
 	spi2_config();
-//	spi3_config();
+	spi3_config();
 
 
 //-------------------------------
