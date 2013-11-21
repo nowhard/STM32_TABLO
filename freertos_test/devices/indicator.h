@@ -45,4 +45,8 @@ struct indicator{
 
 uint8_t indicators_init(void);//инициализация и выделение памяти под индикаторы
 
+
+
+
+
 #endif
