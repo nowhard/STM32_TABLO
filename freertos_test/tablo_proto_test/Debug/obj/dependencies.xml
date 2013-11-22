@@ -97,7 +97,7 @@
       </source>
       <source file="..\..\..\cmsis_boot\system_stm32f4xx.h" lastModified="13cedd0ed70">
       </source>
-      <source file="..\..\..\devices\spi_bus.h" lastModified="1427a1b112b">
+      <source file="..\..\..\devices\spi_bus.h" lastModified="1427fbcd370">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\devices\indicator.h"/>
       </source>
@@ -129,11 +129,12 @@
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\include\StackMacros.h" lastModified="13e3b1eb900">
       </source>
-      <source file="..\..\..\devices\power.h" lastModified="1427565784b">
+      <source file="..\..\..\devices\power.h" lastModified="1427f9d9a08">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
       <source file="..\..\..\cmsis\core_cmFunc.h" lastModified="14125d7ed9e">
       </source>
-      <source file="..\..\..\devices\power.c" lastModified="142758af8f1">
+      <source file="..\..\..\devices\power.c" lastModified="1427f9b48c5">
          <include file="..\..\..\devices\power.h"/>
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
@@ -232,7 +233,7 @@
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\include\projdefs.h" lastModified="13e3b1eb8f0">
       </source>
-      <source file="..\..\..\main.c" lastModified="1427aeb1d1e">
+      <source file="..\..\..\main.c" lastModified="1427fcd4288">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>

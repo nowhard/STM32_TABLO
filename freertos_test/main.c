@@ -34,14 +34,12 @@ const uint8_t test_frame_2[]={0x3A,0x7C,0x5B,0x00,0x38,0x38,0x38,0x5D,0x5B,0x01,
 
 static void Init_Task(void *pvParameters)
 {
-	uint8_t i=0, in_val;
+	//uint8_t i=0, in_val;
 
-	uint16_t buf_out[2]={0xFFFF,1234};
-	uint16_t buf_in[1]={0x00};
+	//uint16_t buf_out[2]={0xFFFF,1234};
+	//uint16_t buf_in[1]={0x00};
 
-	spi1_config();
-	spi2_config();
-	spi3_config();
+
 
 	Power_Init();
 
@@ -97,21 +95,54 @@ static void Init_Task(void *pvParameters)
 //	 }
 
 
-	 tablo_devices_init();
-		Power_On_Channel_1();
-		Power_On_Channel_2();
-		Power_On_Channel_3();
 
+	 	vTaskDelay(200);
+
+	 	if(Power_Channel_1_OK())
+	 	{
+	 		Power_On_Channel_1();
+	 		tab.buses[BUS_SPI_1].error=BUS_ERROR_NONE;
+	 	}
+	 	else
+	 	{
+	 		tab.buses[BUS_SPI_1].error=BUS_ERROR_POWER;
+		}
+
+	 	if(Power_Channel_2_OK())
+	 	{
+	 		Power_On_Channel_2();
+	 		tab.buses[BUS_SPI_2].error=BUS_ERROR_NONE;
+	 	}
+	 	else
+	 	{
+	 		tab.buses[BUS_SPI_2].error=BUS_ERROR_POWER;
+		}
+
+	 	if(Power_Channel_3_OK())
+	 	{
+	 		Power_On_Channel_3();
+	 		tab.buses[BUS_SPI_3].error=BUS_ERROR_NONE;
+	 	}
+	 	else
+	 	{
+	 		tab.buses[BUS_SPI_3].error=BUS_ERROR_POWER;
+	 	}
+
+	spi1_config();
+	spi2_config();
+	spi3_config();
+
+	tablo_devices_init();
 	tablo_proto_parser(&test_frame_2);
 
 	vTaskDelay(200);
 	tablo_proto_parser(&test_frame_2);
 
-	vTaskDelay(50000);
+	vTaskDelay(1000);
 
 	tablo_proto_parser(&test_frame_1);
 
-	vTaskDelay(50000);
+	vTaskDelay(1000);
 
     Proto_Init();
 
@@ -126,7 +157,7 @@ int main(void)
 	SystemInit();
 
 
-	 xTaskCreate(Init_Task,(signed char*)"INIT",128,NULL, tskIDLE_PRIORITY + 1, NULL);
+    xTaskCreate(Init_Task,(signed char*)"INIT",128,NULL, tskIDLE_PRIORITY + 1, NULL);
 
     vTaskStartScheduler();
 

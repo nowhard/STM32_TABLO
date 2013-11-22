@@ -31,7 +31,7 @@ xSemaphoreHandle xSPI_Buf_Mutex;
 
 uint16_t ind_test_buf3[13][8]=   {{0xAFF,0xAFF,0xAFF,0xAFF,0xAFF,0xAFF},
 								 {0x900,0x900,0x900,0x900,0x900,0x900},
-								 {0xB07,0xB07,0xB04,0xB04,0xB04,0xB04},
+								 {0xB07,0xB07,0xB02,0xB02,0xB02,0xB02},
 								 {0xC01,0xC01,0xC01,0xC01,0xC01,0xC01},
 								 {0xF00,0xF00,0xF00,0xF00,0xF00,0xF00},
 								 {0x1*0x100+COLOR,0x1*0x100+COLOR,0x1FF,0x1FF,0x1FF,0x1FF},
@@ -46,7 +46,7 @@ uint16_t ind_test_buf3[13][8]=   {{0xAFF,0xAFF,0xAFF,0xAFF,0xAFF,0xAFF},
 
 uint16_t ind_test_buf2[13][8]=   {{0xAFF,0xAFF,0xAFF,0xAFF,0xAFF,0xAFF},
 								 {0x900,0x900,0x900,0x900,0x900,0x900},
-								 {0xB04,0xB04,0xB07,0xB07,0xB04,0xB04},
+								 {0xB02,0xB03,0xB07,0xB07,0xB02,0xB02},
 								 {0xC01,0xC01,0xC01,0xC01,0xC01,0xC01},
 								 {0xF00,0xF00,0xF00,0xF00,0xF00,0xF00},
 								 {0x1FF,0x1FF,0x1*0x100+COLOR,0x1*0x100+COLOR,0x1FF,0x1FF},
@@ -61,7 +61,7 @@ uint16_t ind_test_buf2[13][8]=   {{0xAFF,0xAFF,0xAFF,0xAFF,0xAFF,0xAFF},
 
 uint16_t ind_test_buf1[13][8]=   {{0xAFF,0xAFF,0xAFF,0xAFF,0xAFF,0xAFF},
 								 {0x900,0x900,0x900,0x900,0x900,0x900},
-								 {0xB07,0xB04,0xB04,0xB04,0xB04,0xB07},
+								 {0xB07,0xB02,0xB03,0xB04,0xB02,0xB07},
 								 {0xC01,0xC01,0xC01,0xC01,0xC01,0xC01},
 								 {0xF00,0xF00,0xF00,0xF00,0xF00,0xF00},
 								 {0x1*0x100+COLOR,0x1FF,0x1FF,0x1FF,0x1FF,0x1*0x100+COLOR},
@@ -77,15 +77,26 @@ uint16_t ind_test_buf1[13][8]=   {{0xAFF,0xAFF,0xAFF,0xAFF,0xAFF,0xAFF},
 uint8_t spi_buses_init(void)//
 {
 	uint8_t error=0;
-	 xTaskCreate(spi1_task,(signed char*)"SPI_1_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+
+	if(tab.buses[BUS_SPI_1].error==BUS_ERROR_NONE)
+	{
+		xTaskCreate(spi1_task,(signed char*)"SPI_1_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+	}
+
+	if(tab.buses[BUS_SPI_2].error==BUS_ERROR_NONE)
+	{
 	 xTaskCreate(spi2_task,(signed char*)"SPI_2_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+	}
+
+	if(tab.buses[BUS_SPI_3].error==BUS_ERROR_NONE)
+	{
 	 xTaskCreate(spi3_task,(signed char*)"SPI_3_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+	}
 
 	 xSPI_Buf_Mutex=xSemaphoreCreateMutex();
 
 	 if( xSPI_Buf_Mutex != NULL )
-	 {
-		//
+	 {		//
 	 }
 
 	return error;
@@ -94,7 +105,12 @@ uint8_t spi_buses_init(void)//
 
 void	spi1_config(void)//
 {
-	    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA |RCC_AHB1Periph_GPIOC, ENABLE);
+	    if(tab.buses[BUS_SPI_1].error)//ошибка шины
+	    {
+	    	return;
+	    }
+
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA |RCC_AHB1Periph_GPIOC, ENABLE);
 	    RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1,ENABLE);
 
 	    GPIO_InitTypeDef GPIO_InitStructure;
@@ -174,7 +190,12 @@ void	spi1_config(void)//
 
 void	spi2_config(void)//
 {
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+    if(tab.buses[BUS_SPI_2].error)//ошибка шины
+    {
+    	return;
+    }
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
 
     GPIO_InitTypeDef GPIO_InitStructure;
@@ -259,7 +280,12 @@ void	spi2_config(void)//
 
 void 	spi3_config(void)//
 {
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+    if(tab.buses[BUS_SPI_3].error)//ошибка шины
+    {
+    	return;
+    }
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI3, ENABLE);
 
     GPIO_InitTypeDef GPIO_InitStructure;
@@ -404,9 +430,9 @@ static void spi1_task(void *pvParameters)//Ѕ
 
 			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
 			{
-				// spi1_write_buf(&tab.buses[BUS_SPI_1].bus_buf[i][0],IND_SPI_BUS_1_NUM);
+				 spi1_write_buf(&tab.buses[BUS_SPI_1].bus_buf[i][0],IND_SPI_BUS_1_NUM);
 
-				spi1_write_buf(&ind_test_buf1[i][0],IND_SPI_BUS_1_NUM);
+				//spi1_write_buf(&ind_test_buf1[i][0],IND_SPI_BUS_1_NUM);
 				 while(DMA_GetFlagStatus(DMA2_Stream3,DMA_FLAG_TCIF3)==RESET)
 				 {
 					 taskYIELD();
@@ -454,8 +480,8 @@ static void spi2_task(void *pvParameters)
 			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
 			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
 			{
-				//spi2_write_buf(&tab.buses[BUS_SPI_2].bus_buf[i][0],IND_SPI_BUS_2_NUM);
-				spi2_write_buf(&ind_test_buf2[i][0],IND_SPI_BUS_1_NUM);
+				spi2_write_buf(&tab.buses[BUS_SPI_2].bus_buf[i][0],IND_SPI_BUS_2_NUM);
+				//spi2_write_buf(&ind_test_buf2[i][0],IND_SPI_BUS_1_NUM);
 				while(DMA_GetFlagStatus(DMA1_Stream4,DMA_FLAG_TCIF4)==RESET)
 				{
 					taskYIELD();
@@ -491,8 +517,8 @@ static void spi3_task(void *pvParameters)
 			GPIO_WriteBit(GPIOB, GPIO_Pin_6,0);
 			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
 			{
-				//spi3_write_buf(&tab.buses[BUS_SPI_3].bus_buf[i][0],IND_SPI_BUS_3_NUM);
-				spi3_write_buf(&ind_test_buf3[i][0],IND_SPI_BUS_1_NUM);
+				spi3_write_buf(&tab.buses[BUS_SPI_3].bus_buf[i][0],IND_SPI_BUS_3_NUM);
+				//spi3_write_buf(&ind_test_buf3[i][0],IND_SPI_BUS_1_NUM);
 				while(DMA_GetFlagStatus(DMA1_Stream5,DMA_FLAG_TCIF5)==RESET)
 				{
 					taskYIELD();

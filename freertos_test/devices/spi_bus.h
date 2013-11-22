@@ -9,13 +9,17 @@ struct bus{//структура шины
 	uint8_t indicators_num;//количество индикаторов на шине
 //	uint16_t **bus_buf;//динамически выделяемая память под буфер шины
 	uint16_t bus_buf[IND_COMMAND_LEN][IND_SPI_BUS_1_NUM];
+	uint8_t error;
 };
 
-#define BUS_NUM	3//количество шин табло
+#define BUS_NUM	3//
 
-#define BUS_SPI_1	0		//шина индикатора
+#define BUS_SPI_1	0		//
 #define BUS_SPI_2	1
 #define BUS_SPI_3	2
+
+#define BUS_ERROR_NONE		0
+#define BUS_ERROR_POWER 	1
 
 uint8_t spi_buses_init(void);//инициализация шин SPI и выделение памяти под буферы
 
