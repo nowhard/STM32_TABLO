@@ -6,12 +6,9 @@
 #include "stm32f4xx_rcc.h"
 #include "stm32f4xx_tim.h"
 #include "stm32f4xx_usart.h"
-//#include "stm32f4xx_flash.h"
 #include "misc.h"
 
-//#include "preferences.h"
 // FreeRTOS:
-
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
@@ -20,10 +17,10 @@
 void Proto_Init(void);//
 void ProtoProcess( void *pvParameters );//
 
-#define USARTx USART6
-#define GPIO_AF_USARTx GPIO_AF_USART6
-#define USARTx_IRQn	USART6_IRQn
-#define RCC_USARTx RCC_APB1Periph_USART6
+//#define USARTx USART6
+//#define GPIO_AF_USARTx GPIO_AF_USART6
+//#define USARTx_IRQn	USART6_IRQn
+//#define RCC_USARTx RCC_APB1Periph_USART6
 
 //#define CHANNEL_NUMBER	1
 
@@ -98,7 +95,7 @@ void ProtoProcess( void *pvParameters );//
 #define PROTO_TYPE_OLD	0x0
 #define PROTO_TYPE_NEW	0x1
 //--------------------------------------------------------------------
-#define PROTO_STANDBY_TIME	10000 //перевод табло в режим малого потребления при отсутствии кадров 10 секунд
+#define PROTO_STANDBY_TIME	10000 //
 //--------------------------------------------------------------------
 
 uint8_t Send_Info(void);     //������� ���������� �� ����������
@@ -122,10 +119,5 @@ void Store_Dev_Address_Desc(void);
 void Restore_Dev_Address_Desc(void);
 
 uint8_t  CRC_Check( uint8_t *Spool,uint8_t Count);//������ CRC
-
-//void Store_Dev_Address_Desc(uint8_t addr,void* name,void* ver,void* desc,uint8_t desc_len);//��������� � ���� ����� ����� ����������, ���, ������, ��������
-//void Restore_Dev_Address_Desc(void);//������������ �� ���� ����� � ���������� �� ����������
  //------------------------------------------------------------------------------
-
-
 #endif

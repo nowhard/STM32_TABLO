@@ -5,32 +5,13 @@
 #include "stm32f4xx_rcc.h"
 #include "stm32f4xx_tim.h"
 #include "stm32f4xx_usart.h"
-//#include "stm32f4xx_flash.h"
+
 //#include "preferences.h"
 #include "misc.h"
 //---------------------------------------
-#define CHANNEL_NUMBER	2//���������� �������
+#define CHANNEL_NUMBER	2
 //---------------------------------------
-#if defined (STM32f4xx_HD) || defined (STM32f4xx_HD_VL) || defined (STM32f4xx_CL) || defined (STM32f4xx_XL)
-  #define FLASH_PAGE_SIZE    ((uint16_t)0x800)
-#else
-  #define FLASH_PAGE_SIZE    ((uint16_t)0x400)
-#endif
-
-#define DESC_BANK1_WRITE_START_ADDR  ((uint32_t)0x08020400)
-#define DESC_BANK1_WRITE_END_ADDR    ((uint32_t)0x08020800)
-
-
-#define BANK1_WRITE_START_ADDR  ((uint32_t)0x08020000)
-#define BANK1_WRITE_END_ADDR    ((uint32_t)0x08020400)
-
-#ifdef STM32f4xx_XL
-  #define BANK2_WRITE_START_ADDR   ((uint32_t)0x08088000)
-  #define BANK2_WRITE_END_ADDR     ((uint32_t)0x0808C000)
-#endif /* STM32f4xx_XL */
-
-//---------------------------------------
-#define CHNL_ADC	0//канал ацп
+#define CHNL_ADC	0//
 	#define CHNL_ADC_FIX_16	0
 	#define CHNL_ADC_FIX_16_LEN	6
 
@@ -43,13 +24,13 @@
 	#define CHNL_ADC_SW_24	2
 	#define CHNL_ADC_SW_24_LEN	7
 
-#define CHNL_DOL	1 //канал дол
+#define CHNL_DOL	1 //
 	#define CHNL_DOL_ENC	0
 	#define CHNL_DOL_ENC_LEN	7
 
 	#define CHNL_DOL_FLOAT	1
 
-#define CHNL_FREQ	2//частотный/счетчик
+#define CHNL_FREQ	2//
 	#define	 CHNL_FREQ_COUNT_T	0
 	#define	 CHNL_FREQ_COUNT_T_LEN	5
 
@@ -77,29 +58,29 @@
 //---------------------------------------
 struct Channel
 {
-	unsigned char number ;	  	// ����� ������
+	unsigned char number ;
 
 	union
 	{
 		struct
 		{
-			unsigned char type;		  // ��� ������
-			unsigned char modific;	  // ����������� ������
-			unsigned char state_byte_1;	// ���� ��������� ������
+			unsigned char type;
+			unsigned char modific;
+			unsigned char state_byte_1;
 			unsigned char state_byte_2;
 		}set;
 
-		unsigned long serialize;//��������������� ����� ���������
+		unsigned long serialize;
 	} settings;
 
-	unsigned long channel_data;		  // �������� ������
-	unsigned long channel_data_calibrate;//�������� ������ �������������
+	unsigned long channel_data;
+	unsigned long channel_data_calibrate;
 
 	union
 	{
 		struct
 		{
-			unsigned char calibrate;//���� ��������������� ������
+			unsigned char calibrate;
 
 
 			float K;//
@@ -107,14 +88,10 @@ struct Channel
 
 
 		} cal;
-		unsigned long serialize[3];//��������������� ����� ���������
+		unsigned long serialize[3];
 	} calibrate;
-
 } ;
 //---------------------------------------
-void ChannelsInit(void);//������������� ��������� �������
-//void Store_Channels_Data(void);//�������� ������ ������� � ����
-//void Restore_Channels_Data(void);//����������� ������ ������� �� ����
-
+void ChannelsInit(void);
 //---------------------------------------
 #endif

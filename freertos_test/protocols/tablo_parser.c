@@ -7,7 +7,6 @@
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
-
 #include "spi_bus.h"
 
 extern xSemaphoreHandle xSPI_Buf_Mutex;
@@ -17,9 +16,7 @@ const uint8_t Sym_table[2][SYM_TAB_LEN]={{'0','1','2','3','4','5','6','7','8','9
                                           0x1F/*b*/,0x4E/*C*/,0x3D/*d*/,0x4F/*E*/,0x47/*F*/,0x17/*h*/,0x30/*I*/,0x10/*i*/,0x3C/*J*/,0xE/*L*/,0x7E/*O*/,
                                           0x67/*P*/,0x05/*r*/,0x0F/*t*/,0x3E/*U*/,0x1C/*u*/,0x80/*.*/,0x01/*-*/,0x08/*_*/,0x00/* */}};
 
-extern struct tablo tab;//
-
-uint8_t test_buf[]="CAt";
+extern struct tablo tab;
 
 void tablo_proto_parser(uint8_t *proto_buf)//
 {
@@ -68,7 +65,7 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 					if(tab.indicators[current_indicator].type==IND_TYPE_SEGMENT)
 					{
 						num_buf[chr_counter]='\0';
-						str_to_ind(&tab.indicators[current_indicator],&num_buf/*&test_buf*/);
+						str_to_ind(&tab.indicators[current_indicator],&num_buf);
 					}
 					else
 					{
@@ -289,10 +286,6 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 	{
 		if(inverse==0x0)
 		{
-//			if(i==ust1 || i==ust2)
-//			{
-//				//tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_RED[i%4];
-//			}
 			if((i!=ust1) && (i!=ust2))
 			{
 				tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_GREEN[i%4];
@@ -300,10 +293,6 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 		}
 		else
 		{
-//			if(i==ust1 || i==ust2)
-//			{
-//				//tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_GREEN[i%4];
-//			}
 			if((i!=ust1) && (i!=ust2))
 			{
 				tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_RED[i%4];

@@ -2,6 +2,10 @@
 #include "stm32f4xx.h"
 #include "stm32f4xx_gpio.h"
 #include "stm32f4xx_rcc.h"
+#include "spi_bus.h"
+#include "tablo.h"
+
+extern struct tablo tab;//
 
 void Power_Init(void)
 {
@@ -26,7 +30,7 @@ void Power_Init(void)
 
     GPIO_WriteBit(GPIOB, GPIO_Pin_7, Bit_SET);
     GPIO_WriteBit(GPIOA, GPIO_Pin_1, Bit_SET);
-    GPIO_WriteBit(GPIOA, GPIO_Pin_12, Bit_SET);
+    GPIO_WriteBit(GPIOA, GPIO_Pin_12,Bit_SET);
 
     GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_8;
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IN;
@@ -41,6 +45,36 @@ void Power_Init(void)
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+ 	if(Power_Channel_1_OK())
+ 	{
+ 		Power_On_Channel_1();
+ 		tab.buses[BUS_SPI_1].error=BUS_ERROR_NONE;
+ 	}
+ 	else
+ 	{
+ 		tab.buses[BUS_SPI_1].error=BUS_ERROR_POWER;
+	}
+
+ 	if(Power_Channel_2_OK())
+ 	{
+ 		Power_On_Channel_2();
+ 		tab.buses[BUS_SPI_2].error=BUS_ERROR_NONE;
+ 	}
+ 	else
+ 	{
+ 		tab.buses[BUS_SPI_2].error=BUS_ERROR_POWER;
+	}
+
+ 	if(Power_Channel_3_OK())
+ 	{
+ 		Power_On_Channel_3();
+ 		tab.buses[BUS_SPI_3].error=BUS_ERROR_NONE;
+ 	}
+ 	else
+ 	{
+ 		tab.buses[BUS_SPI_3].error=BUS_ERROR_POWER;
+ 	}
 }
 
 void Power_On_Channel_1(void)

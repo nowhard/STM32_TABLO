@@ -15,9 +15,9 @@
 
 #include "tablo.h"
 
-extern struct tablo tab;//структура табло
+extern struct tablo tab;//
 
-static void spi1_task(void *pvParameters);//задачи шин
+static void spi1_task(void *pvParameters);//
 static void spi2_task(void *pvParameters);
 static void spi3_task(void *pvParameters);
 
@@ -125,10 +125,6 @@ void	spi1_config(void)//
 
 	    GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-	    // MISO:
-	 /*   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
-	    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-	    GPIO_Init(GPIOA, &GPIO_InitStructure);*/
 
 	    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_4;
 	    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
@@ -216,10 +212,6 @@ void	spi2_config(void)//
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
     GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-    // MISO:
- /*   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-    GPIO_Init(GPIOA, &GPIO_InitStructure);*/
 
     GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_12;
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
@@ -306,10 +298,6 @@ void 	spi3_config(void)//
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
     GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-    // MISO:
- /*   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-    GPIO_Init(GPIOA, &GPIO_InitStructure);*/
 
     GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_6;
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
@@ -421,7 +409,7 @@ void spi3_write_buf(uint16_t* pBuffer, uint16_t len)
 
 static void spi1_task(void *pvParameters)//�
 {
-	uint8_t i=0,j=0;
+	uint8_t i=0;
 	while(1)
 	{
 		for(i=0;i<IND_COMMAND_LEN;i++)
@@ -445,25 +433,12 @@ static void spi1_task(void *pvParameters)//�
 					 taskYIELD();
 				 }
 
-
-//				for(j=0;j<IND_SPI_BUS_1_NUM;j++)
-//				{
-//					SPI_I2S_SendData(SPI1,tab.buses[BUS_SPI_1].bus_buf[i][j]);
-//
-//
-//				 while(SPI1->SR & SPI_SR_BSY)
-//				 {
-//					 taskYIELD();
-//				  }
-//				}
-
 				 xSemaphoreGive( xSPI_Buf_Mutex );
 			}
 			vTaskDelay(1);
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,1);
 			taskYIELD();
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
-			//vTaskDelay(1000);
 		}
 		vTaskDelay(50);
 	}
@@ -509,7 +484,7 @@ static void spi2_task(void *pvParameters)
 static void spi3_task(void *pvParameters)
 {
 	uint8_t i=0;
-	uint16_t test_buf[8]={0x1,0x2,0x3,0x4,0x5,0x6,0x7,0xFFFF};
+
 	while(1)
 	{
 		for(i=0;i<IND_COMMAND_LEN;i++)
