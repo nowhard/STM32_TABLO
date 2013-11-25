@@ -24,6 +24,7 @@ uint8_t   crc_n_ERR;
 uint8_t   COMMAND_ERR;
 
 uint8_t   CUT_OUT_NULL;
+uint8_t   PROTO_HAS_START;//была стартовая последовательность D7 29
 uint8_t   frame_len=0;
 //--------------------------------------------------------------------
 
@@ -119,6 +120,7 @@ void USART1_IRQHandler (void)
 							RecieveBuf[0]=0x0;
 							RecieveBuf[1]=0xD7;
 							RecieveBuf[2]=0x29;
+							PROTO_HAS_START=1;
 							recieve_count=0x3;
 						}
 						else
@@ -146,16 +148,19 @@ void USART1_IRQHandler (void)
 
 					default :
 					{
-						RecieveBuf[recieve_count]=symbol;
-						recieve_count++;
-						CUT_OUT_NULL=0;
+						if(PROTO_HAS_START)
+						{
+							RecieveBuf[recieve_count]=symbol;
+							recieve_count++;
+							CUT_OUT_NULL=0;
+						}
 
 					}
 				}
 
 			   if(recieve_count>6)
 			   {
-					  if(recieve_count==6+frame_len)	  // принимаем указанное в frame_len число байт данные, 6 значит что обмен идет с компом, надо ставаить 5 чтобы обмениваться с устройствами
+					  if(recieve_count==6+frame_len)	  // принимаем указанное в frame_len число байт
 					  {
 							 USART_ITConfig(USART1, USART_IT_RXNE , DISABLE);
 
@@ -166,6 +171,7 @@ void USART1_IRQHandler (void)
 								portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
 							 }
 							 CUT_OUT_NULL=0;
+							 PROTO_HAS_START=0;
 					  }
 			   }
 			   else
@@ -316,6 +322,7 @@ void Proto_Init(void) //
 	buf_len=0x0;//
 
 	CUT_OUT_NULL=0;
+	PROTO_HAS_START=0;
 
 	xTaskCreate(ProtoProcess,(signed char*)"PROTO",128,NULL, tskIDLE_PRIORITY + 1, NULL);
 	vSemaphoreCreateBinary( xProtoSemaphore );
