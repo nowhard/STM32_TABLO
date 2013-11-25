@@ -26,6 +26,7 @@
 #include "keyboard.h"
 #include "buzzer.h"
 #include "power.h"
+#include "watchdog.h"
 
 extern struct tablo tab;//
 static void Init_Task(void *pvParameters);//
@@ -55,6 +56,7 @@ static void Init_Task(void *pvParameters)
 	vTaskDelay(2000);
 
     Proto_Init();
+    //Watchdog_Init();
 
 //  keyboard_init();
   //buzzer_init();

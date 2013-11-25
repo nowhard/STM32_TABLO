@@ -88,10 +88,14 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 				  {
 					  if(proto_buf[i]=='*')//
 					  {
-						  for(j=0;j<IND_ALL_NUM;j++)
-						  {
-							  tab.indicators[j].brightness=IND_BRIGHTNESS|(proto_buf[i+1]&0xF);
-						  }
+						if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
+						{
+							  for(j=0;j<IND_ALL_NUM;j++)
+							  {
+								  tab.indicators[j].brightness=IND_BRIGHTNESS|(proto_buf[i+1]&0xF);
+							  }
+						  xSemaphoreGive( xSPI_Buf_Mutex );
+						}
 						  i+=2;
 						  ind_state=IND_CLOSE;
 					  }
@@ -269,7 +273,7 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 		}
 	}
 
-	if((ust2>=0) && (ust2<=31))//ставим вторую уставку
+	if((ust2>=0) && (ust2<=31))//
 	{
 		if(inverse==0x0)
 		{
