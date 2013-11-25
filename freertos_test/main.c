@@ -48,11 +48,11 @@ static void Init_Task(void *pvParameters)
 	vTaskDelay(200);
 	tablo_proto_parser(&test_frame_2);
 
-	vTaskDelay(1000);
+	vTaskDelay(2000);
 
 	tablo_proto_parser(&test_frame_1);
 
-	vTaskDelay(1000);
+	vTaskDelay(2000);
 
     Proto_Init();
 
