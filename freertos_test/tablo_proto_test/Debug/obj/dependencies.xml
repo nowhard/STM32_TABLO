@@ -47,6 +47,12 @@
       <source file="..\..\..\cmsis_lib\source\misc.c" lastModified="14125d86b88">
          <include file="..\..\..\cmsis_lib\include\misc.h"/>
       </source>
+      <source file="..\..\..\protocols\proto.c" lastModified="1428ef8c964">
+         <include file="..\..\..\protocols\proto.h"/>
+         <include file="..\..\..\protocols\channels.h"/>
+         <include file="..\..\..\devices\tablo.h"/>
+         <include file="..\..\..\protocols\tablo_parser.h"/>
+      </source>
       <source file="..\..\..\cmsis_boot\stm32f4xx.h" lastModified="1414ea875f5">
          <include file="..\..\..\cmsis\core_cm4.h"/>
          <include file="..\..\..\cmsis_boot\system_stm32f4xx.h"/>
@@ -86,7 +92,8 @@
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_dma.h" lastModified="1414997662b">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
-      <source file="..\..\..\devices\watchdog.h" lastModified="1428e4e4f6d">
+      <source file="..\..\..\devices\watchdog.h" lastModified="1428f4cb45d">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h" lastModified="14125d7fd5d">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
@@ -100,10 +107,6 @@
       <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\MemMang\heap_1.c" lastModified="13e3b1ebce8">
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\FreeRTOS.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\task.h"/>
-      </source>
-      <source file="..\..\..\devices\watchdog.c" lastModified="1428e7c3cc0">
-         <include file="..\..\..\devices\watchdog.h"/>
-         <include file="..\..\..\cmsis_lib\include\stm32f4xx_iwdg.h"/>
       </source>
       <source file="..\..\..\cmsis\core_cmInstr.h" lastModified="14125d7ed9e">
       </source>
@@ -254,7 +257,7 @@
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\include\projdefs.h" lastModified="13e3b1eb8f0">
       </source>
-      <source file="..\..\..\main.c" lastModified="1428e832fbd">
+      <source file="..\..\..\main.c" lastModified="1428f05877a">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>

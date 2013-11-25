@@ -7,8 +7,8 @@
       <target file="misc.o" lastModified="1428e81a17c">
          <source file="..\..\..\cmsis_lib\source\misc.c" lastModified="14125d86b88"/>
       </target>
-      <target file="watchdog.o" lastModified="1428e819b91">
-         <source file="..\..\..\devices\watchdog.c" lastModified="1428e7c3cc0"/>
+      <target file="watchdog.o" lastModified="1428f50c726">
+         <source file="..\..\..\devices\watchdog.c" lastModified="1428f50b525"/>
       </target>
       <target file="queue.o" lastModified="1428e3c2f3a">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\queue.c" lastModified="13e3b1eb900"/>
@@ -22,11 +22,11 @@
       <target file="indicator.o" lastModified="1428e819603">
          <source file="..\..\..\devices\indicator.c" lastModified="1428e1b1cbc"/>
       </target>
-      <target file="proto.o" lastModified="1428ee74708">
-         <source file="..\..\..\protocols\proto.c" lastModified="1428ee73296"/>
-      </target>
       <target file="stm32f4xx_iwdg.o" lastModified="1428e819595">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_iwdg.c" lastModified="1428e61eab6"/>
+      </target>
+      <target file="proto.o" lastModified="1428ef8d924">
+         <source file="..\..\..\protocols\proto.c" lastModified="1428ef8c964"/>
       </target>
       <target file="tasks.o" lastModified="1428e3c2cd9">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13e3b1eb910"/>
@@ -85,8 +85,8 @@
       <target file="stm32f4xx_spi.o" lastModified="1428e819eec">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_spi.c" lastModified="14125d81f8b"/>
       </target>
-      <target file="main.o" lastModified="1428e833962">
-         <source file="..\..\..\main.c" lastModified="1428e8327ed"/>
+      <target file="main.o" lastModified="1428f4cbfe6">
+         <source file="..\..\..\main.c" lastModified="1428f057faa"/>
       </target>
       <target file="system_stm32f4xx.o" lastModified="1428e819d75">
          <source file="..\..\..\cmsis_boot\system_stm32f4xx.c" lastModified="1428e3c1104"/>

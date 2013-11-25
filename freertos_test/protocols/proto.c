@@ -821,6 +821,7 @@ void ProtoProcess( void *pvParameters )
 			else
 			{
 				tablo_proto_parser(&standby_frame);//
+				PROTO_HAS_START=0;
 			}
 		}
 	}

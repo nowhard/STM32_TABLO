@@ -68,7 +68,6 @@ int main(void)
 {
 	SystemInit();
 
-
     xTaskCreate(Init_Task,(signed char*)"INIT",128,NULL, tskIDLE_PRIORITY + 1, NULL);
 
     vTaskStartScheduler();
