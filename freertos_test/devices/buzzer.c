@@ -14,8 +14,11 @@
 #include "semphr.h"
 
 #include "tablo.h"
+#include "watchdog.h"
 
-extern struct tablo tab;//структура табло
+extern struct tablo tab;//
+extern struct task_watch task_watches[];
+xTaskHandle xBuzzer_Handle;
 
 void buzzer_init(void)
 {
@@ -35,13 +38,15 @@ void buzzer_init(void)
 
     GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,0);
 
-    xTaskCreate(buzzer_task,(signed char*)"BUZZER",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+    xTaskCreate(buzzer_task,(signed char*)"BUZZER",64,NULL, tskIDLE_PRIORITY + 1, &xBuzzer_Handle);
+    vTaskSuspend (xBuzzer_Handle);
+    task_watches[BUZZER_TASK].task_status=TASK_IDLE;
 }
 void buzzer_task(void *pvParameters )
 {
 	while(1)
 	{
-		if(tab.buz.buzzer_enable)
+		if(tab.buz.buzzer_enable==BUZZER_ON)
 		{
 			switch(tab.buz.buzzer_effect)
 			{
@@ -65,45 +70,89 @@ void buzzer_task(void *pvParameters )
 
 				case BUZZER_EFFECT_2:
 				{
-
+					GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,1);
+					vTaskDelay(100);
+					GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,0);
+					vTaskDelay(200);
 				}
 				break;
 
 				case BUZZER_EFFECT_3:
 				{
-
+					GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,1);
+					vTaskDelay(100);
+					GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,0);
+					vTaskDelay(200);
 				}
 				break;
 
 				case BUZZER_EFFECT_4:
 				{
-
+					GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,1);
+					vTaskDelay(100);
+					GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,0);
+					vTaskDelay(200);
 				}
 				break;
 
 				case BUZZER_EFFECT_5:
 				{
-
+					GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,1);
+					vTaskDelay(100);
+					GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,0);
+					vTaskDelay(200);
 				}
 				break;
 
 				case BUZZER_EFFECT_6:
 				{
-
+					GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,1);
+					vTaskDelay(100);
+					GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,0);
+					vTaskDelay(200);
 				}
 				break;
 
 				case BUZZER_EFFECT_7:
 				{
-
+					GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,1);
+					vTaskDelay(100);
+					GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,0);
+					vTaskDelay(200);
 				}
 				break;
 
 				default:
 				{
-
+					vTaskDelay(500);
 				}
 			}
 		}
+		task_watches[BUZZER_TASK].counter++;
 	}
+}
+
+
+void buzzer_set_buzz(uint8_t effect, uint8_t enable)
+{
+	if(enable&0x1)
+	{
+		if(tab.buz.buzzer_enable==BUZZER_OFF)
+		{
+			vTaskResume(xBuzzer_Handle);
+			tab.buz.buzzer_enable=BUZZER_ON;
+		}
+		task_watches[BUZZER_TASK].task_status=TASK_ACTIVE;
+	}
+	else
+	{
+		if(tab.buz.buzzer_enable==BUZZER_ON)
+		{
+			vTaskSuspend (xBuzzer_Handle);
+			tab.buz.buzzer_enable=BUZZER_OFF;
+		}
+		task_watches[BUZZER_TASK].task_status=TASK_IDLE;
+		GPIO_WriteBit(BUZZER_PORT, BUZZER_PIN,0);
+	}
+	tab.buz.buzzer_effect=effect&0x7;
 }

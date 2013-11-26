@@ -3,6 +3,7 @@
 #include "tablo.h"
 #include "tablo_parser.h"
 #include "watchdog.h"
+#include "buzzer.h"
 
  extern struct Channel  channels[];
  extern struct tablo tab;
@@ -451,8 +452,9 @@ uint8_t  Channel_Set_Parameters(void) //
 
 									case CHNL_DEV_STATE_SET:
 									{
-										tab.buz.buzzer_effect=(RecieveBuf[8+index]>>1)&0x7;
-										tab.buz.buzzer_enable=RecieveBuf[8+index]&0x1;
+//										tab.buz.buzzer_effect=(RecieveBuf[8+index]>>1)&0x7;
+//										tab.buz.buzzer_enable=RecieveBuf[8+index]&0x1;
+										buzzer_set_buzz((RecieveBuf[8+index]>>1),RecieveBuf[8+index]&0x1);
 										index+=CHNL_DEV_STATE_SET_LEN;
 									}
 									break;

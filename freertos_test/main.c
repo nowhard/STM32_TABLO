@@ -61,7 +61,7 @@ static void Init_Task(void *pvParameters)
 
 
 //  keyboard_init();
-  //buzzer_init();
+    buzzer_init();
     vTaskDelete( NULL );
 
 }

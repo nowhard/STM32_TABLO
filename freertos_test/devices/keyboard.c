@@ -182,7 +182,7 @@ void keyboard_task(void *pvParameters )
 		GPIO_WriteBit(PORT_X, KEY_X3,0);
 
 
-		if((key_read_1==key_read_2) && (key_read_1!=0x0))//проверка на дребезг
+		if((key_read_1==key_read_2) && (key_read_1!=0x0))//
 		{
 			key_read_2=0x0;
 		}
