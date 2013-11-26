@@ -2,6 +2,7 @@
 #include "channels.h"
 #include "tablo.h"
 #include "tablo_parser.h"
+#include "watchdog.h"
 
  extern struct Channel  channels[];
  extern struct tablo tab;
@@ -50,6 +51,7 @@ union
 sym_8_to_float;
 
 xSemaphoreHandle xProtoSemaphore;
+extern struct task_watch task_watches[];
 
 #define RS_485_RECEIVE  GPIO_WriteBit(GPIOA, GPIO_Pin_8, Bit_RESET); GPIO_WriteBit(GPIOA, GPIO_Pin_11, Bit_RESET);
 #define RS_485_TRANSMIT GPIO_WriteBit(GPIOA, GPIO_Pin_8, Bit_SET); GPIO_WriteBit(GPIOA, GPIO_Pin_11, Bit_SET);
@@ -325,6 +327,7 @@ void Proto_Init(void) //
 	PROTO_HAS_START=0;
 
 	xTaskCreate(ProtoProcess,(signed char*)"PROTO",128,NULL, tskIDLE_PRIORITY + 1, NULL);
+	task_watches[PROTO_TASK].task_status=TASK_ACTIVE;
 	vSemaphoreCreateBinary( xProtoSemaphore );
 	return;
 }
@@ -775,12 +778,16 @@ void ProtoBufHandling(void) //
 void ProtoProcess( void *pvParameters )
 {
 	uint8_t   crc_n;
+	task_watches[PROTO_TASK].task_status=TASK_IDLE;
 	while(1)
 	{
+		task_watches[PROTO_TASK].task_status=TASK_IDLE;
 		if( xProtoSemaphore != NULL )
 		{
+
 			if( xSemaphoreTake( xProtoSemaphore, ( portTickType ) PROTO_STANDBY_TIME ) == pdTRUE )
 			{
+				task_watches[PROTO_TASK].task_status=TASK_ACTIVE;
 				switch(proto_type)
 				{
 					case PROTO_TYPE_OLD:
@@ -817,13 +824,16 @@ void ProtoProcess( void *pvParameters )
 					}
 					break;
 				}
+				task_watches[PROTO_TASK].counter++;
 			}
 			else
 			{
+				//task_watches[PROTO_TASK].task_status=TASK_IDLE;
 				tablo_proto_parser(&standby_frame);//
 				PROTO_HAS_START=0;
 			}
 		}
+		task_watches[PROTO_TASK].task_status=TASK_IDLE;
 	}
 }
 //-----------------------crc_n------------------------------------------------------------

@@ -39,6 +39,8 @@ static void Init_Task(void *pvParameters)
 
 	Power_Init();
 
+	Watchdog_Init();
+
 	spi1_config();
 	spi2_config();
 	spi3_config();
@@ -56,7 +58,7 @@ static void Init_Task(void *pvParameters)
 	vTaskDelay(2000);
 
     Proto_Init();
-    //Watchdog_Init();
+
 
 //  keyboard_init();
   //buzzer_init();

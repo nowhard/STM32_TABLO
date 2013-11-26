@@ -15,7 +15,10 @@
 
 #include "tablo.h"
 
+#include "watchdog.h"
+
 extern struct tablo tab;//
+extern struct task_watch task_watches[];
 
 static void spi1_task(void *pvParameters);//
 static void spi2_task(void *pvParameters);
@@ -81,16 +84,19 @@ uint8_t spi_buses_init(void)//
 	if(tab.buses[BUS_SPI_1].error==BUS_ERROR_NONE)
 	{
 		xTaskCreate(spi1_task,(signed char*)"SPI_1_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+		task_watches[SPI_TASK_1].task_status=TASK_ACTIVE;
 	}
 
 	if(tab.buses[BUS_SPI_2].error==BUS_ERROR_NONE)
 	{
-	 xTaskCreate(spi2_task,(signed char*)"SPI_2_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+		xTaskCreate(spi2_task,(signed char*)"SPI_2_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+		task_watches[SPI_TASK_2].task_status=TASK_ACTIVE;
 	}
 
 	if(tab.buses[BUS_SPI_3].error==BUS_ERROR_NONE)
 	{
-	 xTaskCreate(spi3_task,(signed char*)"SPI_3_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+		xTaskCreate(spi3_task,(signed char*)"SPI_3_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+		task_watches[SPI_TASK_3].task_status=TASK_ACTIVE;
 	}
 
 	 xSPI_Buf_Mutex=xSemaphoreCreateMutex();
@@ -440,6 +446,7 @@ static void spi1_task(void *pvParameters)//½
 			taskYIELD();
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
 		}
+		task_watches[SPI_TASK_1].counter++;
 		vTaskDelay(50);
 	}
 }
@@ -476,6 +483,7 @@ static void spi2_task(void *pvParameters)
 			taskYIELD();
 			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
 		}
+		task_watches[SPI_TASK_2].counter++;
 		vTaskDelay(50);
 	}
 }
@@ -513,6 +521,7 @@ static void spi3_task(void *pvParameters)
 			taskYIELD();
 			GPIO_WriteBit(GPIOB, GPIO_Pin_6,0);
 		}
+		task_watches[SPI_TASK_3].counter++;
 		vTaskDelay(50);
 	}
 }
