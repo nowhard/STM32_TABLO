@@ -454,7 +454,8 @@ uint8_t  Channel_Set_Parameters(void) //
 									{
 //										tab.buz.buzzer_effect=(RecieveBuf[8+index]>>1)&0x7;
 //										tab.buz.buzzer_enable=RecieveBuf[8+index]&0x1;
-										buzzer_set_buzz((RecieveBuf[8+index]>>1),RecieveBuf[8+index]&0x1);
+										buzzer_set_buzz((RecieveBuf[8+index]>>1)&0x7,RecieveBuf[8+index]&0x1);
+										Relay_Set_State((RecieveBuf[8+index]>>4)&0xF);
 										index+=CHNL_DEV_STATE_SET_LEN;
 									}
 									break;

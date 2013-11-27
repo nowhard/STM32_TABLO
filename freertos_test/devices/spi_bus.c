@@ -83,19 +83,19 @@ uint8_t spi_buses_init(void)//
 
 	if(tab.buses[BUS_SPI_1].error==BUS_ERROR_NONE)
 	{
-		xTaskCreate(spi1_task,(signed char*)"SPI_1_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+		xTaskCreate(spi1_task,(signed char*)"SPI_1_TASK",128,NULL, tskIDLE_PRIORITY + 1, NULL);
 		task_watches[SPI_TASK_1].task_status=TASK_ACTIVE;
 	}
 
 	if(tab.buses[BUS_SPI_2].error==BUS_ERROR_NONE)
 	{
-		xTaskCreate(spi2_task,(signed char*)"SPI_2_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+		xTaskCreate(spi2_task,(signed char*)"SPI_2_TASK",128,NULL, tskIDLE_PRIORITY + 1, NULL);
 		task_watches[SPI_TASK_2].task_status=TASK_ACTIVE;
 	}
 
 	if(tab.buses[BUS_SPI_3].error==BUS_ERROR_NONE)
 	{
-		xTaskCreate(spi3_task,(signed char*)"SPI_3_TASK",64,NULL, tskIDLE_PRIORITY + 1, NULL);
+		xTaskCreate(spi3_task,(signed char*)"SPI_3_TASK",128,NULL, tskIDLE_PRIORITY + 1, NULL);
 		task_watches[SPI_TASK_3].task_status=TASK_ACTIVE;
 	}
 

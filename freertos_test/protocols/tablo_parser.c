@@ -42,6 +42,13 @@ void tablo_proto_parser(uint8_t *proto_buf)//
        return;
    }
 
+   for(i=0;i<IND_ALL_NUM;i++)//обнулим флаги обновления данных индикаторов
+   {
+	   tab.indicators[i].renew_data=IND_NEW_DATA_FALSE;
+   }
+
+
+
    for(i=2;i<len;i++)//
    {
        switch(proto_buf[i])
@@ -103,10 +110,12 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 					  {
 						  current_indicator=proto_buf[i];
 
-//						  if(current_indicator>=IND_ALL_NUM)///применить фильтр каналов!!!
-//						  {
-//							  continue;//переработать
-//						  }
+						  //тестировать
+						  if(current_indicator>=IND_ALL_NUM)///применить фильтр каналов!!!
+						  {
+							  continue;//переработать
+						  }
+						  tab.indicators[current_indicator].renew_data=IND_NEW_DATA_TRUE;
 //
 //						  num_buf[chr_counter]='\0';
 						  //chr_counter=0;
@@ -121,6 +130,31 @@ void tablo_proto_parser(uint8_t *proto_buf)//
            }
        }
    }
+
+   for(i=0;i<IND_ALL_NUM;i++)//для незадействованных индикаторов-гасим
+   {
+	   if(tab.indicators[i].renew_data==IND_NEW_DATA_FALSE)
+	   {
+	    	if(tab.indicators[i].number_in_bus<IND_ALL_NUM)
+	    	{
+	    		tab.buses[tab.indicators[i].bus].bus_buf[0][tab.indicators[i].number_in_bus]=tab.indicators[i].shutdown;
+
+	    	tab.buses[tab.indicators[i].bus].bus_buf[1][tab.indicators[i].number_in_bus]=tab.indicators[i].display_test;
+	    	tab.buses[tab.indicators[i].bus].bus_buf[2][tab.indicators[i].number_in_bus]=tab.indicators[i].scan_limit;
+	    	tab.buses[tab.indicators[i].bus].bus_buf[3][tab.indicators[i].number_in_bus]=tab.indicators[i].brightness;
+	    	tab.buses[tab.indicators[i].bus].bus_buf[4][tab.indicators[i].number_in_bus]=tab.indicators[i].decode_mode;
+	    	tab.buses[tab.indicators[i].bus].bus_buf[5][tab.indicators[i].number_in_bus]=0x100;
+	    	tab.buses[tab.indicators[i].bus].bus_buf[6][tab.indicators[i].number_in_bus]=0x200;
+	    	tab.buses[tab.indicators[i].bus].bus_buf[7][tab.indicators[i].number_in_bus]=0x300;
+	    	tab.buses[tab.indicators[i].bus].bus_buf[8][tab.indicators[i].number_in_bus]=0x400;
+	    	tab.buses[tab.indicators[i].bus].bus_buf[9][tab.indicators[i].number_in_bus]=0x500;
+	    	tab.buses[tab.indicators[i].bus].bus_buf[10][tab.indicators[i].number_in_bus]=0x600;
+	    	tab.buses[tab.indicators[i].bus].bus_buf[11][tab.indicators[i].number_in_bus]=0x700;
+	    	tab.buses[tab.indicators[i].bus].bus_buf[12][tab.indicators[i].number_in_bus]=0x800;
+	    	}
+	   }
+   }
+
    return;
 }
 

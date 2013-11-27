@@ -27,6 +27,7 @@
 #include "buzzer.h"
 #include "power.h"
 #include "watchdog.h"
+#include "relay.h"
 
 extern struct tablo tab;//
 static void Init_Task(void *pvParameters);//
@@ -39,7 +40,7 @@ static void Init_Task(void *pvParameters)
 
 	Power_Init();
 
-	Watchdog_Init();
+	//Watchdog_Init();
 
 	spi1_config();
 	spi2_config();
@@ -62,6 +63,7 @@ static void Init_Task(void *pvParameters)
 
 //  keyboard_init();
     buzzer_init();
+    Relay_Init();
     vTaskDelete( NULL );
 
 }

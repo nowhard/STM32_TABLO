@@ -14,6 +14,8 @@ struct indicator{
     uint16_t scan_limit;//
     uint16_t shutdown;//
     uint16_t display_test;//
+
+    uint8_t renew_data;//содержимое дисплея обновлено по протоколу
 };
 
 #define IND_BRIGHTNESS      0xA00 //0-15
@@ -27,6 +29,10 @@ struct indicator{
 #define IND_DISPLAY_TEST    0xF00
     #define IND_DISPLAY_TEST_ON     0x1
     #define IND_DISPLAY_TEST_OFF    0x0
+
+
+#define IND_NEW_DATA_FALSE	0
+#define IND_NEW_DATA_TRUE	1
 /*
 РўРёРїС‹ РёРЅРґРёРєР°С‚РѕСЂРѕРІ
   */
