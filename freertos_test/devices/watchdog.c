@@ -39,7 +39,7 @@ void Watchdog_Init(void)
 	                          = LsiFreq/(32 * 4)
 	                          = LsiFreq/128
 	   */
-	  IWDG_SetReload(LSI_FREQ/128);
+	  IWDG_SetReload(LSI_FREQ/64);
 
 	  /* Reload IWDG counter */
 	  IWDG_ReloadCounter();
