@@ -40,7 +40,7 @@ static void Init_Task(void *pvParameters)
 
 	Power_Init();
 
-	//Watchdog_Init();
+	Watchdog_Init();
 
 	spi1_config();
 	spi2_config();

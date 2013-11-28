@@ -162,9 +162,14 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
 {
     int8_t i=0,j=0;
     uint8_t buf_count=0;//
-    uint8_t str_len=0;
+    int8_t str_len=0;
 
-    str_len=strlen(str);
+    if(ind->number_in_bus>IND_ALL_NUM)//такого индикатора на шине нет
+    {
+    	return 0;
+    }
+
+    str_len=strlen(str);//!!!
 
     	tab.buses[ind->bus].bus_buf[0][ind->number_in_bus]=ind->shutdown;
     	tab.buses[ind->bus].bus_buf[1][ind->number_in_bus]=ind->display_test;
@@ -181,6 +186,11 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
     	tab.buses[ind->bus].bus_buf[12][ind->number_in_bus]=0x800;
 
         buf_count+=5;
+
+        if(str_len>10)//максимальная длина строки индикатора с точками
+        {
+        	str_len=10;
+        }
 
         for(i=(str_len-1);i>=0;i--)//
         {
@@ -219,7 +229,7 @@ uint8_t str_to_ind(struct indicator *ind,uint8_t *str)
              	}
                 continue;
             }
-//
+
             for(j=10;j<SYM_TAB_LEN;j++)//
             {
                if(str[i]==Sym_table[0][j])//
@@ -260,6 +270,7 @@ const uint8_t   LED_BAR_STAMP_RED[4]   ={64 ,16,4 ,1};
 const uint8_t   LED_BAR_STAMP_GREEN[4] ={32,8  ,2,128 };
 const uint8_t   LED_BAR_STAMP_ORANGE[4]={96,24,6,129};
 
+#define LINE_LEN	32
 void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 {
 
@@ -270,10 +281,30 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 
 	uint8_t i=0;
 
+    if(ind->number_in_bus>IND_ALL_NUM)//такого индикатора на шине нет
+    {
+    	return;
+    }
+
 	inverse=buf[0];
 	value=buf[1];
 	ust1=buf[2];
 	ust2=buf[3];
+
+	if(len!=4)//проверка длины данных
+	{
+		return;
+	}
+
+	if(value>LINE_LEN/*==0xFF*/)//значение больше величины индикатора
+	{
+		return;
+	}
+
+//	if(inverse>1)
+//	{
+//		return;
+//	}
 
 	tab.buses[ind->bus].bus_buf[0][ind->number_in_bus]=ind->shutdown;
 	tab.buses[ind->bus].bus_buf[1][ind->number_in_bus]=ind->display_test;
@@ -288,12 +319,10 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 	tab.buses[ind->bus].bus_buf[10][ind->number_in_bus]=0x600;
 	tab.buses[ind->bus].bus_buf[11][ind->number_in_bus]=0x700;
 	tab.buses[ind->bus].bus_buf[12][ind->number_in_bus]=0x800;
-
-
-	if(value==0xFF)//
-	{
-		return;
-	}
+//	if(((ust1>31)&&(ust1!=0xFF))||((ust2>31)&&(ust2!=0xFF)))//проверка корректности уставок
+//	{
+//		return;
+//	}
 
 	if((ust1>=0) && (ust1<=31))//
 	{
@@ -306,6 +335,13 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 			tab.buses[ind->bus].bus_buf[(ust1>>2)+5][ind->number_in_bus]|=(((ust1>>2)+1)<<8)|LED_BAR_STAMP_GREEN[ust1%4];
 		}
 	}
+//	else
+//	{
+//		if(ust1!=0xFF)
+//		{
+//			return;
+//		}
+//	}
 
 	if((ust2>=0) && (ust2<=31))//
 	{
@@ -318,7 +354,13 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 			tab.buses[ind->bus].bus_buf[(ust2>>2)+5][ind->number_in_bus]|=(((ust2>>2)+1)<<8)|LED_BAR_STAMP_GREEN[ust2%4];
 		}
 	}
-
+//	else
+//	{
+//		if(ust2!=0xFF)
+//		{
+//			return;
+//		}
+//	}
 
 	for(i=0;i<value;i++)
 	{

@@ -149,7 +149,7 @@ void	spi1_config(void)//
 	    SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
 	    SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
 	    SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
-	    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16;
+	    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_32;
 	    SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
 	    //SPI_InitStructure.SPI_CRCPolynomial = 7;
 	    SPI_Init(SPI1, &SPI_InitStructure);
@@ -236,7 +236,7 @@ void	spi2_config(void)//
     SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
     SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
     SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
-    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_8;
+    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16;
     SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
     //SPI_InitStructure.SPI_CRCPolynomial = 7;
     SPI_Init(SPI2, &SPI_InitStructure);
@@ -322,7 +322,7 @@ void 	spi3_config(void)//
     SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
     SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
     SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
-    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_8;
+    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16;
     SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
     //SPI_InitStructure.SPI_CRCPolynomial = 7;
     SPI_Init(SPI3, &SPI_InitStructure);
@@ -441,9 +441,11 @@ static void spi1_task(void *pvParameters)//½
 
 				 xSemaphoreGive( xSPI_Buf_Mutex );
 			}
-			vTaskDelay(1);
+			//vTaskDelay(1);
+			taskYIELD();
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,1);
 			taskYIELD();
+			//vTaskDelay(1);
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
 		}
 		task_watches[SPI_TASK_1].counter++;
@@ -478,9 +480,10 @@ static void spi2_task(void *pvParameters)
 
 				xSemaphoreGive( xSPI_Buf_Mutex );
 			}
-
+			taskYIELD();
 			GPIO_WriteBit(GPIOB, GPIO_Pin_12,1);
 			taskYIELD();
+			//vTaskDelay(1);
 			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
 		}
 		task_watches[SPI_TASK_2].counter++;
@@ -516,9 +519,11 @@ static void spi3_task(void *pvParameters)
 
 				xSemaphoreGive( xSPI_Buf_Mutex );
 			}
-
+			//vTaskDelay(1);
+			taskYIELD();
 			GPIO_WriteBit(GPIOB, GPIO_Pin_6,1);
 			taskYIELD();
+			//vTaskDelay(1);
 			GPIO_WriteBit(GPIOB, GPIO_Pin_6,0);
 		}
 		task_watches[SPI_TASK_3].counter++;
