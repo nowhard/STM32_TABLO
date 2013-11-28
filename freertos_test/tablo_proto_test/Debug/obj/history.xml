@@ -22,11 +22,11 @@
       <target file="indicator.o" lastModified="14298af3f06">
          <source file="..\..\..\devices\indicator.c" lastModified="1428e1b1cbc"/>
       </target>
-      <target file="proto.o" lastModified="1429e9ec0ad">
-         <source file="..\..\..\protocols\proto.c" lastModified="1429e9eb572"/>
-      </target>
       <target file="stm32f4xx_iwdg.o" lastModified="1428e819595">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_iwdg.c" lastModified="1428e61eab6"/>
+      </target>
+      <target file="proto.o" lastModified="1429e9ec0ad">
+         <source file="..\..\..\protocols\proto.c" lastModified="1429e9eb572"/>
       </target>
       <target file="tasks.o" lastModified="14293ba66be">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13e3b1eb910"/>
@@ -88,8 +88,8 @@
       <target file="stm32f4xx_spi.o" lastModified="1428e819eec">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_spi.c" lastModified="14125d81f8b"/>
       </target>
-      <target file="main.o" lastModified="1429e9df2ed">
-         <source file="..\..\..\main.c" lastModified="1429e9dcc79"/>
+      <target file="main.o" lastModified="1429edbc538">
+         <source file="..\..\..\main.c" lastModified="1429edbbba3"/>
       </target>
       <target file="system_stm32f4xx.o" lastModified="1428e819d75">
          <source file="..\..\..\cmsis_boot\system_stm32f4xx.c" lastModified="1428e3c1104"/>

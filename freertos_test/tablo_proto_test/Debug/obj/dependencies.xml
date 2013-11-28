@@ -277,29 +277,6 @@
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\include\projdefs.h" lastModified="13e3b1eb8f0">
       </source>
-      <source file="..\..\..\main.c" lastModified="1429e9dd449">
-         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
-         <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
-         <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
-         <include file="..\..\..\cmsis_lib\include\stm32f4xx_tim.h"/>
-         <include file="..\..\..\cmsis_lib\include\stm32f4xx_spi.h"/>
-         <include file="..\..\..\cmsis_lib\include\stm32f4xx_dma.h"/>
-         <include file="..\..\..\cmsis_lib\include\misc.h"/>
-         <include file="..\..\..\cmsis_boot\system_stm32f4xx.h"/>
-         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\FreeRTOS.h"/>
-         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\task.h"/>
-         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\queue.h"/>
-         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\semphr.h"/>
-         <include file="..\..\..\protocols\tablo_parser.h"/>
-         <include file="..\..\..\devices\spi_bus.h"/>
-         <include file="..\..\..\devices\tablo.h"/>
-         <include file="..\..\..\protocols\proto.h"/>
-         <include file="..\..\..\devices\keyboard.h"/>
-         <include file="..\..\..\devices\buzzer.h"/>
-         <include file="..\..\..\devices\power.h"/>
-         <include file="..\..\..\devices\watchdog.h"/>
-         <include file="..\..\..\devices\relay.h"/>
-      </source>
       <source file="..\..\..\protocols\tablo_parser.c" lastModified="1429e7d434f">
          <include file="..\..\..\protocols\tablo_parser.h"/>
          <include file="..\..\..\devices\tablo.h"/>
