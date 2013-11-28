@@ -14,7 +14,12 @@
 #include "queue.h"
 #include "semphr.h"
 
-void Proto_Init(void);//
+enum
+{
+	PROTO_FIRST_INIT=0,
+	PROTO_REINIT
+};
+void Proto_Init(uint8_t init_type);//
 void ProtoProcess( void *pvParameters );//
 
 //#define USARTx USART6

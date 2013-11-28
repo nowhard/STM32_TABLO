@@ -237,7 +237,7 @@ void USART1_IRQHandler (void)
    	portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
 }
 //------------------------------------------------------------------------------
-void Proto_Init(void) //
+void Proto_Init(uint8_t init_type) //
 {
 
 	 RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 , ENABLE);
@@ -328,9 +328,12 @@ void Proto_Init(void) //
 	CUT_OUT_NULL=0;
 	PROTO_HAS_START=0;
 
-	xTaskCreate(ProtoProcess,(signed char*)"PROTO",128,NULL, tskIDLE_PRIORITY + 1, NULL);
-	task_watches[PROTO_TASK].task_status=TASK_ACTIVE;
-	vSemaphoreCreateBinary( xProtoSemaphore );
+	if(init_type==PROTO_FIRST_INIT)
+	{
+		xTaskCreate(ProtoProcess,(signed char*)"PROTO",128,NULL, tskIDLE_PRIORITY + 1, NULL);
+		task_watches[PROTO_TASK].task_status=TASK_ACTIVE;
+		vSemaphoreCreateBinary( xProtoSemaphore );
+	}
 	return;
 }
 //-----------------------------------------------------------------------------
@@ -836,7 +839,8 @@ void ProtoProcess( void *pvParameters )
 				tablo_proto_parser(&standby_frame_2);//
 				vTaskDelay(200);
 				tablo_proto_parser(&standby_frame);//
-				PROTO_HAS_START=0;
+				//PROTO_HAS_START=0;
+				 Proto_Init(PROTO_REINIT);
 			}
 		}
 		task_watches[PROTO_TASK].task_status=TASK_IDLE;

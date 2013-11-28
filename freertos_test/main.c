@@ -58,7 +58,7 @@ static void Init_Task(void *pvParameters)
 
 	vTaskDelay(2000);
 
-    Proto_Init();
+    Proto_Init(PROTO_FIRST_INIT);
 
 
 //  keyboard_init();
