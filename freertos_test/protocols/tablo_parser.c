@@ -47,7 +47,8 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 	   tab.indicators[i].renew_data=IND_NEW_DATA_FALSE;
    }
 
-
+if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
+{
 
    for(i=2;i<len;i++)//
    {
@@ -67,8 +68,8 @@ void tablo_proto_parser(uint8_t *proto_buf)//
                 }
 
 
-    			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
-    			{
+//    			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
+//    			{
 					if(tab.indicators[current_indicator].type==IND_TYPE_SEGMENT)
 					{
 						num_buf[chr_counter]='\0';
@@ -78,8 +79,8 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 					{
 						ln_to_ind(&tab.indicators[current_indicator],&num_buf,chr_counter);
 					}
-					xSemaphoreGive( xSPI_Buf_Mutex );
-    			}
+//					xSemaphoreGive( xSPI_Buf_Mutex );
+//    			}
 
 
                 ind_state=IND_CLOSE;
@@ -95,14 +96,18 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 				  {
 					  if(proto_buf[i]=='*')//
 					  {
-						if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
-						{
+//						if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
+//						{
 							  for(j=0;j<IND_ALL_NUM;j++)
 							  {
 								  tab.indicators[j].brightness=IND_BRIGHTNESS|(proto_buf[i+1]&0xF);
-							  }
-						  xSemaphoreGive( xSPI_Buf_Mutex );
-						}
+							    	if(tab.indicators[j].number_in_bus<IND_ALL_NUM)
+							    	{
+							    		tab.buses[tab.indicators[j].bus].bus_buf[3][tab.indicators[j].number_in_bus]=tab.indicators[j].brightness;
+							    	}
+							   }
+//						  xSemaphoreGive( xSPI_Buf_Mutex );
+//						}
 						  i+=2;
 						  ind_state=IND_CLOSE;
 					  }
@@ -131,30 +136,31 @@ void tablo_proto_parser(uint8_t *proto_buf)//
        }
    }
 
+
    for(i=0;i<IND_ALL_NUM;i++)//для незадействованных индикаторов-гасим
    {
 	   if(tab.indicators[i].renew_data==IND_NEW_DATA_FALSE)
 	   {
 	    	if(tab.indicators[i].number_in_bus<IND_ALL_NUM)
 	    	{
-	    		tab.buses[tab.indicators[i].bus].bus_buf[0][tab.indicators[i].number_in_bus]=tab.indicators[i].shutdown;
-
-	    	tab.buses[tab.indicators[i].bus].bus_buf[1][tab.indicators[i].number_in_bus]=tab.indicators[i].display_test;
-	    	tab.buses[tab.indicators[i].bus].bus_buf[2][tab.indicators[i].number_in_bus]=tab.indicators[i].scan_limit;
-	    	tab.buses[tab.indicators[i].bus].bus_buf[3][tab.indicators[i].number_in_bus]=tab.indicators[i].brightness;
-	    	tab.buses[tab.indicators[i].bus].bus_buf[4][tab.indicators[i].number_in_bus]=tab.indicators[i].decode_mode;
-	    	tab.buses[tab.indicators[i].bus].bus_buf[5][tab.indicators[i].number_in_bus]=0x100;
-	    	tab.buses[tab.indicators[i].bus].bus_buf[6][tab.indicators[i].number_in_bus]=0x200;
-	    	tab.buses[tab.indicators[i].bus].bus_buf[7][tab.indicators[i].number_in_bus]=0x300;
-	    	tab.buses[tab.indicators[i].bus].bus_buf[8][tab.indicators[i].number_in_bus]=0x400;
-	    	tab.buses[tab.indicators[i].bus].bus_buf[9][tab.indicators[i].number_in_bus]=0x500;
-	    	tab.buses[tab.indicators[i].bus].bus_buf[10][tab.indicators[i].number_in_bus]=0x600;
-	    	tab.buses[tab.indicators[i].bus].bus_buf[11][tab.indicators[i].number_in_bus]=0x700;
-	    	tab.buses[tab.indicators[i].bus].bus_buf[12][tab.indicators[i].number_in_bus]=0x800;
+				tab.buses[tab.indicators[i].bus].bus_buf[0][tab.indicators[i].number_in_bus]=tab.indicators[i].shutdown;
+				tab.buses[tab.indicators[i].bus].bus_buf[1][tab.indicators[i].number_in_bus]=tab.indicators[i].display_test;
+				tab.buses[tab.indicators[i].bus].bus_buf[2][tab.indicators[i].number_in_bus]=tab.indicators[i].scan_limit;
+				tab.buses[tab.indicators[i].bus].bus_buf[3][tab.indicators[i].number_in_bus]=tab.indicators[i].brightness;
+				tab.buses[tab.indicators[i].bus].bus_buf[4][tab.indicators[i].number_in_bus]=tab.indicators[i].decode_mode;
+				tab.buses[tab.indicators[i].bus].bus_buf[5][tab.indicators[i].number_in_bus]=0x100;
+				tab.buses[tab.indicators[i].bus].bus_buf[6][tab.indicators[i].number_in_bus]=0x200;
+				tab.buses[tab.indicators[i].bus].bus_buf[7][tab.indicators[i].number_in_bus]=0x300;
+				tab.buses[tab.indicators[i].bus].bus_buf[8][tab.indicators[i].number_in_bus]=0x400;
+				tab.buses[tab.indicators[i].bus].bus_buf[9][tab.indicators[i].number_in_bus]=0x500;
+				tab.buses[tab.indicators[i].bus].bus_buf[10][tab.indicators[i].number_in_bus]=0x600;
+				tab.buses[tab.indicators[i].bus].bus_buf[11][tab.indicators[i].number_in_bus]=0x700;
+				tab.buses[tab.indicators[i].bus].bus_buf[12][tab.indicators[i].number_in_bus]=0x800;
 	    	}
 	   }
    }
-
+   xSemaphoreGive( xSPI_Buf_Mutex );
+ }
    return;
 }
 

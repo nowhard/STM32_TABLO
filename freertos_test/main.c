@@ -47,9 +47,9 @@ static void Init_Task(void *pvParameters)
 	spi3_config();
 
 	tablo_devices_init();
-	tablo_proto_parser(&test_frame_2);
-
-	vTaskDelay(200);
+//	tablo_proto_parser(&test_frame_2);
+//
+//	vTaskDelay(200);
 	tablo_proto_parser(&test_frame_2);
 
 	vTaskDelay(2000);
