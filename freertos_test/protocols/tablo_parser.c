@@ -47,7 +47,8 @@ void tablo_proto_parser(uint8_t *proto_buf)//
 	   tab.indicators[i].renew_data=IND_NEW_DATA_FALSE;
    }
 
-if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
+//if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
+   taskENTER_CRITICAL();
 {
 
    for(i=2;i<len;i++)//
@@ -159,7 +160,8 @@ if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
 	    	}
 	   }
    }
-   xSemaphoreGive( xSPI_Buf_Mutex );
+   taskEXIT_CRITICAL();
+  // xSemaphoreGive( xSPI_Buf_Mutex );
  }
    return;
 }

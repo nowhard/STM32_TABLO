@@ -422,7 +422,7 @@ static void spi1_task(void *pvParameters)//½
 		{
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
 
-			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
+		//	if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
 			{
 				 spi1_write_buf(&tab.buses[BUS_SPI_1].bus_buf[i][0],IND_SPI_BUS_1_NUM);
 
@@ -439,7 +439,7 @@ static void spi1_task(void *pvParameters)//½
 					 taskYIELD();
 				 }
 
-				 xSemaphoreGive( xSPI_Buf_Mutex );
+				 //xSemaphoreGive( xSPI_Buf_Mutex );
 			}
 			//vTaskDelay(1);
 			taskYIELD();
@@ -462,7 +462,7 @@ static void spi2_task(void *pvParameters)
 		for(i=0;i<IND_COMMAND_LEN;i++)
 		{
 			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
-			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
+			//if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
 			{
 				spi2_write_buf(&tab.buses[BUS_SPI_2].bus_buf[i][0],IND_SPI_BUS_2_NUM);
 				//spi2_write_buf(&ind_test_buf2[i][0],IND_SPI_BUS_1_NUM);
@@ -478,7 +478,7 @@ static void spi2_task(void *pvParameters)
 					taskYIELD();
 				}
 
-				xSemaphoreGive( xSPI_Buf_Mutex );
+		//		xSemaphoreGive( xSPI_Buf_Mutex );
 			}
 			taskYIELD();
 			GPIO_WriteBit(GPIOB, GPIO_Pin_12,1);
@@ -501,7 +501,7 @@ static void spi3_task(void *pvParameters)
 		for(i=0;i<IND_COMMAND_LEN;i++)
 		{
 			GPIO_WriteBit(GPIOB, GPIO_Pin_6,0);
-			if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
+		//	if( xSemaphoreTake( xSPI_Buf_Mutex, portMAX_DELAY ) == pdTRUE )
 			{
 				spi3_write_buf(&tab.buses[BUS_SPI_3].bus_buf[i][0],IND_SPI_BUS_3_NUM);
 				//spi3_write_buf(&ind_test_buf3[i][0],IND_SPI_BUS_1_NUM);
@@ -517,7 +517,7 @@ static void spi3_task(void *pvParameters)
 					taskYIELD();
 				}
 
-				xSemaphoreGive( xSPI_Buf_Mutex );
+			//	xSemaphoreGive( xSPI_Buf_Mutex );
 			}
 			//vTaskDelay(1);
 			taskYIELD();
