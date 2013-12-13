@@ -16,6 +16,7 @@ struct indicator{
     uint16_t display_test;//
 
     uint8_t renew_data;//содержимое дисплея обновлено по протоколу
+    uint8_t blink;
 };
 
 #define IND_BRIGHTNESS      0xA00 //0-15
@@ -31,15 +32,36 @@ struct indicator{
     #define IND_DISPLAY_TEST_OFF    0x0
 
 
-#define IND_NEW_DATA_FALSE	0
-#define IND_NEW_DATA_TRUE	1
+//#define IND_NEW_DATA_FALSE	0
+//#define IND_NEW_DATA_TRUE	1
+
+enum
+{
+	IND_NEW_DATA_FALSE=0,
+	IND_NEW_DATA_TRUE=1
+};
+
+enum
+{
+	BLINK_FALSE=0,
+	BLINK_TRUE=1
+};
+
 /*
-РўРёРїС‹ РёРЅРґРёРєР°С‚РѕСЂРѕРІ
+indicator types
   */
-#define IND_TYPE_NONE       0x0//
-#define IND_TYPE_SEGMENT    0x1//
-#define IND_TYPE_LINE       0x2//
-#define IND_TYPE_ARC        0x3//
+//#define IND_TYPE_NONE       0x0//
+//#define IND_TYPE_SEGMENT    0x1//
+//#define IND_TYPE_LINE       0x2//
+//#define IND_TYPE_ARC        0x3//
+
+enum
+{
+	 IND_TYPE_NONE       =0x0,//
+	 IND_TYPE_SEGMENT    =0x1,//
+	 IND_TYPE_LINE       =0x2,//
+	 IND_TYPE_ARC        =0x3//
+};
 
 #define IND_COMMAND_LEN		13//
 
@@ -50,9 +72,7 @@ struct indicator{
 #define IND_SPI_BUS_3_NUM	6
 
 uint8_t indicators_init(void);//
-
-
-
+void Indicator_Blink_Handler(uint8_t bus);
 
 
 #endif

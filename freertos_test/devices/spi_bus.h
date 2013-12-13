@@ -4,10 +4,9 @@
 #include "stm32f4xx.h"
 #include "indicator.h"
 
-struct bus{//структура шины
-	//struct indicator *indicators;//указатель на динамически выделяемую память свойств индикаторов
-	uint8_t indicators_num;//количество индикаторов на шине
-//	uint16_t **bus_buf;//динамически выделяемая память под буфер шины
+struct bus
+{
+	uint8_t indicators_num;
 	uint16_t bus_buf[IND_COMMAND_LEN][IND_SPI_BUS_1_NUM];
 	uint8_t error;
 };
@@ -21,13 +20,13 @@ struct bus{//структура шины
 #define BUS_ERROR_NONE		0
 #define BUS_ERROR_POWER 	1
 
-uint8_t spi_buses_init(void);//инициализация шин SPI и выделение памяти под буферы
+uint8_t spi_buses_init(void);//
 
-void	spi1_config(void);//конфигурация аппаратных интерфейсов
+void	spi1_config(void);//
 void	spi2_config(void);//
 void 	spi3_config(void);//
 
-void spi1_write_buf(uint16_t* pBuffer, uint16_t len);//перекинуть буфер через dma
+void spi1_write_buf(uint16_t* pBuffer, uint16_t len);//
 void spi1_read_buf(uint16_t* pBuffer, uint16_t len);
 void spi2_write_buf(uint16_t* pBuffer, uint16_t len);
 void spi2_read_buf(uint16_t* pBuffer, uint16_t len);
