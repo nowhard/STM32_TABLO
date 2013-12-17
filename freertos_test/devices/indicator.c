@@ -15,19 +15,31 @@ void Indicator_Blink_Handler(uint8_t bus)
 	static uint8_t counter;//2Hz blink
 	static uint8_t blink_state;
 	counter++;
-	if(counter>=10)
+	if(counter>=20)
 	{
-		for(i=0;i<IND_ALL_NUM;i++)
+		blink_state^=1;
+		counter=0;
+	}
+
+	if((tab.indicators[18].blink==BLINK_TRUE)||(tab.indicators[19].blink==BLINK_TRUE))//мигаем всей круговой секцией
+	{
+		tab.indicators[18].blink==BLINK_TRUE;
+		tab.indicators[19].blink==BLINK_TRUE;
+	}
+
+	for(i=0;i<IND_ALL_NUM;i++)
+	{
+		if((tab.indicators[i].bus==bus)&&(tab.indicators[i].type==IND_TYPE_LINE))
 		{
-			if(tab.indicators[i].bus==bus)
+			if(tab.indicators[i].blink==BLINK_TRUE)
 			{
-				if(tab.indicators[i].blink==BLINK_TRUE)
-				{
-					blink_state^=1;
-					ln_redraw(&tab.indicators[i],blink_state);
-				}
+
+				ln_redraw(&tab.indicators[i],blink_state);
+			}
+			else
+			{
+				ln_redraw(&tab.indicators[i],0);
 			}
 		}
-		counter=0;
 	}
 }

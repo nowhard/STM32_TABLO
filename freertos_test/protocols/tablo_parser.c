@@ -309,7 +309,7 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 		return;
 	}
 
-	if((ind->value<ind->ust1) || (ind->value>ind->ust2))//условия мигания
+	if(((ind->value<ind->ust1)&&(ind->ust1!=0xFF)) || ((ind->value>ind->ust2)&&(ind->ust2!=0xFF)))//условия мигания
 	{
 		ind->blink=BLINK_TRUE;
 	}
@@ -318,7 +318,7 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 		ind->blink=BLINK_FALSE;
 	}
 
-	ln_redraw(ind,0);
+	//ln_redraw(ind,0);
 //	if(ind->inverse>1)
 //	{
 //		return;
