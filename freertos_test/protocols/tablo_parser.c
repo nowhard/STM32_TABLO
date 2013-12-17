@@ -387,4 +387,9 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 			}
 		}
 	}
+
+	if((value<ust1) || (value>ust2))//условия мигания
+	{
+		ind->blink=BLINK_TRUE;
+	}
 }
