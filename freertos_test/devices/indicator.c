@@ -23,7 +23,8 @@ void Indicator_Blink_Handler(uint8_t bus)
 			{
 				if(tab.indicators[i].blink==BLINK_TRUE)
 				{
-
+					blink_state^=1;
+					ln_redraw(&tab.indicators[i],blink_state);
 				}
 			}
 		}

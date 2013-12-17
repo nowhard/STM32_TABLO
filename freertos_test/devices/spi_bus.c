@@ -16,6 +16,7 @@
 #include "tablo.h"
 
 #include "watchdog.h"
+#include "indicator.h"
 
 extern struct tablo tab;//
 extern struct task_watch task_watches[];
@@ -418,6 +419,7 @@ static void spi1_task(void *pvParameters)//½
 	uint8_t i=0;
 	while(1)
 	{
+		Indicator_Blink_Handler(BUS_SPI_1);
 		for(i=0;i<IND_COMMAND_LEN;i++)
 		{
 			GPIO_WriteBit(GPIOA, GPIO_Pin_4,0);
@@ -459,6 +461,7 @@ static void spi2_task(void *pvParameters)
 	uint8_t i=0;
 	while(1)
 	{
+		Indicator_Blink_Handler(BUS_SPI_2);
 		for(i=0;i<IND_COMMAND_LEN;i++)
 		{
 			GPIO_WriteBit(GPIOB, GPIO_Pin_12,0);
@@ -498,6 +501,7 @@ static void spi3_task(void *pvParameters)
 
 	while(1)
 	{
+		Indicator_Blink_Handler(BUS_SPI_3);
 		for(i=0;i<IND_COMMAND_LEN;i++)
 		{
 			GPIO_WriteBit(GPIOB, GPIO_Pin_6,0);

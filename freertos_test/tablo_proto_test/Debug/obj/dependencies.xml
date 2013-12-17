@@ -4,12 +4,16 @@
       <source file="..\..\..\devices\tablo.c" lastModified="142ebc2c6c1">
          <include file="..\..\..\devices\tablo.h"/>
       </source>
-      <source file="..\..\..\devices\indicator.h" lastModified="142eba34e2d">
+      <source file="..\..\..\devices\indicator.h" lastModified="142ffb08d13">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\GCC\ARM_CM4F\port.c" lastModified="13e3b1eb900">
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\FreeRTOS.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\task.h"/>
+      </source>
+      <source file="..\..\..\devices\indicator.c" lastModified="142fffc648b">
+         <include file="..\..\..\devices\indicator.h"/>
+         <include file="..\..\..\devices\tablo.h"/>
       </source>
       <source file="..\..\..\cmsis\core_cm4.h" lastModified="14125d7ed8e">
          <include file="..\..\..\cmsis\core_cmInstr.h"/>
@@ -110,10 +114,6 @@
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h" lastModified="14125d7fd5d">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
-      <source file="..\..\..\devices\spi_bus.h" lastModified="142ebc56b64">
-         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
-         <include file="..\..\..\devices\indicator.h"/>
-      </source>
       <source file="..\..\..\cmsis_lib\source\stm32f4xx_exti.c" lastModified="142a2fcbff3">
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_exti.h"/>
       </source>
@@ -124,6 +124,10 @@
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
+      </source>
+      <source file="..\..\..\devices\spi_bus.h" lastModified="14300012288">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+         <include file="..\..\..\devices\indicator.h"/>
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\portable\MemMang\heap_1.c" lastModified="13e3b1ebce8">
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\FreeRTOS.h"/>
@@ -144,22 +148,6 @@
       </source>
       <source file="..\..\..\cmsis_boot\system_stm32f4xx.c" lastModified="1428e3c1104">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
-      </source>
-      <source file="..\..\..\devices\spi_bus.c" lastModified="142eb3e1c0c">
-         <include file="..\..\..\devices\spi_bus.h"/>
-         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
-         <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
-         <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
-         <include file="..\..\..\cmsis_lib\include\stm32f4xx_tim.h"/>
-         <include file="..\..\..\cmsis_lib\include\stm32f4xx_spi.h"/>
-         <include file="..\..\..\cmsis_lib\include\stm32f4xx_dma.h"/>
-         <include file="..\..\..\cmsis_lib\include\misc.h"/>
-         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\FreeRTOS.h"/>
-         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\task.h"/>
-         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\queue.h"/>
-         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\semphr.h"/>
-         <include file="..\..\..\devices\tablo.h"/>
-         <include file="..\..\..\devices\watchdog.h"/>
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\include\timers.h" lastModified="13e3b1eb900">
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\portable.h"/>
@@ -282,7 +270,7 @@
       <source file="..\..\..\cmsis_lib\source\stm32f4xx_iwdg.c" lastModified="1428e61eab6">
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_iwdg.h"/>
       </source>
-      <source file="..\..\..\protocols\tablo_parser.h" lastModified="13fbd502c1d">
+      <source file="..\..\..\protocols\tablo_parser.h" lastModified="142ffe1a698">
          <include file="..\..\..\devices\indicator.h"/>
       </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\include\projdefs.h" lastModified="13e3b1eb8f0">
@@ -310,6 +298,15 @@
          <include file="..\..\..\devices\watchdog.h"/>
          <include file="..\..\..\devices\relay.h"/>
          <include file="..\..\..\devices\power_detector.h"/>
+      </source>
+      <source file="..\..\..\protocols\tablo_parser.c" lastModified="142fff466c4">
+         <include file="..\..\..\protocols\tablo_parser.h"/>
+         <include file="..\..\..\devices\tablo.h"/>
+         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\FreeRTOS.h"/>
+         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\task.h"/>
+         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\queue.h"/>
+         <include file="..\..\..\FreeRTOSV7.1.0\Source\include\semphr.h"/>
+         <include file="..\..\..\devices\spi_bus.h"/>
       </source>
       <source file="..\..\..\devices\buzzer.h" lastModified="14293ce3ba6">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
@@ -341,16 +338,16 @@
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_iwdg.h" lastModified="1428e61eab6">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
-      <source file="..\..\..\protocols\channels.c" lastModified="1428e0f8719">
-         <include file="..\..\..\protocols\channels.h"/>
-      </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\timers.c" lastModified="13e3b1eb910">
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\FreeRTOS.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\task.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\queue.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\timers.h"/>
       </source>
-      <source file="..\..\..\devices\tablo.h" lastModified="14149bd2531">
+      <source file="..\..\..\protocols\channels.c" lastModified="1428e0f8719">
+         <include file="..\..\..\protocols\channels.h"/>
+      </source>
+      <source file="..\..\..\devices\tablo.h" lastModified="142ffb7fd6f">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\devices\spi_bus.h"/>
          <include file="..\..\..\devices\buzzer.h"/>
@@ -814,19 +811,14 @@
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_iwdg.h" lastModified="1428e61eab6">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
-      <source file="..\..\..\protocols\channels.c" lastModified="1428e0f8719">
-         <include file="..\..\..\protocols\channels.h"/>
-      </source>
       <source file="..\..\..\FreeRTOSV7.1.0\Source\timers.c" lastModified="13e3b1eb910">
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\FreeRTOS.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\task.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\queue.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\timers.h"/>
       </source>
-      <source file="..\..\..\devices\tablo.h" lastModified="14149bd2531">
-         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
-         <include file="..\..\..\devices\spi_bus.h"/>
-         <include file="..\..\..\devices\buzzer.h"/>
+      <source file="..\..\..\protocols\channels.c" lastModified="1428e0f8719">
+         <include file="..\..\..\protocols\channels.h"/>
       </source>
    </includePath>
    <includePath signature="/ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\devices /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\portable /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_lib /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\protocols /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_boot /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\include /ID:\PROJECTS\GIT_REPOSITORY\STM32 /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_lib\include /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0 /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\portable\ARM_CM3 /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis">
@@ -898,11 +890,6 @@
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\queue.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\timers.h"/>
       </source>
-      <source file="..\..\..\devices\tablo.h" lastModified="14149bd2531">
-         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
-         <include file="..\..\..\devices\spi_bus.h"/>
-         <include file="..\..\..\devices\buzzer.h"/>
-      </source>
    </includePath>
    <includePath signature="/ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\devices /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\portable /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_lib /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\protocols /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_boot /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\include /ID:\PROJECTS\GIT_REPOSITORY\STM32 /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_lib\include /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0 /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis /ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\portable\ARM_CM3">
       <source file="..\..\..\cmsis_lib\source\stm32f4xx_pwr.c" lastModified="14149991717">
@@ -970,11 +957,6 @@
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\task.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\queue.h"/>
          <include file="..\..\..\FreeRTOSV7.1.0\Source\include\timers.h"/>
-      </source>
-      <source file="..\..\..\devices\tablo.h" lastModified="14149bd2531">
-         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
-         <include file="..\..\..\devices\spi_bus.h"/>
-         <include file="..\..\..\devices\buzzer.h"/>
       </source>
    </includePath>
 </dependencies>

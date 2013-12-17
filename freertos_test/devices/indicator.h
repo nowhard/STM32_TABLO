@@ -17,6 +17,11 @@ struct indicator{
 
     uint8_t renew_data;//содержимое дисплея обновлено по протоколу
     uint8_t blink;
+
+    uint8_t inverse;//инвертированные цвета
+	uint8_t	value;//значение для линейного индикатора
+	uint8_t ust1;//первая уставка для линейного индикатора
+	uint8_t	ust2;//вторая уставка для линейного индикатора
 };
 
 #define IND_BRIGHTNESS      0xA00 //0-15

@@ -13,12 +13,24 @@ struct bus
 
 #define BUS_NUM	3//
 
-#define BUS_SPI_1	0		//
-#define BUS_SPI_2	1
-#define BUS_SPI_3	2
+//#define BUS_SPI_1	0		//
+//#define BUS_SPI_2	1
+//#define BUS_SPI_3	2
+enum
+{
+	 BUS_SPI_1=0,		//
+	 BUS_SPI_2=1,
+	 BUS_SPI_3=2,
+};
 
-#define BUS_ERROR_NONE		0
-#define BUS_ERROR_POWER 	1
+//#define BUS_ERROR_NONE		0
+//#define BUS_ERROR_POWER 	1
+
+enum
+{
+	BUS_ERROR_NONE	=0,
+	BUS_ERROR_POWER=1
+};
 
 uint8_t spi_buses_init(void);//
 
