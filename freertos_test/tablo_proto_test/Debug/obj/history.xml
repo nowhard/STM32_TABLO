@@ -32,8 +32,8 @@
       <target file="stm32f4xx_tim.o" lastModified="142a30ae29a">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_tim.c" lastModified="14125d83d92"/>
       </target>
-      <target file="indicator.o" lastModified="14300569ff8">
-         <source file="..\..\..\devices\indicator.c" lastModified="143005696b1"/>
+      <target file="indicator.o" lastModified="14300c02083">
+         <source file="..\..\..\devices\indicator.c" lastModified="14300c01604"/>
       </target>
       <target file="timers.o" lastModified="142a30ad099">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\timers.c" lastModified="13e3b1eb910"/>

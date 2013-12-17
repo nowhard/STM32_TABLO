@@ -1,5 +1,6 @@
 #include "indicator.h"
 #include "tablo.h"
+#include "tablo_parser.h"
 extern struct tablo tab;
 uint8_t indicators_init(void)//
 {
@@ -21,11 +22,7 @@ void Indicator_Blink_Handler(uint8_t bus)
 		counter=0;
 	}
 
-	if((tab.indicators[18].blink==BLINK_TRUE)||(tab.indicators[19].blink==BLINK_TRUE))//мигаем всей круговой секцией
-	{
-		tab.indicators[18].blink==BLINK_TRUE;
-		tab.indicators[19].blink==BLINK_TRUE;
-	}
+
 
 	for(i=0;i<IND_ALL_NUM;i++)
 	{
@@ -33,7 +30,11 @@ void Indicator_Blink_Handler(uint8_t bus)
 		{
 			if(tab.indicators[i].blink==BLINK_TRUE)
 			{
-
+				if((i==18)||(i==19))//мигаем всей круговой секцией
+				{
+					tab.indicators[18].blink=BLINK_TRUE;
+					tab.indicators[19].blink=BLINK_TRUE;
+				}
 				ln_redraw(&tab.indicators[i],blink_state);
 			}
 			else
