@@ -304,12 +304,12 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 		return;
 	}
 
-	if(ind->value>LINE_LEN/*==0xFF*/)//значение больше величины индикатора
+	if((ind->value>LINE_LEN)&& (ind->value!=0xFF))//значение больше величины индикатора
 	{
 		return;
 	}
 
-	if(((ind->value<ind->ust1)&&(ind->ust1!=0xFF)) || ((ind->value>ind->ust2)&&(ind->ust2!=0xFF)))//условия мигания
+	if((((ind->value<ind->ust1)&&(ind->ust1!=0xFF)) || ((ind->value>ind->ust2)&&(ind->ust2!=0xFF)))&&(ind->value!=0xFF))//условия мигания
 	{
 		ind->blink=BLINK_TRUE;
 	}
@@ -317,95 +317,6 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 	{
 		ind->blink=BLINK_FALSE;
 	}
-
-	//ln_redraw(ind,0);
-//	if(ind->inverse>1)
-//	{
-//		return;
-//	}
-
-//	tab.buses[ind->bus].bus_buf[0][ind->number_in_bus]=ind->shutdown;
-//	tab.buses[ind->bus].bus_buf[1][ind->number_in_bus]=ind->display_test;
-//	tab.buses[ind->bus].bus_buf[2][ind->number_in_bus]=ind->scan_limit;
-//	tab.buses[ind->bus].bus_buf[3][ind->number_in_bus]=ind->brightness;
-//	tab.buses[ind->bus].bus_buf[4][ind->number_in_bus]=ind->decode_mode;
-//	tab.buses[ind->bus].bus_buf[5][ind->number_in_bus]=0x100;
-//	tab.buses[ind->bus].bus_buf[6][ind->number_in_bus]=0x200;
-//	tab.buses[ind->bus].bus_buf[7][ind->number_in_bus]=0x300;
-//	tab.buses[ind->bus].bus_buf[8][ind->number_in_bus]=0x400;
-//	tab.buses[ind->bus].bus_buf[9][ind->number_in_bus]=0x500;
-//	tab.buses[ind->bus].bus_buf[10][ind->number_in_bus]=0x600;
-//	tab.buses[ind->bus].bus_buf[11][ind->number_in_bus]=0x700;
-//	tab.buses[ind->bus].bus_buf[12][ind->number_in_bus]=0x800;
-////	if(((ind->ust1>31)&&(ind->ust1!=0xFF))||((ind->ust2>31)&&(ind->ust2!=0xFF)))//проверка корректности уставок
-////	{
-////		return;
-////	}
-//
-//	if((ind->ust1>=0) && (ind->ust1<=31))//
-//	{
-//		if(ind->inverse==0x0)
-//		{
-//			tab.buses[ind->bus].bus_buf[(ind->ust1>>2)+5][ind->number_in_bus]|=(((ind->ust1>>2)+1)<<8)|LED_BAR_STAMP_RED[ind->ust1%4];
-//		}
-//		else
-//		{
-//			tab.buses[ind->bus].bus_buf[(ind->ust1>>2)+5][ind->number_in_bus]|=(((ind->ust1>>2)+1)<<8)|LED_BAR_STAMP_GREEN[ind->ust1%4];
-//		}
-//	}
-////	else
-////	{
-////		if(ind->ust1!=0xFF)
-////		{
-////			return;
-////		}
-////	}
-//
-//	if((ind->ust2>=0) && (ind->ust2<=31))//
-//	{
-//		if(ind->inverse==0x0)
-//		{
-//			tab.buses[ind->bus].bus_buf[(ind->ust2>>2)+5][ind->number_in_bus]|=(((ind->ust2>>2)+1)<<8)|LED_BAR_STAMP_RED[ind->ust2%4];
-//		}
-//		else
-//		{
-//			tab.buses[ind->bus].bus_buf[(ind->ust2>>2)+5][ind->number_in_bus]|=(((ind->ust2>>2)+1)<<8)|LED_BAR_STAMP_GREEN[ind->ust2%4];
-//		}
-//	}
-////	else
-////	{
-////		if(ind->ust2!=0xFF)
-////		{
-////			return;
-////		}
-////	}
-//
-//	for(i=0;i<ind->value;i++)
-//	{
-//		if(ind->inverse==0x0)
-//		{
-//			if((i!=ind->ust1) && (i!=ind->ust2))
-//			{
-//				tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_GREEN[i%4];
-//			}
-//		}
-//		else
-//		{
-//			if((i!=ind->ust1) && (i!=ind->ust2))
-//			{
-//				tab.buses[ind->bus].bus_buf[(i>>2)+5][ind->number_in_bus]|=(((i>>2)+1)<<8)|LED_BAR_STAMP_RED[i%4];
-//			}
-//		}
-//	}
-//
-//	if((ind->value<ind->ust1) || (ind->value>ind->ust2))//условия мигания
-//	{
-//		ind->blink=BLINK_TRUE;
-//	}
-//	else
-//	{
-//		ind->blink=BLINK_FALSE;
-//	}
 }
 
 void ln_redraw(struct indicator *ind,uint8_t inverse)//перерисуем графический индикатор
@@ -454,6 +365,10 @@ void ln_redraw(struct indicator *ind,uint8_t inverse)//перерисуем графический ин
 			}
 		}
 
+		if(ind->value==0xFF)
+		{
+			return;
+		}
 
 		for(i=0;i<ind->value;i++)
 		{
@@ -473,5 +388,5 @@ void ln_redraw(struct indicator *ind,uint8_t inverse)//перерисуем графический ин
 			}
 		}
 
-
+		return;
 }
