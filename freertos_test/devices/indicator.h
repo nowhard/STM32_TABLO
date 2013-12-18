@@ -52,6 +52,12 @@ enum
 	BLINK_TRUE=1
 };
 
+enum
+{
+	INVERSE_FALSE=0,
+	INVERSE_TRUE=1
+};
+
 /*
 indicator types
   */

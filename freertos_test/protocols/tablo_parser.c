@@ -309,13 +309,42 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 		return;
 	}
 
-	if((((ind->value<ind->ust1)&&(ind->ust1!=0xFF)) || ((ind->value>ind->ust2)&&(ind->ust2!=0xFF)))&&(ind->value!=0xFF))//условия мигания
+	if(ind->inverse>0x2)
 	{
-		ind->blink=BLINK_TRUE;
+		ind->inverse=0x2;
 	}
-	else
+
+//	if((((ind->value<ind->ust1)&&(ind->ust1!=0xFF)) || ((ind->value>ind->ust2)&&(ind->ust2!=0xFF)))&&(ind->value!=0xFF))//условия мигания
+//	{
+//		ind->blink=BLINK_TRUE;
+//	}
+//	else
+//	{
+//		ind->blink=BLINK_FALSE;
+//	}
+
+	switch(ind->inverse)
 	{
-		ind->blink=BLINK_FALSE;
+		case 0x0:
+		{
+			ind->blink=BLINK_FALSE;
+			ind->inverse=INVERSE_FALSE;
+		}
+		break;
+
+		case 0x1:
+		{
+			ind->blink=BLINK_TRUE;
+			ind->inverse=INVERSE_FALSE;
+		}
+		break;
+
+		case 0x2:
+		{
+			ind->blink=BLINK_FALSE;
+			ind->inverse=INVERSE_TRUE;
+		}
+		break;
 	}
 }
 
@@ -337,12 +366,12 @@ void ln_redraw(struct indicator *ind,uint8_t inverse)//перерисуем графический ин
 		tab.buses[ind->bus].bus_buf[11][ind->number_in_bus]=0x700;
 		tab.buses[ind->bus].bus_buf[12][ind->number_in_bus]=0x800;
 
-		inverse=(inverse&0x1)^(ind->inverse&0x1);
+		inverse=(inverse&0x1)^(ind->inverse);
 
 
 		if((ind->ust1>=0) && (ind->ust1<=31))//
 		{
-			if(inverse==0x0)
+			if(inverse==INVERSE_FALSE)
 			{
 				tab.buses[ind->bus].bus_buf[(ind->ust1>>2)+5][ind->number_in_bus]|=(((ind->ust1>>2)+1)<<8)|LED_BAR_STAMP_RED[ind->ust1%4];
 			}
@@ -355,7 +384,7 @@ void ln_redraw(struct indicator *ind,uint8_t inverse)//перерисуем графический ин
 
 		if((ind->ust2>=0) && (ind->ust2<=31))//
 		{
-			if(inverse==0x0)
+			if(inverse==INVERSE_FALSE)
 			{
 				tab.buses[ind->bus].bus_buf[(ind->ust2>>2)+5][ind->number_in_bus]|=(((ind->ust2>>2)+1)<<8)|LED_BAR_STAMP_RED[ind->ust2%4];
 			}
@@ -372,7 +401,7 @@ void ln_redraw(struct indicator *ind,uint8_t inverse)//перерисуем графический ин
 
 		for(i=0;i<ind->value;i++)
 		{
-			if(inverse==0x0)
+			if(inverse==INVERSE_FALSE)
 			{
 				if((i!=ind->ust1) && (i!=ind->ust2))
 				{

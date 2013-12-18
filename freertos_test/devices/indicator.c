@@ -16,7 +16,7 @@ void Indicator_Blink_Handler(uint8_t bus)
 	static uint8_t counter;//2Hz blink
 	static uint8_t blink_state;
 	counter++;
-	if(counter>=20)
+	if(counter>=10)
 	{
 		blink_state^=1;
 		counter=0;
