@@ -304,9 +304,22 @@ void ln_to_ind(struct indicator *ind,uint8_t *buf, uint8_t len)//
 		return;
 	}
 
-	if((ind->value>LINE_LEN)&& (ind->value!=0xFF))//значение больше величины индикатора
+	if((ind->value>=LINE_LEN)&&(ind->value!=0xFF))//значение больше величины индикатора
 	{
-		return;
+		//return;
+		ind->value=(LINE_LEN-1);
+	}
+
+	if((ind->ust1>=LINE_LEN)&&(ind->ust1!=0xFF))//значение больше величины индикатора
+	{
+		//return;
+		ind->ust1=(LINE_LEN-1);
+	}
+
+	if((ind->ust2>=LINE_LEN)&&(ind->ust2!=0xFF))//значение больше величины индикатора
+	{
+		//return;
+		ind->ust2=(LINE_LEN-1);
 	}
 
 	if(ind->inverse>0x2)
@@ -369,7 +382,7 @@ void ln_redraw(struct indicator *ind,uint8_t inverse)//перерисуем графический ин
 		inverse=(inverse&0x1)^(ind->inverse);
 
 
-		if((ind->ust1>=0) && (ind->ust1<=31))//
+		if((ind->ust1>=0) && (ind->ust1<=(LINE_LEN-1)))//
 		{
 			if(inverse==INVERSE_FALSE)
 			{
@@ -382,7 +395,7 @@ void ln_redraw(struct indicator *ind,uint8_t inverse)//перерисуем графический ин
 		}
 
 
-		if((ind->ust2>=0) && (ind->ust2<=31))//
+		if((ind->ust2>=0) && (ind->ust2<=(LINE_LEN-1)))//
 		{
 			if(inverse==INVERSE_FALSE)
 			{
@@ -399,7 +412,7 @@ void ln_redraw(struct indicator *ind,uint8_t inverse)//перерисуем графический ин
 			return;
 		}
 
-		for(i=0;i<ind->value;i++)
+		for(i=0;i<=ind->value;i++)
 		{
 			if(inverse==INVERSE_FALSE)
 			{

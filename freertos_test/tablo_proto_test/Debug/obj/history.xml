@@ -32,17 +32,17 @@
       <target file="stm32f4xx_tim.o" lastModified="142a30ae29a">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_tim.c" lastModified="14125d83d92"/>
       </target>
-      <target file="indicator.o" lastModified="14305a8c9c6">
-         <source file="..\..\..\devices\indicator.c" lastModified="14305a8c0ae"/>
-      </target>
       <target file="timers.o" lastModified="142a30ad099">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\timers.c" lastModified="13e3b1eb910"/>
       </target>
+      <target file="indicator.o" lastModified="14305a8c9c6">
+         <source file="..\..\..\devices\indicator.c" lastModified="14305a8c0ae"/>
+      </target>
+      <target file="proto.o" lastModified="1430a656553">
+         <source file="..\..\..\protocols\proto.c" lastModified="1430a6559bb"/>
+      </target>
       <target file="stm32f4xx_iwdg.o" lastModified="142a30acba7">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_iwdg.c" lastModified="1428e61eab6"/>
-      </target>
-      <target file="proto.o" lastModified="14305a6844b">
-         <source file="..\..\..\protocols\proto.c" lastModified="1429e9eb572"/>
       </target>
       <target file="tasks.o" lastModified="142a30ad4a0">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13e3b1eb910"/>
@@ -68,8 +68,8 @@
       <target file="croutine.o" lastModified="142a30adc80">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\croutine.c" lastModified="13438131cf3"/>
       </target>
-      <target file="tablo_parser.o" lastModified="14305a680d0">
-         <source file="..\..\..\protocols\tablo_parser.c" lastModified="14305a66faa"/>
+      <target file="tablo_parser.o" lastModified="1430a5fabfe">
+         <source file="..\..\..\protocols\tablo_parser.c" lastModified="1430a5f7a11"/>
       </target>
       <target file="list.o" lastModified="142a30ad6c3">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\list.c" lastModified="13e3b1eb900"/>
