@@ -17,8 +17,8 @@
       </target>
    </processor>
    <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Wall -ffunction-sections -g -O0 -c -DUSE_STDPERIPH_DRIVER -D__ASSEMBLY__ -DSTM32F405RG -DSTM32F4XX -D__FPU_USED -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\portable\GCC -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\portable\GCC\ARM_CM4F -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\devices -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\portable -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_lib -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_boot -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\protocols -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0\Source\include -ID:\PROJECTS\GIT_REPOSITORY\STM32 -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis_lib\include -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\FreeRTOSV7.1.0 -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO -ID:\PROJECTS\GIT_REPOSITORY\STM32\TABLO\freertos_test\cmsis">
-      <target file="power.o" lastModified="14305a68787">
-         <source file="..\..\..\devices\power.c" lastModified="1428e171993"/>
+      <target file="power.o" lastModified="14564360257">
+         <source file="..\..\..\devices\power.c" lastModified="1456435c483"/>
       </target>
       <target file="misc.o" lastModified="142a30ae0a6">
          <source file="..\..\..\cmsis_lib\source\misc.c" lastModified="14125d86b88"/>
@@ -38,11 +38,11 @@
       <target file="indicator.o" lastModified="14305a8c9c6">
          <source file="..\..\..\devices\indicator.c" lastModified="14305a8c0ae"/>
       </target>
-      <target file="proto.o" lastModified="1430a656553">
-         <source file="..\..\..\protocols\proto.c" lastModified="1430a6559bb"/>
-      </target>
       <target file="stm32f4xx_iwdg.o" lastModified="142a30acba7">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_iwdg.c" lastModified="1428e61eab6"/>
+      </target>
+      <target file="proto.o" lastModified="1430a656553">
+         <source file="..\..\..\protocols\proto.c" lastModified="1430a6559bb"/>
       </target>
       <target file="tasks.o" lastModified="142a30ad4a0">
          <source file="..\..\..\FreeRTOSV7.1.0\Source\tasks.c" lastModified="13e3b1eb910"/>

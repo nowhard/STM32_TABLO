@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
    <processor signature="4.7.2 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Wall -g -nostartfiles -Map=tablo_proto_test.map -O0 --gc-sections -LC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test -TC:\CooCox\CoIDE\configuration\ProgramData\tablo_proto_test/link.ld -g">
-      <target file="tablo_proto_test.elf" lastModified="1430a6567d4">
+      <target file="tablo_proto_test.elf" lastModified="145643608c0">
          <source file="..\obj\stm32f4xx_syscfg.o" lastModified="142a30abc65"/>
          <source file="..\obj\tablo_parser.o" lastModified="1430a5fabfe"/>
          <source file="..\obj\core_cm3.o" lastModified="142a30ac260"/>
@@ -17,7 +17,7 @@
          <source file="..\obj\timers.o" lastModified="142a30ad099"/>
          <source file="..\obj\relay.o" lastModified="142a30ad116"/>
          <source file="..\obj\tablo.o" lastModified="14305a6870a"/>
-         <source file="..\obj\power.o" lastModified="14305a68787"/>
+         <source file="..\obj\power.o" lastModified="14564360257"/>
          <source file="..\obj\watchdog.o" lastModified="142a30ad329"/>
          <source file="..\obj\tasks.o" lastModified="142a30ad4a0"/>
          <source file="..\obj\keyboard.o" lastModified="142a30ad58a"/>

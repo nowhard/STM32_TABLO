@@ -49,11 +49,11 @@ void Power_Init(void)
  	if(Power_Channel_1_OK())
  	{
  		Power_On_Channel_1();
- 		tab.buses[BUS_SPI_1].error=BUS_ERROR_NONE;
+ 		tab.buses[BUS_SPI_3].error=BUS_ERROR_NONE;
  	}
  	else
  	{
- 		tab.buses[BUS_SPI_1].error=BUS_ERROR_POWER;
+ 		tab.buses[BUS_SPI_3].error=BUS_ERROR_POWER;
 	}
 
  	if(Power_Channel_2_OK())
@@ -69,11 +69,11 @@ void Power_Init(void)
  	if(Power_Channel_3_OK())
  	{
  		Power_On_Channel_3();
- 		tab.buses[BUS_SPI_3].error=BUS_ERROR_NONE;
+ 		tab.buses[BUS_SPI_1].error=BUS_ERROR_NONE;
  	}
  	else
  	{
- 		tab.buses[BUS_SPI_3].error=BUS_ERROR_POWER;
+ 		tab.buses[BUS_SPI_1].error=BUS_ERROR_POWER;
  	}
 }
 
