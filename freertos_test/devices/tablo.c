@@ -18,7 +18,7 @@ void tablo_indicator_struct_init(void)//
 	tab.buses[BUS_MOD_3].indicators_num=BUS_MOD_3_NUM;
 //---------------------------------------------------------------------------
 	tab.indicators[0].bus=BUS_MOD_1;
-	tab.indicators[0].number_in_bus=(BUS_MOD_1_NUM-1)-3;
+	tab.indicators[0].number_in_bus=(BUS_MOD_1_NUM-1)-1;
 	tab.indicators[0].type=IND_TYPE_SEGMENT;
 	tab.indicators[0].character_num=3;
 	tab.indicators[0].brightness=IND_BRIGHTNESS|0x9;
@@ -51,7 +51,7 @@ void tablo_indicator_struct_init(void)//
 	tab.indicators[2].blink=BLINK_FALSE;
 
 	tab.indicators[3].bus=BUS_MOD_1;
-	tab.indicators[3].number_in_bus=(BUS_MOD_1_NUM-1)-1;
+	tab.indicators[3].number_in_bus=(BUS_MOD_1_NUM-1)-3;
 	tab.indicators[3].type=IND_TYPE_SEGMENT;
 	tab.indicators[3].character_num=3;
 	tab.indicators[3].brightness=IND_BRIGHTNESS|0x9;
@@ -62,7 +62,7 @@ void tablo_indicator_struct_init(void)//
 	tab.indicators[3].blink=BLINK_FALSE;
 
 	tab.indicators[4].bus=BUS_MOD_1;
-	tab.indicators[4].number_in_bus=(BUS_MOD_1_NUM-1)-0;
+	tab.indicators[4].number_in_bus=(BUS_MOD_1_NUM-1)-4;
 	tab.indicators[4].type=IND_TYPE_SEGMENT;
 	tab.indicators[4].character_num=3;
 	tab.indicators[4].brightness=IND_BRIGHTNESS|0x9;
@@ -195,7 +195,7 @@ void tablo_indicator_struct_init(void)//
 	tab.indicators[15].blink=BLINK_FALSE;
 
 	tab.indicators[16].bus=BUS_MOD_1;
-	tab.indicators[16].number_in_bus=(BUS_MOD_1_NUM-1)-4;
+	tab.indicators[16].number_in_bus=(BUS_MOD_1_NUM-1)-0;
 	tab.indicators[16].type=IND_TYPE_LINE;
 	tab.indicators[16].character_num=8;
 	tab.indicators[16].brightness=IND_BRIGHTNESS|0x9;
