@@ -36,9 +36,9 @@
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" partName="main.c" path="D:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/main.c" title="main.c" tooltip="D:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/main.c" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" partName="main.c" path="E:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/main.c" title="main.c" tooltip="E:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/main.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tablo_proto_test/main.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="11672" selectionTopPixel="1528"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="11832" selectionTopPixel="1488"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="power.c" partName="power.c" path="D:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/devices/power.c" title="power.c" tooltip="D:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/devices/power.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tablo_proto_test/devices/power.c"/>
@@ -54,11 +54,11 @@
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="tablo_parser.c" partName="tablo_parser.c" path="E:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/protocols/tablo_parser.c" title="tablo_parser.c" tooltip="E:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/protocols/tablo_parser.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tablo_proto_test/protocols/tablo_parser.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="6656"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
 <editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="proto.c" partName="proto.c" path="E:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/protocols/proto.c" title="proto.c" tooltip="E:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/protocols/proto.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tablo_proto_test/protocols/proto.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="24443" selectionTopPixel="14085"/>
+<editorState selectionHorizontalPixel="0" selectionLength="14" selectionOffset="3382" selectionTopPixel="3415"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="channels.c" partName="channels.c" path="D:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/protocols/channels.c" title="channels.c" tooltip="D:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/protocols/channels.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tablo_proto_test/protocols/channels.c"/>
@@ -77,12 +77,8 @@
 <editorState selectionHorizontalPixel="0" selectionLength="9" selectionOffset="9182" selectionTopPixel="0"/>
 </editor>
 <editor id="org.coocox.builder.ui.editors.ConfigEditor" name="" partName="Configuration" title="Configuration" tooltip="" workbook="DefaultEditorWorkbook">
-<input factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory">&#x0A;<org.coocox.builder.ui.editors.ConfigEditor horizontalPosition="0" subTagIndex="2" verticalPosition="0"/>
-</input>
-</editor>
-<editor id="org.coocox.builder.ui.editors.ConfigEditor" name="" partName="Configuration" title="Configuration" tooltip="" workbook="DefaultEditorWorkbook">
 <input factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory">
-<org.coocox.builder.ui.editors.ConfigEditor/>
+<org.coocox.builder.ui.editors.ConfigEditor horizontalPosition="0" subTagIndex="0" verticalPosition="0"/>
 </input>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="tablo.h" partName="tablo.h" path="E:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/devices/tablo.h" title="tablo.h" tooltip="E:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/devices/tablo.h" workbook="DefaultEditorWorkbook">
@@ -91,7 +87,11 @@
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="proto.h" partName="proto.h" path="E:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/protocols/proto.h" title="proto.h" tooltip="E:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/protocols/proto.h" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tablo_proto_test/protocols/proto.h"/>
-<editorState selectionHorizontalPixel="0" selectionLength="14" selectionOffset="8911" selectionTopPixel="1462"/>
+<editorState selectionHorizontalPixel="0" selectionLength="14" selectionOffset="8883" selectionTopPixel="1454"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="core_cm3.c" partName="core_cm3.c" path="E:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/cmsis/core_cm3.c" title="core_cm3.c" tooltip="E:/PROJECTS/GIT_REPOSITORY/STM32/TABLO/freertos_test/cmsis/core_cm3.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tablo_proto_test/cmsis/core_cm3.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="16477" selectionTopPixel="12257"/>
 </editor>
 </editors>
 <views>
@@ -107,19 +107,22 @@
 <viewState/>
 </view>
 <view id="org.coocox.builder.ui.views.ProjectView" partName="Project">
-<viewState CommonNavigator.LINKING_ENABLED="0" horizontalPosition="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0" verticalPosition="17">
+<viewState CommonNavigator.LINKING_ENABLED="0" horizontalPosition="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0" verticalPosition="18">
 <expanded>
 <element path="/tablo_proto_test"/>
 <element path="/tablo_proto_test/cmsis"/>
 <element path="/tablo_proto_test/devices"/>
+<element path="/tablo_proto_test/FreeRTOSV7.1.0"/>
+<element path="/tablo_proto_test/FreeRTOSV7.1.0/Source"/>
+<element path="/tablo_proto_test/FreeRTOSV7.1.0/Source/portable"/>
 <element path="/tablo_proto_test/protocols"/>
 </expanded>
-<selection>
-<element path="/tablo_proto_test/devices/tablo.h"/>
-</selection>
 </viewState>
 </view>
 <view id="org.coocox.component.ui.ComponentView" partName="Components">
+<viewState/>
+</view>
+<view id="org.coocox.codebugger.trace.ui.traceview" partName="Semihosting">
 <viewState/>
 </view>
 <view id="org.eclipse.search.ui.views.SearchView" partName="Search">
@@ -127,9 +130,6 @@
 <view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
 <view IMemento.internal.id="org.eclipse.search.text.FileSearchResultPage" org.eclipse.search.lastActivation="1" org.eclipse.search.resultpage.layout="2" org.eclipse.search.resultpage.limit="1000" org.eclipse.search.resultpage.sorting="2"/>
 </viewState>
-</view>
-<view id="org.coocox.codebugger.trace.ui.traceview" partName="Semihosting">
-<viewState/>
 </view>
 <view id="org.eclipse.debug.ui.DebugView" partName="Debug">
 <viewState/>
@@ -198,7 +198,7 @@
 </folder>
 </info>
 <info folder="true" part="org.eclipse.ui.internal.ViewStack@125c9a4" ratio="0.8294314" ratioLeft="744" ratioRight="153" relationship="4" relative="org.eclipse.ui.internal.ViewStack@ca9a2d">
-<folder activePageID="org.eclipse.search.ui.views.SearchView" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.ui.views.ProgressView" label="Progress"/>
 <page content="org.eclipse.debug.ui.ExpressionView" label="Expressions"/>
@@ -213,7 +213,7 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@157488a" ratio="0.13475177" ratioLeft="171" ratioRight="1098" relationship="2" relative="org.eclipse.ui.internal.ViewStack@ca9a2d">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@157488a" ratio="0.15400733" ratioLeft="294" ratioRight="1615" relationship="2" relative="org.eclipse.ui.internal.ViewStack@ca9a2d">
 <folder appearance="2" expanded="2">
 <page content="org.coocox.builder.ui.exampleView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
@@ -343,14 +343,6 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/protocols/tablo_parser.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/devices/indicator.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/devices/indicator.h"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/protocols/tablo_parser.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/protocols/proto.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/main.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/devices/indicator.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/devices/tablo.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/devices/spi_bus.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/devices/indicator.h"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/main.c"/>
@@ -379,150 +371,159 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/devices/tablo.h"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/protocols/proto.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/protocols/proto.h"/>
+<editor factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory" id="org.coocox.builder.ui.editors.ConfigEditor">
+<org.coocox.builder.ui.editors.ConfigEditor horizontalPosition="0" subTagIndex="0" verticalPosition="0"/>
+</editor>
+<editor factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory" id="org.coocox.builder.ui.editors.ConfigEditor">
+<org.coocox.builder.ui.editors.ConfigEditor horizontalPosition="0" subTagIndex="0" verticalPosition="0"/>
+</editor>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/main.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/cmsis/core_cm3.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/cmsis/core_cm3.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/cmsis/core_cmInstr.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/protocols/tablo_parser.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/protocols/proto.h"/>
+<editor factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory" id="org.coocox.builder.ui.editors.ConfigEditor">
+<org.coocox.builder.ui.editors.ConfigEditor horizontalPosition="0" subTagIndex="0" verticalPosition="0"/>
+</editor>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/protocols/tablo_parser.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/tablo_proto_test/protocols/proto.c"/>
 </editors>
-<item historyLabel="tablo_parser.c" index="0">
-<position info="not_deleted" x="11951" y="0"/>
-</item>
-<item historyLabel="tablo_parser.c" index="0">
-<position info="not_deleted" x="9589" y="0"/>
-</item>
-<item historyLabel="tablo_parser.c" index="0">
-<position info="not_deleted" x="9873" y="0"/>
-</item>
-<item historyLabel="indicator.h" index="2">
-<position info="not_deleted" x="623" y="0"/>
-</item>
-<item historyLabel="indicator.h" index="2">
+<item historyLabel="indicator.h" index="1">
 <position info="not_deleted" x="1277" y="13"/>
 </item>
-<item historyLabel="tablo_parser.c" index="0">
-<position info="not_deleted" x="9920" y="0"/>
-</item>
-<item historyLabel="indicator.h" index="2">
-<position info="not_deleted" x="1277" y="13"/>
-</item>
-<item historyLabel="tablo_parser.c" index="0">
-<position info="not_deleted" x="10278" y="0"/>
-</item>
-<item historyLabel="indicator.c" index="1">
-<position info="not_deleted" x="251" y="0"/>
-</item>
-<item historyLabel="tablo_parser.c" index="3">
-<position info="not_deleted" x="11155" y="0"/>
-</item>
-<item historyLabel="proto.c" index="4">
-<position info="not_deleted" x="2269" y="0"/>
-</item>
-<item historyLabel="main.c" index="5">
-<position info="not_deleted" x="11131" y="0"/>
-</item>
-<item historyLabel="indicator.c" index="6">
-<position info="not_deleted" x="546" y="0"/>
-</item>
-<item historyLabel="main.c" index="5">
-<position info="not_deleted" x="11131" y="0"/>
-</item>
-<item historyLabel="tablo.c" index="7">
-<position info="not_deleted" x="7673" y="13"/>
-</item>
-<item historyLabel="main.c" index="5">
-<position info="not_deleted" x="11131" y="0"/>
-</item>
-<item historyLabel="spi_bus.c" index="8">
-<position info="not_deleted" x="15765" y="0"/>
-</item>
-<item historyLabel="main.c" index="5">
-<position info="not_deleted" x="11131" y="0"/>
-</item>
-<item historyLabel="indicator.h" index="9">
-<position info="not_deleted" x="1277" y="13"/>
-</item>
-<item historyLabel="main.c" index="10">
+<item historyLabel="main.c" index="2">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="power.c" index="11">
+<item historyLabel="power.c" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="power.h" index="12">
+<item historyLabel="power.h" index="4">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="power.c" index="11">
+<item historyLabel="power.c" index="3">
 <position info="not_deleted" x="3048" y="0"/>
 </item>
-<item historyLabel="main.c" index="10">
+<item historyLabel="main.c" index="2">
 <position info="not_deleted" x="11072" y="0"/>
 </item>
-<item historyLabel="spi_bus.c" index="8">
+<item historyLabel="spi_bus.c" index="0">
 <position info="not_deleted" x="3596" y="5"/>
 </item>
-<item historyLabel="startup_stm32f4xx.c" index="13">
+<item historyLabel="startup_stm32f4xx.c" index="5">
 <position info="not_deleted" x="14756" y="0"/>
 </item>
-<item historyLabel="main.c" index="10">
+<item historyLabel="main.c" index="2">
 <position info="not_deleted" x="11672" y="0"/>
 </item>
-<item historyLabel="tablo_parser.c" index="14">
+<item historyLabel="tablo_parser.c" index="6">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="power.h" index="12">
+<item historyLabel="power.h" index="4">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="power.c" index="11">
+<item historyLabel="power.c" index="3">
 <position info="not_deleted" x="3048" y="0"/>
 </item>
-<item historyLabel="tablo_parser.c" index="15">
+<item historyLabel="tablo_parser.c" index="7">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="proto.c" index="16">
+<item historyLabel="proto.c" index="8">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="channels.c" index="17">
+<item historyLabel="channels.c" index="9">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="indicator.c" index="18">
+<item historyLabel="indicator.c" index="10">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="indicator.h" index="19">
+<item historyLabel="indicator.h" index="11">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="tablo_parser.c" index="20">
+<item historyLabel="tablo_parser.c" index="12">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="tablo.c" index="21">
+<item historyLabel="tablo.c" index="13">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="main.c" index="22">
+<item historyLabel="main.c" index="14">
 <position info="not_deleted" x="11672" y="0"/>
 </item>
-<item historyLabel="tablo.c" index="21">
+<item historyLabel="tablo.c" index="13">
 <position info="not_deleted" x="576" y="9"/>
 </item>
-<item historyLabel="Configuration" index="23"/>
-<item historyLabel="Configuration" index="24"/>
-<item historyLabel="Configuration" index="25"/>
-<item historyLabel="tablo_parser.c" index="26">
+<item historyLabel="Configuration" index="15"/>
+<item historyLabel="Configuration" index="16"/>
+<item historyLabel="Configuration" index="17"/>
+<item historyLabel="tablo_parser.c" index="18">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="tablo.h" index="27">
+<item historyLabel="tablo.h" index="19">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="tablo.h" index="27">
+<item historyLabel="tablo.h" index="19">
 <position info="not_deleted" x="411" y="13"/>
 </item>
-<item historyLabel="proto.c" index="28">
+<item historyLabel="proto.c" index="20">
 <position info="not_deleted" x="6409" y="0"/>
 </item>
-<item historyLabel="proto.c" index="28">
+<item historyLabel="proto.c" index="20">
 <position info="not_deleted" x="3475" y="15"/>
 </item>
-<item historyLabel="proto.c" index="28">
+<item historyLabel="proto.c" index="20">
 <position info="not_deleted" x="1176" y="0"/>
 </item>
-<item historyLabel="proto.h" index="29">
+<item historyLabel="proto.h" index="21">
 <position info="not_deleted" x="8911" y="14"/>
 </item>
-<item active="true" historyLabel="proto.c" index="28">
+<item historyLabel="proto.c" index="20">
 <position info="not_deleted" x="1159" y="10"/>
+</item>
+<item historyLabel="Configuration" index="22"/>
+<item historyLabel="proto.c" index="20">
+<position info="not_deleted" x="24443" y="0"/>
+</item>
+<item historyLabel="Configuration" index="23"/>
+<item historyLabel="main.c" index="24">
+<position info="not_deleted" x="11832" y="0"/>
+</item>
+<item historyLabel="core_cm3.c" index="25">
+<position info="not_deleted" x="8719" y="6"/>
+</item>
+<item historyLabel="core_cm3.c" index="25">
+<position info="not_deleted" x="16052" y="6"/>
+</item>
+<item historyLabel="core_cm3.h" index="26">
+<position info="not_deleted" x="64560" y="6"/>
+</item>
+<item historyLabel="core_cm3.h" index="26">
+<position info="not_deleted" x="70402" y="6"/>
+</item>
+<item historyLabel="core_cmInstr.h" index="27">
+<position info="not_deleted" x="12960" y="6"/>
+</item>
+<item historyLabel="core_cm3.c" index="25">
+<position info="not_deleted" x="16052" y="6"/>
+</item>
+<item historyLabel="tablo_parser.c" index="28">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="proto.c" index="20">
+<position info="not_deleted" x="24443" y="0"/>
+</item>
+<item historyLabel="proto.h" index="29">
+<position info="not_deleted" x="8883" y="14"/>
+</item>
+<item historyLabel="proto.c" index="20">
+<position info="not_deleted" x="1170" y="0"/>
+</item>
+<item historyLabel="Configuration" index="23"/>
+<item historyLabel="Configuration" index="30"/>
+<item historyLabel="tablo_parser.c" index="31">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item active="true" historyLabel="proto.c" index="32">
+<position info="not_deleted" x="1170" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -531,6 +532,9 @@
 <actionBarAdvisor/>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="core_cm3.c" tooltip="tablo_proto_test/cmsis/core_cm3.c">
+<persistable path="/tablo_proto_test/cmsis/core_cm3.c"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="proto.h" tooltip="tablo_proto_test/protocols/proto.h">
 <persistable path="/tablo_proto_test/protocols/proto.h"/>
 </file>
@@ -572,9 +576,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="system_stm32f4xx.h" tooltip="pilorama/cmsis_boot/system_stm32f4xx.h">
 <persistable path="/pilorama/cmsis_boot/system_stm32f4xx.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_conf.h" tooltip="pilorama/cmsis_boot/stm32f4xx_conf.h">
-<persistable path="/pilorama/cmsis_boot/stm32f4xx_conf.h"/>
 </file>
 </mruList>
 </workbench>
